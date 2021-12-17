@@ -1,0 +1,10 @@
+= JavaEE - Forum
+:imagesdir: img
+:nofooter:
+
+== Anforderung
+Wir haben vor ein Forum zu erstellen. Dort kann man Beiträge erstellen, beantworten und bewerten. Die zu erfassenden Daten sind die Nutzerdaten `(Name, E-Mail, Passwort, Score)` und die Beitragsdaten `(Titel, Kategorie, Inhalt, Fragenbewertung, Antworten, Antwortsbewertung)`. Jeder Nutzer kann Beiträge erstellen und auf diese Antworten und sie bewerten. Antworten können auch bewertet werden. Registrierung/Login geschieht über eine Eingabemaske. Das Forum besitzt verschiedene Fragekategorien und eine Suchfunktion für die Fragen.
+
+=== System
+- Application Server: `GlassFish 5.1.0`
+- Datenbank: `PostgreSQL`
