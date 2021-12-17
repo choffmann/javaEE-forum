@@ -1,0 +1,138 @@
+= Datenbank - Doku
+:imagesdir: img
+:nofooter:
+
+Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt der zugriff auf die Datenbank mittels `JPA (Java Persistence API)`
+
+== Tabellen
+.User
+|===
+|Name |Typ
+
+|id
+|`BIGSERIAL` `PRIMARY KEY`
+
+|username
+|`VARCHAR`
+
+|email
+|`VARCHAR`
+
+|password
+|`VARCHAR`
+
+|is_admin
+|`BOOL`
+
+|score
+|`INT`
+|===
+
+.Category
+|===
+|Name |Typ
+
+|id
+|`BIGSERIAL` `PRIMARY KEY`
+
+|text
+|`VARCHAR`
+
+|===
+
+.Thread
+|===
+|Name |Typ
+
+|id
+|`BIGSERIAL` `PRIMARY KEY`
+
+|creator
+|`User`
+
+|title
+|`VARCHAR`
+
+|created_at
+|`DATETIME`
+
+|modified_at
+|`DATETIME`
+
+|text
+|`VARCHAR`
+
+|category
+|`Category`
+|===
+
+.Thread_Tags
+|===
+|Name |Typ
+
+|thread
+|`Thread` `PRIMARY KEY`
+
+|tag
+|`VARCHAR`
+|===
+
+.Answer
+|===
+|Name |Typ
+
+|id
+|`BIGSERIAL` `PRIMARY KEY`
+
+|thread
+|`Thread` 
+
+|creator
+|`User`
+
+|created_at
+|`DATETIME`
+
+|modified_at
+|`DATETIME`
+
+|text
+|`VARCHAR`
+|===
+
+.Comment
+|===
+|Name |Typ
+
+|id
+|`BIGSERIAL` `PRIMARY KEY`
+
+|answer
+|`Answer`
+
+|creator
+|`User`
+
+|created_at
+|`DATETIME`
+
+|modified_at
+|`DATETIME`
+
+|text
+|`VARCHAR`
+|===
+
+.User_Answer
+|===
+|Name |Typ
+
+|user
+|`User` `PRIMARY KEY`
+
+|answer
+|`Answer` `PRIMARY KEY`
+
+|validation
+|`BOOL`
+|===

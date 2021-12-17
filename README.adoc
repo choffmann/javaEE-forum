@@ -10,3 +10,8 @@ Im Forum kann man Beiträge erstellen, beantworten und bewerten. Die zu erfassen
 - Datenbank: `PostgreSQL`
 - HTTP, Application Server, Servlet, JSP, REST, Datenbank, JPA (Dazu Context and Dependency Injection)
 - JSON, kein XML
+
+== Schritte
+1. Datenbank erstellen und JPA Schnittstelle erstellen ::link[siehe Doku]
+2. REST Schnittstelle definieren
+3. Frontend erstellen
