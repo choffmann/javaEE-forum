@@ -5,14 +5,14 @@
 Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt der zugriff auf die Datenbank mittels `JPA (Java Persistence API)`
 
 == Tabellen
-.User
+.Creator
 |===
 |Name |Typ
 
 |id
 |`BIGSERIAL` `PRIMARY KEY`
 
-|username
+|Creatorname
 |`VARCHAR`
 
 |email
@@ -48,7 +48,7 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`BIGSERIAL` `PRIMARY KEY`
 
 |creator
-|`User`
+|`Creator`
 
 |title
 |`VARCHAR`
@@ -88,7 +88,7 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`Thread` 
 
 |creator
-|`User`
+|`Creator`
 
 |created_at
 |`DATETIME`
@@ -111,7 +111,7 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`Answer`
 
 |creator
-|`User`
+|`Creator`
 
 |created_at
 |`DATETIME`
@@ -123,12 +123,12 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`VARCHAR`
 |===
 
-.User_Answer
+.Creator_Answer
 |===
 |Name |Typ
 
-|user
-|`User` `PRIMARY KEY`
+|Creator
+|`Creator` `PRIMARY KEY`
 
 |answer
 |`Answer` `PRIMARY KEY`
@@ -136,3 +136,96 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |validation
 |`BOOL`
 |===
+
+== Erstellung
+.Creator und Datenbank
+[listing]
+----
+create database javaEE_forum;;
+create Creator javaEE_forum_admin password 'ultra_mega_secret_secure_password' login;
+grant all on database javaEE_forum to javaEE_forum_admin;
+grant all privileges on all tables in schema public to javaEE_forum_admin;
+grant usage, select on all sequences in schema public to javaee_forum_admin;
+----
+
+.Creator Table
+[source, sql]
+----
+CREATE TABLE Creator (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    username VARCHAR,
+    email VARCHAR,
+    password VARCHAR,
+    is_admin BOOLEAN,
+    score INTEGER
+);
+----
+
+.Category Table
+[source, sql]
+----
+CREATE TABLE Category (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    text VARCHAR
+);
+----
+
+.Thread Table
+[source, sql]
+----
+CREATE TABLE Thread (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    creator INTEGER REFERENCES Creator(id),
+    title VARCHAR,
+    created_at DATE,
+    modified_at DATE,
+    text VARCHAR,
+    category INTEGER REFERENCES Category(id)
+);
+----
+
+.Thread_Tags Table
+[source, sql]
+----
+CREATE TABLE Thread_Tags (
+    thread INTEGER REFERENCES Thread(id) PRIMARY KEY,
+    tag VARCHAR
+);
+----
+
+.Answer Table
+[source, sql]
+----
+CREATE TABLE Answer (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    thread INTEGER REFERENCES Thread(id),
+    creator INTEGER REFERENCES Creator(id),
+    created_at DATE,
+    modified_at DATE,
+    text VARCHAR
+);
+----
+
+.Comment Table
+[source, sql]
+----
+CREATE TABLE Comment (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    answer INTEGER REFERENCES Answer(id),
+    creator INTEGER REFERENCES Creator(id),
+    created_at DATE,
+    modified_at DATE,
+    text VARCHAR
+);
+----
+
+.Creator_Answer Table
+[source, sql]
+----
+CREATE TABLE Creator_Answer (
+    id BIGSERIAL NOT NULL,
+    creator INTEGER REFERENCES Creator(id),
+    answer INTEGER REFERENCES Answer(id),
+    validation BOOLEAN
+);
+----
