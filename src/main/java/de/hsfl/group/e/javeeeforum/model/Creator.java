@@ -2,6 +2,7 @@ package de.hsfl.group.e.javeeeforum.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,11 +20,14 @@ public class Creator implements Serializable {
     private boolean isAdmin;
     private int score;
 
-    @ManyToMany(mappedBy = "creatorComment")
-    private Set<Comment> comment;
+    @OneToMany
+    private List<Comment> comment;
 
-    @OneToMany(mappedBy = "creator")
-    private Set<AnswerCreator> validation;
+    @OneToMany
+    private List<Answer> answers;
+
+    @OneToMany
+    private List<Thread> thread;
 
     public Long getId() {
         return id;
@@ -73,19 +77,27 @@ public class Creator implements Serializable {
         this.score = score;
     }
 
-    public void setComment(Set<Comment> comment) {
+    public void setComment(List<Comment> comment) {
         this.comment = comment;
     }
 
-    public Set<Comment> getComment() {
+    public List<Comment> getComment() {
         return comment;
     }
 
-    public Set<AnswerCreator> getValidation() {
-        return validation;
+    public List<Answer> getAnswers() {
+        return answers;
     }
 
-    public void setValidation(Set<AnswerCreator> validation) {
-        this.validation = validation;
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
+
+    public List<Thread> getThread() {
+        return thread;
+    }
+
+    public void setThread(List<Thread> thread) {
+        this.thread = thread;
     }
 }

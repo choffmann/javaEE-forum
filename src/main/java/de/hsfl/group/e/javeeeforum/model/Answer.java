@@ -19,6 +19,7 @@ public class Answer implements Serializable {
     @Column(name = "modified_at")
     private Date modifiedAt;
     private String text;
+    private int score;
 
     @ManyToOne
     private Creator creator;
@@ -26,8 +27,6 @@ public class Answer implements Serializable {
     private Thread thread;
     @OneToMany
     private List<Comment> comment;
-    @OneToMany(mappedBy = "answer")
-    private Set<AnswerCreator> validation;
 
     public Long getId() {
         return id;
@@ -57,6 +56,14 @@ public class Answer implements Serializable {
         return text;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public void setText(String text) {
         this.text = text;
     }
@@ -83,13 +90,5 @@ public class Answer implements Serializable {
 
     public void setComment(List<Comment> comment) {
         this.comment = comment;
-    }
-
-    public Set<AnswerCreator> getValidation() {
-        return validation;
-    }
-
-    public void setValidation(Set<AnswerCreator> validation) {
-        this.validation = validation;
     }
 }

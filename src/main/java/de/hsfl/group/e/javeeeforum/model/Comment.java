@@ -19,12 +19,10 @@ public class Comment implements Serializable {
     private Date modifiedAt;
     private String text;
 
-    @ManyToMany
-    @JoinTable(
-            name = "creator_comment",
-            joinColumns = @JoinColumn(name = "comment_id"),
-            inverseJoinColumns = @JoinColumn(name = "creator_id"))
-    private Set<Creator> creatorComment;
+    @ManyToOne
+    private Creator creator;
+    @ManyToOne
+    private Answer answer;
 
     public Long getId() {
         return id;
@@ -58,11 +56,19 @@ public class Comment implements Serializable {
         this.text = text;
     }
 
-    public Set<Creator> getCreatorComment() {
-        return creatorComment;
+    public Creator getCreator() {
+        return creator;
     }
 
-    public void setCreatorComment(Set<Creator> creatorComment) {
-        this.creatorComment = creatorComment;
+    public void setCreator(Creator creatorComment) {
+        this.creator = creatorComment;
+    }
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
     }
 }
