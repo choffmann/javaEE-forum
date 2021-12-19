@@ -166,7 +166,8 @@ CREATE TABLE Creator (
 ----
 CREATE TABLE Category (
     id SERIAL PRIMARY KEY,
-    text TEXT NOT NULL
+    text TEXT NOT NULL,
+    thread INT REFERENCES Thread(id)
 );
 ----
 
@@ -178,9 +179,8 @@ CREATE TABLE Thread (
     creator INT REFERENCES Creator(id),
     title TEXT NOT NULL,
     created_at DATE NOT NULL DEFAULT CURRENT_DATE,
-    modified_at DATE NOT NULL,
-    text TEXT NOT NULL,
-    category INT REFERENCES Category(id)
+    modified_at DATE,
+    text TEXT NOT NULL
 );
 ----
 
@@ -189,7 +189,8 @@ CREATE TABLE Thread (
 ----
 CREATE TABLE Tag (
     id SERIAL PRIMARY KEY,
-    tag TEXT NOT NULL
+    tag TEXT NOT NULL,
+    thread INT REFERENCES Thread(id)
 );
 ----
 
@@ -211,12 +212,12 @@ CREATE TABLE Answer (
     thread INT REFERENCES Thread(id),
     creator INT REFERENCES Creator(id),
     created_at DATE NOT NULL DEFAULT CURRENT_DATE,
-    modified_at DATE NOT NULL,
+    modified_at DATE,
     text TEXT NOT NULL
 );
 ----
 
-.Comment Tablex
+.Comment Table
 [source, sql]
 ----
 CREATE TABLE Comment (
@@ -224,7 +225,7 @@ CREATE TABLE Comment (
     answer INT REFERENCES Answer(id),
     creator INT REFERENCES Creator(id),
     created_at DATE NOT NULL DEFAULT CURRENT_DATE,
-    modified_at DATE NOT NULL,
+    modified_at DATE,
     text TEXT NOT NULL
 );
 ----
