@@ -21,10 +21,41 @@ create database javaEE_forum;
 create Creator javaEE_forum_admin password 'ultra_mega_secret_secure_password' login;
 ----
 
-Zum einspielen, wird das von Postgres mitgelieferte Tool `psql` benötigt. Die Datei kann nun wie folgt eingespielt werden:
+Zum Einspielen, wird das von Postgres mitgelieferte Tool `psql` benötigt. Die Datei kann nun wie folgt eingespielt werden:
 [listing]
 ----
 psql javaEE_forum < [PATH_TO_SQL_FILE]
+----
+
+== DAOs
+`Data Access Object (DAO)` wurde erstellt um Daten leichter händeln zu können. Dabei enthält jedes `DAO` folgende Methoden, um mit der Datenbank zu kommunizieren
+[source, java]
+----
+public interface Dao<T> {
+
+    // Get all from Database
+    List<T> getAll();
+
+    // Get resultList by Query
+    // z.B.: "SELECT e FROM Creator e WHERE e.id >= 6"
+    List<T> getListOfQuery(Query query);
+
+    // Get one Element by id
+    T getById(Long id);
+
+    // Get one Element by Query
+    // z.B.: "SELECT e FROM Creator e WHERE e.username = 'mustermann'"
+    T getElementOfQuery(Query query);
+
+    // Add Element to Database
+    void addElement(T e);
+
+    // Update Element to Database
+    void updateElement(T e);
+
+    // Remove Element from Database
+    void removeElement(T e);
+}
 ----
 
 == Schritte
