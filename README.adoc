@@ -12,19 +12,19 @@ Im Forum kann man Beiträge erstellen, beantworten und bewerten. Die zu erfassen
 - JSON, kein XML
 
 == Postgres *.sql einspielen
-Die Datei `database.sql` enthält die benötigten Tabellen für die Anwendung. Der Inhalt der Tabellen ist nicht befüllt.
+Die Datei `database.sql` enthält die benötigten Tabellen für die Anwendung. Der Inhalt der Tabellen ist nicht befüllt. Die Datei `database_with_data.sql` beinhaltet allerdings einen Satz an Demodaten.
 
 Um die `Dump-Datei` nun einzuspielen, muss natürlich zuerst eine entsprechende Datenbank erstellt werden, z.B.:
 [listing]
 ----
-create database javaEE_forum;;
+create database javaEE_forum;
 create Creator javaEE_forum_admin password 'ultra_mega_secret_secure_password' login;
 ----
 
-Zum eingespielt wird das von Postgres mitgelieferte Tool `pg_restore` benötigt. Die Datei  kann nun wie folgt eingespielt werden:
+Zum einspielen, wird das von Postgres mitgelieferte Tool `psql` benötigt. Die Datei kann nun wie folgt eingespielt werden:
 [listing]
 ----
-pg_restore -h localhost -d javaEE_forum < [PATH_TO_SQL_FILE]
+psql javaEE_forum < [PATH_TO_SQL_FILE]
 ----
 
 == Schritte
