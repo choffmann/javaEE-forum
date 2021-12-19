@@ -1,6 +1,4 @@
-import de.hsfl.group.e.javeeeforum.model.Category;
-import de.hsfl.group.e.javeeeforum.model.Creator;
-import de.hsfl.group.e.javeeeforum.model.Tag;
+import de.hsfl.group.e.javeeeforum.model.*;
 import de.hsfl.group.e.javeeeforum.model.Thread;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,17 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestJpaImplementation {
-
-    // Test register User   -> CHECK ☑️
-    // Test Categories      -> CHECK ☑️
-    // Test Tags            -> CHECK ☑️
-    // Test add new Thread  -> CHECK ☑️
-    // Test add Answer to new Thread
-    // Test add Comment to Answer to new Thread
-    // Check get Creator of new Thread
-    // Check get Creator of Answer on Thread
-
-
     private static EntityManager manager;
 
     @BeforeAll
@@ -142,18 +129,92 @@ public class TestJpaImplementation {
         tags.add(tag1);
         tags.add(tag2);
 
-        // Set current DateTime
-        Date date = new Date();
-
         Thread thread = new Thread();
         thread.setText("Demo Thread to test function");
         thread.setTitle("Thread #1");
         thread.setCreator(creatorOfThread);
         thread.setCategories(categories);
         thread.setTags(tags);
-        thread.setCreatedAt(date);
+        thread.setCreatedAt(new Date());
 
         manager.persist(thread);
+        manager.getTransaction().commit();
+    }
+
+    // Test get user from thread
+    @Test
+    public void testGetUserFromThread() {
+        manager.getTransaction().begin();
+        Thread thread = manager.createQuery("SELECT t FROM Thread t WHERE t.title = 'Thread #1'", Thread.class).getSingleResult();
+        assertEquals("choffmann", thread.getCreator().getUsername());
+        manager.getTransaction().commit();
+    }
+
+    // Add Answer to new Thread
+    @Test
+    public void testAddAnswerToThread() {
+        manager.getTransaction().begin();
+        Thread thread = manager.createQuery("SELECT t FROM Thread t WHERE t.title = 'Thread #1'", Thread.class).getSingleResult();
+        assertEquals("choffmann", thread.getCreator().getUsername());
+
+        Creator creator = manager.createQuery("SELECT c FROM Creator c WHERE c.username = 'mustermann'", Creator.class).getSingleResult();
+        assertEquals("mustermann", creator.getUsername());
+
+        Answer answer1 = new Answer();
+        answer1.setThread(thread);
+        answer1.setCreator(thread.getCreator());
+        answer1.setText("A answer to a Thread, maybe this is a helpful answer??");
+        answer1.setCreatedAt(new Date());
+
+        Answer answer2 = new Answer();
+        answer2.setThread(thread);
+        answer2.setCreator(creator);
+        answer2.setText("Another answer to a Thread, hopefully this is a more helpful answer??");
+        answer2.setCreatedAt(new Date());
+
+        manager.persist(answer1);
+        manager.persist(answer2);
+        manager.getTransaction().commit();
+    }
+
+    // Test comment on Answer
+    @Test
+    public void testAddCommentToAnswer() {
+        manager.getTransaction().begin();
+        Answer answersPositive = manager.createQuery("SELECT a FROM Answer a WHERE a.id = 4", Answer.class).getSingleResult();
+        Answer answersNegative = manager.createQuery("SELECT a FROM Answer a WHERE a.id = 5", Answer.class).getSingleResult();
+
+        Comment positive = new Comment();
+        positive.setCreatedAt(new Date());
+        positive.setText("This answer was helpful!");
+        positive.setCreator(answersPositive.getCreator());
+        positive.setAnswer(answersPositive);
+
+        Comment negative = new Comment();
+        negative.setCreatedAt(new Date());
+        negative.setText("This answer is bullshit!");
+        negative.setCreator(answersNegative.getCreator());
+        negative.setAnswer(answersNegative);
+
+        manager.persist(positive);
+        manager.persist(negative);
+        manager.getTransaction().commit();
+    }
+
+    // Test Rate on positive and negative answers
+    @Test
+    public void testScoreOnAnswers() {
+        manager.getTransaction().begin();
+        Answer answersPositive = manager.createQuery("SELECT a FROM Answer a WHERE a.id = 4", Answer.class).getSingleResult();
+        Answer answersNegative = manager.createQuery("SELECT a FROM Answer a WHERE a.id = 5", Answer.class).getSingleResult();
+
+        // 11 User find this Answer helpful, 1 not
+        answersPositive.setScore(10);
+        // 1 User find this answer helpful, 10 not
+        answersNegative.setScore(-9);
+
+        manager.persist(answersPositive);
+        manager.persist(answersNegative);
         manager.getTransaction().commit();
     }
 }
