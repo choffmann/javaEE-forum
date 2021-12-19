@@ -1,3 +1,4 @@
+import de.hsfl.group.e.javeeeforum.dao.*;
 import de.hsfl.group.e.javeeeforum.model.*;
 import de.hsfl.group.e.javeeeforum.model.Thread;
 import org.junit.jupiter.api.BeforeAll;
@@ -42,22 +43,12 @@ public class TestJpaImplementation {
         manager.persist(creator1);
         manager.persist(creator2);
 
-        List<Creator> resultList = manager.createQuery("SELECT c FROM Creator c", Creator.class).getResultList();
+        CreatorDao creatorDao = new CreatorDao();
+        creatorDao.addElement(creator1);
+        creatorDao.addElement(creator2);
 
-        assertEquals(2, resultList.size());
-        for (int i = 0; i < resultList.size(); i++) {
-            assertNotNull(resultList.get(i).getId());
-        }
-
-        Creator result1 = resultList.get(0);
-        assertEquals(result1.getUsername(), creator1.getUsername());
-        assertEquals(result1.isAdmin(), creator1.isAdmin());
-
-        Creator result2 = resultList.get(1);
-        assertEquals(result2.getUsername(), creator2.getUsername());
-        assertEquals(result2.isAdmin(), creator2.isAdmin());
-
-        manager.getTransaction().commit();
+        List<Creator> creators = creatorDao.getAll();
+        assertEquals(2, creators.size());
     }
 
     // Test add Categories
@@ -70,17 +61,16 @@ public class TestJpaImplementation {
             categories.add(category);
         }
 
-        manager.getTransaction().begin();
+        CategoryDao categoryDao = new CategoryDao();
         for (int i = 0; i < categories.size(); i++) {
-            manager.persist(categories.get(i));
+            categoryDao.addElement(categories.get(i));
         }
 
-        List<Category> resultList = manager.createQuery("SELECT c FROM Category c", Category.class).getResultList();
+        List<Category> resultList = categoryDao.getAll();
         assertEquals(5, resultList.size());
         for (int i = 0; i < resultList.size(); i++) {
             assertNotNull(resultList.get(i).getId());
         }
-        manager.getTransaction().commit();
     }
 
     // Test add Tags
@@ -93,17 +83,16 @@ public class TestJpaImplementation {
             tags.add(tag);
         }
 
-        manager.getTransaction().begin();
+        TagDao tagDao = new TagDao();
         for (int i = 0; i < tags.size(); i++) {
-            manager.persist(tags.get(i));
+            tagDao.addElement(tags.get(i));
         }
 
-        List<Category> resultList = manager.createQuery("SELECT c FROM Category c", Category.class).getResultList();
+        List<Tag> resultList = tagDao.getAll();
         assertEquals(5, resultList.size());
         for (int i = 0; i < resultList.size(); i++) {
             assertNotNull(resultList.get(i).getId());
         }
-        manager.getTransaction().commit();
     }
 
     // Test add new Thread
@@ -112,19 +101,23 @@ public class TestJpaImplementation {
         manager.getTransaction().begin();
 
         // Get User to create new Thread
-        Creator creatorOfThread = manager.createQuery("SELECT c FROM Creator c WHERE c.username = 'choffmann'", Creator.class).getSingleResult();
+        CreatorDao creatorDao = new CreatorDao();
+        Creator creatorOfThread = creatorDao.getById(3L);
         assertEquals("choffmann", creatorOfThread.getUsername());
 
         // Get Categories to create new Thread
-        Category category1 = manager.createQuery("SELECT c FROM Category c WHERE c.text = 'Category #3'", Category.class).getSingleResult();
-        Category category2 = manager.createQuery("SELECT c FROM Category c WHERE c.text = 'Category #4'", Category.class).getSingleResult();
+        CategoryDao categoryDao = new CategoryDao();
+        Category category1 = categoryDao.getById(12L);
+        Category category2 = categoryDao.getById(14L);
         List<Category> categories = new ArrayList();
         categories.add(category1);
         categories.add(category2);
 
         // Get Tags to create new Thread
-        Tag tag1 = manager.createQuery("SELECT t FROM Tag t WHERE t.tag = 'Tag #1'", Tag.class).getSingleResult();
-        Tag tag2 = manager.createQuery("SELECT t FROM Tag t WHERE t.tag = 'Tag #3'", Tag.class).getSingleResult();
+        TagDao tagDao = new TagDao();
+
+        Tag tag1 = tagDao.getById(7L);
+        Tag tag2 = tagDao.getById(10L);
         List<Tag> tags = new ArrayList();
         tags.add(tag1);
         tags.add(tag2);
@@ -137,27 +130,27 @@ public class TestJpaImplementation {
         thread.setTags(tags);
         thread.setCreatedAt(new Date());
 
-        manager.persist(thread);
-        manager.getTransaction().commit();
+        ThreadDao threadDao = new ThreadDao();
+        threadDao.addElement(thread);
     }
 
     // Test get user from thread
     @Test
     public void testGetUserFromThread() {
-        manager.getTransaction().begin();
-        Thread thread = manager.createQuery("SELECT t FROM Thread t WHERE t.title = 'Thread #1'", Thread.class).getSingleResult();
+        ThreadDao threadDao = new ThreadDao();
+        Thread thread = threadDao.getById(2L);
         assertEquals("choffmann", thread.getCreator().getUsername());
-        manager.getTransaction().commit();
     }
 
     // Add Answer to new Thread
     @Test
     public void testAddAnswerToThread() {
-        manager.getTransaction().begin();
-        Thread thread = manager.createQuery("SELECT t FROM Thread t WHERE t.title = 'Thread #1'", Thread.class).getSingleResult();
+        ThreadDao threadDao = new ThreadDao();
+        Thread thread = threadDao.getById(2L);
         assertEquals("choffmann", thread.getCreator().getUsername());
 
-        Creator creator = manager.createQuery("SELECT c FROM Creator c WHERE c.username = 'mustermann'", Creator.class).getSingleResult();
+        CreatorDao creatorDao = new CreatorDao();
+        Creator creator = creatorDao.getById(4L);
         assertEquals("mustermann", creator.getUsername());
 
         Answer answer1 = new Answer();
@@ -172,17 +165,17 @@ public class TestJpaImplementation {
         answer2.setText("Another answer to a Thread, hopefully this is a more helpful answer??");
         answer2.setCreatedAt(new Date());
 
-        manager.persist(answer1);
-        manager.persist(answer2);
-        manager.getTransaction().commit();
+        AnswerDao answerDao = new AnswerDao();
+        answerDao.addElement(answer1);
+        answerDao.addElement(answer2);
     }
 
     // Test comment on Answer
     @Test
     public void testAddCommentToAnswer() {
-        manager.getTransaction().begin();
-        Answer answersPositive = manager.createQuery("SELECT a FROM Answer a WHERE a.id = 4", Answer.class).getSingleResult();
-        Answer answersNegative = manager.createQuery("SELECT a FROM Answer a WHERE a.id = 5", Answer.class).getSingleResult();
+        AnswerDao answerDao = new AnswerDao();
+        Answer answersPositive = answerDao.getById(9L);
+        Answer answersNegative =  answerDao.getById(8L);
 
         Comment positive = new Comment();
         positive.setCreatedAt(new Date());
@@ -196,25 +189,26 @@ public class TestJpaImplementation {
         negative.setCreator(answersNegative.getCreator());
         negative.setAnswer(answersNegative);
 
-        manager.persist(positive);
-        manager.persist(negative);
-        manager.getTransaction().commit();
+        CommentDao commentDao = new CommentDao();
+        commentDao.addElement(positive);
+        commentDao.addElement(negative);
     }
 
     // Test Rate on positive and negative answers
     @Test
     public void testScoreOnAnswers() {
-        manager.getTransaction().begin();
-        Answer answersPositive = manager.createQuery("SELECT a FROM Answer a WHERE a.id = 4", Answer.class).getSingleResult();
-        Answer answersNegative = manager.createQuery("SELECT a FROM Answer a WHERE a.id = 5", Answer.class).getSingleResult();
+        AnswerDao answerDao = new AnswerDao();
+        Answer answersPositive = answerDao.getById(9L);
+        Answer answersNegative =  answerDao.getById(8L);
 
         // 11 User find this Answer helpful, 1 not
         answersPositive.setScore(10);
+        answersPositive.setModifiedAt(new Date());
         // 1 User find this answer helpful, 10 not
         answersNegative.setScore(-9);
+        answersNegative.setModifiedAt(new Date());
 
-        manager.persist(answersPositive);
-        manager.persist(answersNegative);
-        manager.getTransaction().commit();
+        answerDao.updateElement(answersPositive);
+        answerDao.updateElement(answersNegative);
     }
 }
