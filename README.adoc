@@ -10,3 +10,55 @@ Im Forum kann man Beiträge erstellen, beantworten und bewerten. Die zu erfassen
 - Datenbank: `PostgreSQL`
 - HTTP, Application Server, Servlet, JSP, REST, Datenbank, JPA (Dazu Context and Dependency Injection)
 - JSON, kein XML
+
+== Postgres *.sql einspielen
+Die Datei `database.sql` enthält die benötigten Tabellen für die Anwendung. Der Inhalt der Tabellen ist nicht befüllt. Die Datei `database_with_data.sql` beinhaltet allerdings einen Satz an Demodaten.
+
+Um die `Dump-Datei` nun einzuspielen, muss natürlich zuerst eine entsprechende Datenbank erstellt werden, z.B.:
+[listing]
+----
+create database javaEE_forum;
+create Creator javaEE_forum_admin password 'ultra_mega_secret_secure_password' login;
+----
+
+Zum Einspielen, wird das von Postgres mitgelieferte Tool `psql` benötigt. Die Datei kann nun wie folgt eingespielt werden:
+[listing]
+----
+psql javaEE_forum < [PATH_TO_SQL_FILE]
+----
+
+== DAOs
+`Data Access Object (DAO)` wurden erstellt, um Daten leichter händeln zu können. Dabei enthält jedes `DAO` folgende Methoden, um mit der Datenbank zu kommunizieren.
+[source, java]
+----
+public interface Dao<T> {
+
+    // Get all from Database
+    List<T> getAll();
+
+    // Get resultList by Query
+    // z.B.: "SELECT e FROM Creator e WHERE e.id >= 6"
+    List<T> getListByQuery(Query query);
+
+    // Get one Element by id
+    T getById(Long id);
+
+    // Get one Element by Query
+    // z.B.: "SELECT e FROM Creator e WHERE e.username = 'mustermann'"
+    T getElementByQuery(Query query);
+
+    // Add Element to Database
+    void addElement(T e);
+
+    // Update Element to Database
+    void updateElement(T e);
+
+    // Remove Element from Database
+    void removeElement(T e);
+}
+----
+
+== Schritte
+1. Datenbank erstellen und JPA Schnittstelle erstellen https://github.com/choffmann/javaEE-forum/tree/database/Doku/Database[siehe Doku]
+2. REST Schnittstelle definieren
+3. Frontend erstellen

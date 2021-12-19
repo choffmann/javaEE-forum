@@ -1,0 +1,181 @@
+= Datenbank - Doku
+:imagesdir: img
+:nofooter:
+
+Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt der Zugriff auf die Datenbank mittels `JPA (Java Persistence API)`
+
+== Tabellen
+.Creator
+|===
+|Name |Typ |Beziehung
+
+|id
+|`SERIAL` `PRIMARY KEY`
+|
+
+|username
+|`TEXT`
+|
+
+|email
+|`TEXT`
+|
+
+|password
+|`TEXT`
+|
+
+|is_admin
+|`BOOL`
+|
+
+|score
+|`INT`
+|
+|===
+
+.Thread
+|===
+|Name |Typ |Beziehung
+
+|id
+|`BIGSERIAL` `PRIMARY KEY`
+|
+
+|creator
+|`Creator` 
+|`ManyToOne`
+
+|title
+|`TEXT`
+|
+
+|created_at
+|`DATETIME`
+|
+
+|modified_at
+|`DATETIME`
+|
+
+|text
+|`TEXT`
+|
+|===
+
+.Category
+|===
+|Name |Typ |Beziehung
+
+|id
+|`BIGSERIAL` `PRIMARY KEY`
+|
+
+|text
+|`TEXT`
+|
+|===
+
+.Tag
+|===
+|Name |Typ |Beziehung
+
+|id
+|`BIGSERIAL` `PRIMARY KEY`
+|
+
+|tag
+|`TEXT`
+|
+|===
+
+.Thread_Tag
+|===
+|Name |Typ |Beziehung
+
+|thread_id
+|`Thread` `PRIMARY KEY`
+|`ManyToMany`
+
+|tag_id
+|`Tag` `PRIMARY KEY`
+|`ManyToMany`
+|===
+
+.Thread_Category
+|===
+|Name |Typ |Beziehung
+
+|thread_id
+|`Thread` `PRIMARY KEY`
+|`ManyToMany`
+
+|category_id
+|`Category` `PRIMARY KEY`
+|`ManyToMany`
+|===
+
+.Answer
+|===
+|Name |Typ |Beziehung
+
+|id
+|`BIGSERIAL` `PRIMARY KEY`
+|
+
+|thread_id
+|`Thread` 
+|`ManyToOne`
+
+|creator
+|`Creator`
+|`ManyToOne`
+
+|created_at
+|`DATETIME`
+|
+
+|modified_at
+|`DATETIME`
+|
+
+|text
+|`TEXT`
+|
+
+|score
+|`INT`
+|
+|===
+
+.Comment
+|===
+|Name |Typ |Beziehung
+
+|id
+|`BIGSERIAL` `PRIMARY KEY`
+|
+
+|answer_id
+|`Answer`
+|`ManyToOne`
+
+|creator
+|`Creator`
+|`ManyToOne`
+
+|created_at
+|`DATETIME`
+|
+
+|modified_at
+|`DATETIME`
+|
+
+|text
+|`TEXT`
+|
+|===
+
+.JPA Diagram in IntelliJ
+image:intellig_uml.png[]
