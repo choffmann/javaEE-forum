@@ -22,9 +22,10 @@ public class Answer implements Serializable {
 
     @ManyToOne
     private Creator creator;
+    @ManyToOne
+    private Thread thread;
     @OneToMany
     private List<Comment> comment;
-
     @OneToMany(mappedBy = "answer")
     private Set<AnswerCreator> validation;
 
@@ -66,6 +67,14 @@ public class Answer implements Serializable {
 
     public void setCreator(Creator creator) {
         this.creator = creator;
+    }
+
+    public Thread getThread() {
+        return thread;
+    }
+
+    public void setThread(Thread thread) {
+        this.thread = thread;
     }
 
     public List<Comment> getComment() {

@@ -21,18 +21,25 @@ public class Thread implements Serializable {
     private java.util.Date modifiedAt;
     private String text;
 
-    @ManyToOne
-    private Creator creator;
-    @OneToMany (targetEntity = Category.class)
-    private List<Category> categories;
     @ManyToMany
     @JoinTable(
             name = "thread_tag",
             joinColumns = @JoinColumn(name = "thread_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<Tag> threadTag;
-    @OneToOne
-    private Answer answer;
+    private List<Tag> tags;
+    @ManyToMany
+    @JoinTable(
+            name = "thread_category",
+            joinColumns = @JoinColumn(name = "thread_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories;
+
+    @ManyToOne
+    private Creator creator;
+
+    @OneToMany
+    private List<Answer> answer;
 
     public Long getId() {
         return id;
@@ -90,19 +97,19 @@ public class Thread implements Serializable {
         this.categories = categories;
     }
 
-    public Set<Tag> getTag() {
-        return threadTag;
+    public List<Tag> getTags() {
+        return tags;
     }
 
-    public void setTag(Set<Tag> tag) {
-        this.threadTag = tag;
+    public void setTags(List<Tag> tag) {
+        this.tags = tag;
     }
 
-    public Answer getAnswer() {
+    public List<Answer> getAnswer() {
         return answer;
     }
 
-    public void setAnswer(Answer answer) {
+    public void setAnswer(List<Answer> answer) {
         this.answer = answer;
     }
 }

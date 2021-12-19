@@ -2,6 +2,7 @@ package de.hsfl.group.e.javeeeforum.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,8 +15,8 @@ public class Tag implements Serializable {
     private Long id;
     private String tag;
 
-    @ManyToMany(mappedBy = "threadTag")
-    private Set<Thread> thread;
+    @ManyToMany(mappedBy = "tags")
+    private List<Thread> thread;
 
     public Long getId() {
         return id;
@@ -33,11 +34,11 @@ public class Tag implements Serializable {
         this.tag = tag;
     }
 
-    public Set<Thread> getThread() {
+    public List<Thread> getThread() {
         return thread;
     }
 
-    public void setThread(Set<Thread> thread) {
+    public void setThread(List<Thread> thread) {
         this.thread = thread;
     }
 }
