@@ -13,13 +13,13 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`BIGSERIAL` `PRIMARY KEY`
 
 |Creatorname
-|`VARCHAR`
+|`TEXT`
 
 |email
-|`VARCHAR`
+|`TEXT`
 
 |password
-|`VARCHAR`
+|`TEXT`
 
 |is_admin
 |`BOOL`
@@ -36,7 +36,7 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`BIGSERIAL` `PRIMARY KEY`
 
 |text
-|`VARCHAR`
+|`TEXT`
 
 |===
 
@@ -48,10 +48,10 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`BIGSERIAL` `PRIMARY KEY`
 
 |creator
-|`Creator`
+|`Creator` `OneToOne`
 
 |title
-|`VARCHAR`
+|`TEXT`
 
 |created_at
 |`DATETIME`
@@ -60,10 +60,10 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`DATETIME`
 
 |text
-|`VARCHAR`
+|`TEXT`
 
 |category
-|`Category`
+|`Category` `OneToMany`
 |===
 
 .Thread_Tags
@@ -74,7 +74,7 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`Thread` `PRIMARY KEY`
 
 |tag
-|`VARCHAR`
+|`TEXT`
 |===
 
 .Answer
@@ -97,7 +97,7 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`DATETIME`
 
 |text
-|`VARCHAR`
+|`TEXT`
 |===
 
 .Comment
@@ -120,7 +120,7 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`DATETIME`
 
 |text
-|`VARCHAR`
+|`TEXT`
 |===
 
 .Creator_Answer
@@ -138,7 +138,7 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |===
 
 == Erstellung
-.Creator und Datenbank
+.User und Datenbank
 [listing]
 ----
 create database javaEE_forum;;
@@ -152,12 +152,12 @@ grant usage, select on all sequences in schema public to javaee_forum_admin;
 [source, sql]
 ----
 CREATE TABLE Creator (
-    id BIGSERIAL NOT NULL PRIMARY KEY,
-    username VARCHAR,
-    email VARCHAR,
-    password VARCHAR,
-    is_admin BOOLEAN,
-    score INTEGER
+    id SERIAL PRIMARY KEY,
+    username TEXT NOT NULL,
+    email TEXT NOT NULL,
+    password TEXT NOT NULL,
+    is_admin BOOLEAN NOT NULL DEFAULT false,
+    score NUMERIC NOT NULL DEFAULT 0
 );
 ----
 
@@ -165,8 +165,8 @@ CREATE TABLE Creator (
 [source, sql]
 ----
 CREATE TABLE Category (
-    id BIGSERIAL NOT NULL PRIMARY KEY,
-    text VARCHAR
+    id SERIAL PRIMARY KEY,
+    text TEXT NOT NULL
 );
 ----
 
@@ -174,22 +174,32 @@ CREATE TABLE Category (
 [source, sql]
 ----
 CREATE TABLE Thread (
-    id BIGSERIAL NOT NULL PRIMARY KEY,
-    creator INTEGER REFERENCES Creator(id),
-    title VARCHAR,
-    created_at DATE,
-    modified_at DATE,
-    text VARCHAR,
-    category INTEGER REFERENCES Category(id)
+    id SERIAL PRIMARY KEY,
+    creator INT REFERENCES Creator(id),
+    title TEXT NOT NULL,
+    created_at DATE NOT NULL DEFAULT CURRENT_DATE,
+    modified_at DATE NOT NULL,
+    text TEXT NOT NULL,
+    category INT REFERENCES Category(id)
 );
 ----
 
-.Thread_Tags Table
+.Tag Table
 [source, sql]
 ----
-CREATE TABLE Thread_Tags (
-    thread INTEGER REFERENCES Thread(id) PRIMARY KEY,
-    tag VARCHAR
+CREATE TABLE Tag (
+    id SERIAL PRIMARY KEY,
+    tag TEXT NOT NULL
+);
+----
+
+.Thread_Tag Table
+[source, sql]
+----
+CREATE TABLE Thread_Tag (
+    thread_id INT REFERENCES Thread(id),
+    tag_id INT REFERENCES Tag(id),
+    CONSTRAINT thread_tag_pkey PRIMARY KEY (thread_id, tag_id)
 );
 ----
 
@@ -197,25 +207,25 @@ CREATE TABLE Thread_Tags (
 [source, sql]
 ----
 CREATE TABLE Answer (
-    id BIGSERIAL NOT NULL PRIMARY KEY,
-    thread INTEGER REFERENCES Thread(id),
-    creator INTEGER REFERENCES Creator(id),
-    created_at DATE,
-    modified_at DATE,
-    text VARCHAR
+    id SERIAL PRIMARY KEY,
+    thread INT REFERENCES Thread(id),
+    creator INT REFERENCES Creator(id),
+    created_at DATE NOT NULL DEFAULT CURRENT_DATE,
+    modified_at DATE NOT NULL,
+    text TEXT NOT NULL
 );
 ----
 
-.Comment Table
+.Comment Tablex
 [source, sql]
 ----
 CREATE TABLE Comment (
-    id BIGSERIAL NOT NULL PRIMARY KEY,
-    answer INTEGER REFERENCES Answer(id),
-    creator INTEGER REFERENCES Creator(id),
-    created_at DATE,
-    modified_at DATE,
-    text VARCHAR
+    id SERIAL PRIMARY KEY,
+    answer INT REFERENCES Answer(id),
+    creator INT REFERENCES Creator(id),
+    created_at DATE NOT NULL DEFAULT CURRENT_DATE,
+    modified_at DATE NOT NULL,
+    text TEXT NOT NULL
 );
 ----
 
@@ -223,9 +233,19 @@ CREATE TABLE Comment (
 [source, sql]
 ----
 CREATE TABLE Creator_Answer (
-    id BIGSERIAL NOT NULL,
-    creator INTEGER REFERENCES Creator(id),
-    answer INTEGER REFERENCES Answer(id),
-    validation BOOLEAN
+    creator_id INT REFERENCES Creator(id),
+    answer_id INT REFERENCES Answer(id),
+    validation BOOLEAN NOT NULL,
+    CONSTRAINT creator_answer_pkey PRIMARY KEY (creator_id, answer_id)
+);
+----
+
+.Creator_Comment Table
+[source, sql]
+----
+CREATE TABLE Creator_Comment (
+    creator_id INT REFERENCES Creator(id),
+    comment_id INT REFERENCES Comment(id),
+    CONSTRAINT creator_comment_pkey PRIMARY KEY (creator_id, comment_id)
 );
 ----
