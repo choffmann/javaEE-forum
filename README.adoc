@@ -28,7 +28,7 @@ psql javaEE_forum < [PATH_TO_SQL_FILE]
 ----
 
 == DAOs
-`Data Access Object (DAO)` wurde erstellt um Daten leichter händeln zu können. Dabei enthält jedes `DAO` folgende Methoden, um mit der Datenbank zu kommunizieren
+`Data Access Object (DAO)` wurden erstellt, um Daten leichter händeln zu können. Dabei enthält jedes `DAO` folgende Methoden, um mit der Datenbank zu kommunizieren.
 [source, java]
 ----
 public interface Dao<T> {
