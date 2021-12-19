@@ -141,8 +141,8 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 .User und Datenbank
 [listing]
 ----
-create database javaEE_forum;;
-create Creator javaEE_forum_admin password 'ultra_mega_secret_secure_password' login;
+create database javaEE_forum;
+create user javaEE_forum_admin password 'ultra_mega_secret_secure_password' login;
 grant all on database javaEE_forum to javaEE_forum_admin;
 grant all privileges on all tables in schema public to javaEE_forum_admin;
 grant usage, select on all sequences in schema public to javaee_forum_admin;
