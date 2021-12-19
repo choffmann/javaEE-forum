@@ -2,251 +2,180 @@
 :imagesdir: img
 :nofooter:
 
-Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt der zugriff auf die Datenbank mittels `JPA (Java Persistence API)`
+Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt der Zugriff auf die Datenbank mittels `JPA (Java Persistence API)`
 
 == Tabellen
 .Creator
 |===
-|Name |Typ
+|Name |Typ |Beziehung
 
 |id
-|`BIGSERIAL` `PRIMARY KEY`
+|`SERIAL` `PRIMARY KEY`
+|
 
-|Creatorname
+|username
 |`TEXT`
+|
 
 |email
 |`TEXT`
+|
 
 |password
 |`TEXT`
+|
 
 |is_admin
 |`BOOL`
+|
 
 |score
 |`INT`
-|===
-
-.Category
-|===
-|Name |Typ
-
-|id
-|`BIGSERIAL` `PRIMARY KEY`
-
-|text
-|`TEXT`
-
+|
 |===
 
 .Thread
 |===
-|Name |Typ
+|Name |Typ |Beziehung
 
 |id
 |`BIGSERIAL` `PRIMARY KEY`
+|
 
 |creator
-|`Creator` `OneToOne`
+|`Creator` 
+|`ManyToOne`
 
 |title
 |`TEXT`
+|
 
 |created_at
 |`DATETIME`
+|
 
 |modified_at
 |`DATETIME`
+|
 
 |text
 |`TEXT`
-
-|category
-|`Category` `OneToMany`
+|
 |===
 
-.Thread_Tags
+.Category
 |===
-|Name |Typ
+|Name |Typ |Beziehung
 
-|thread
-|`Thread` `PRIMARY KEY`
+|id
+|`BIGSERIAL` `PRIMARY KEY`
+|
+
+|text
+|`TEXT`
+|
+|===
+
+.Tag
+|===
+|Name |Typ |Beziehung
+
+|id
+|`BIGSERIAL` `PRIMARY KEY`
+|
 
 |tag
 |`TEXT`
+|
+|===
+
+.Thread_Tag
+|===
+|Name |Typ |Beziehung
+
+|thread_id
+|`Thread` `PRIMARY KEY`
+|`ManyToMany`
+
+|tag_id
+|`Tag` `PRIMARY KEY`
+|`ManyToMany`
+|===
+
+.Thread_Category
+|===
+|Name |Typ |Beziehung
+
+|thread_id
+|`Thread` `PRIMARY KEY`
+|`ManyToMany`
+
+|category_id
+|`Category` `PRIMARY KEY`
+|`ManyToMany`
 |===
 
 .Answer
 |===
-|Name |Typ
+|Name |Typ |Beziehung
 
 |id
 |`BIGSERIAL` `PRIMARY KEY`
+|
 
-|thread
+|thread_id
 |`Thread` 
+|`ManyToOne`
 
 |creator
 |`Creator`
+|`ManyToOne`
 
 |created_at
 |`DATETIME`
+|
 
 |modified_at
 |`DATETIME`
+|
 
 |text
 |`TEXT`
+|
+
+|score
+|`INT`
+|
 |===
 
 .Comment
 |===
-|Name |Typ
+|Name |Typ |Beziehung
 
 |id
 |`BIGSERIAL` `PRIMARY KEY`
+|
 
-|answer
+|answer_id
 |`Answer`
+|`ManyToOne`
 
 |creator
 |`Creator`
+|`ManyToOne`
 
 |created_at
 |`DATETIME`
+|
 
 |modified_at
 |`DATETIME`
+|
 
 |text
 |`TEXT`
+|
 |===
 
-.Creator_Answer
-|===
-|Name |Typ
-
-|Creator
-|`Creator` `PRIMARY KEY`
-
-|answer
-|`Answer` `PRIMARY KEY`
-
-|validation
-|`BOOL`
-|===
-
-== Erstellung
-.User und Datenbank
-[listing]
-----
-create database javaEE_forum;
-create user javaEE_forum_admin password 'ultra_mega_secret_secure_password' login;
-grant all on database javaEE_forum to javaEE_forum_admin;
-grant all privileges on all tables in schema public to javaEE_forum_admin;
-grant usage, select on all sequences in schema public to javaee_forum_admin;
-----
-
-.Creator Table
-[source, sql]
-----
-CREATE TABLE Creator (
-    id SERIAL PRIMARY KEY,
-    username TEXT NOT NULL,
-    email TEXT NOT NULL,
-    password TEXT NOT NULL,
-    is_admin BOOLEAN NOT NULL DEFAULT false,
-    score NUMERIC NOT NULL DEFAULT 0
-);
-----
-
-.Category Table
-[source, sql]
-----
-CREATE TABLE Category (
-    id SERIAL PRIMARY KEY,
-    text TEXT NOT NULL,
-    thread INT REFERENCES Thread(id)
-);
-----
-
-.Thread Table
-[source, sql]
-----
-CREATE TABLE Thread (
-    id SERIAL PRIMARY KEY,
-    creator INT REFERENCES Creator(id),
-    title TEXT NOT NULL,
-    created_at DATE NOT NULL DEFAULT CURRENT_DATE,
-    modified_at DATE,
-    text TEXT NOT NULL
-);
-----
-
-.Tag Table
-[source, sql]
-----
-CREATE TABLE Tag (
-    id SERIAL PRIMARY KEY,
-    tag TEXT NOT NULL,
-    thread INT REFERENCES Thread(id)
-);
-----
-
-.Thread_Tag Table
-[source, sql]
-----
-CREATE TABLE Thread_Tag (
-    thread_id INT REFERENCES Thread(id),
-    tag_id INT REFERENCES Tag(id),
-    CONSTRAINT thread_tag_pkey PRIMARY KEY (thread_id, tag_id)
-);
-----
-
-.Answer Table
-[source, sql]
-----
-CREATE TABLE Answer (
-    id SERIAL PRIMARY KEY,
-    thread INT REFERENCES Thread(id),
-    creator INT REFERENCES Creator(id),
-    created_at DATE NOT NULL DEFAULT CURRENT_DATE,
-    modified_at DATE,
-    text TEXT NOT NULL
-);
-----
-
-.Comment Table
-[source, sql]
-----
-CREATE TABLE Comment (
-    id SERIAL PRIMARY KEY,
-    answer INT REFERENCES Answer(id),
-    creator INT REFERENCES Creator(id),
-    created_at DATE NOT NULL DEFAULT CURRENT_DATE,
-    modified_at DATE,
-    text TEXT NOT NULL
-);
-----
-
-.Creator_Answer Table
-[source, sql]
-----
-CREATE TABLE Creator_Answer (
-    creator_id INT REFERENCES Creator(id),
-    answer_id INT REFERENCES Answer(id),
-    validation BOOLEAN NOT NULL,
-    CONSTRAINT creator_answer_pkey PRIMARY KEY (creator_id, answer_id)
-);
-----
-
-.Creator_Comment Table
-[source, sql]
-----
-CREATE TABLE Creator_Comment (
-    creator_id INT REFERENCES Creator(id),
-    comment_id INT REFERENCES Comment(id),
-    CONSTRAINT creator_comment_pkey PRIMARY KEY (creator_id, comment_id)
-);
-----
+.JPA Diagram in IntelliJ
+image:intellig_uml.png[]
