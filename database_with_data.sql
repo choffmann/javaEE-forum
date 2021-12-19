@@ -312,6 +312,8 @@ ALTER TABLE ONLY public.thread ALTER COLUMN id SET DEFAULT nextval('public.threa
 --
 
 COPY public.answer (id, thread_id, creator_id, created_at, modified_at, text, score) FROM stdin;
+6	1	1	2021-12-19	\N	A answer to a Thread, maybe this is a helpful answer??	-9
+7	1	2	2021-12-19	\N	Another answer to a Thread, hopefully this is a more helpful answer??	10
 \.
 
 
@@ -320,6 +322,11 @@ COPY public.answer (id, thread_id, creator_id, created_at, modified_at, text, sc
 --
 
 COPY public.category (id, text) FROM stdin;
+1	Category #1
+2	Category #4
+3	Category #3
+4	Category #2
+5	Category #0
 \.
 
 
@@ -328,6 +335,8 @@ COPY public.category (id, text) FROM stdin;
 --
 
 COPY public.comment (id, answer_id, creator_id, created_at, modified_at, text) FROM stdin;
+3	6	1	2021-12-19	\N	This answer is bullshit!
+4	7	2	2021-12-19	\N	This answer was helpful!
 \.
 
 
@@ -336,6 +345,8 @@ COPY public.comment (id, answer_id, creator_id, created_at, modified_at, text) F
 --
 
 COPY public.creator (id, username, email, password, is_admin, score) FROM stdin;
+1	choffmann	cedrik.hoffmann@stud.hs-flensburg.de	secret_password!	t	10
+2	mustermann	max.mustermann@stud.hs-flensburg.de	password!	f	0
 \.
 
 
@@ -344,6 +355,11 @@ COPY public.creator (id, username, email, password, is_admin, score) FROM stdin;
 --
 
 COPY public.tag (id, tag) FROM stdin;
+1	Tag #3
+2	Tag #0
+3	Tag #1
+4	Tag #2
+5	Tag #4
 \.
 
 
@@ -352,6 +368,7 @@ COPY public.tag (id, tag) FROM stdin;
 --
 
 COPY public.thread (id, creator_id, title, created_at, modified_at, text) FROM stdin;
+1	1	Thread #1	2021-12-19	\N	Demo Thread to test function
 \.
 
 
@@ -360,6 +377,8 @@ COPY public.thread (id, creator_id, title, created_at, modified_at, text) FROM s
 --
 
 COPY public.thread_category (thread_id, category_id) FROM stdin;
+1	3
+1	2
 \.
 
 
@@ -368,6 +387,8 @@ COPY public.thread_category (thread_id, category_id) FROM stdin;
 --
 
 COPY public.thread_tag (thread_id, tag_id) FROM stdin;
+1	3
+1	1
 \.
 
 
