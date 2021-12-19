@@ -9,14 +9,14 @@ public interface Dao<T> {
 
     // Get resultList by Query
     // z.B.: "SELECT e FROM Creator e WHERE e.id >= 6"
-    List<T> getListOfQuery(Query query);
+    List<T> getListByQuery(Query query);
 
     // Get one Element by id
     T getById(Long id);
 
     // Get one Element by Query
     // z.B.: "SELECT e FROM Creator e WHERE e.username = 'mustermann'"
-    T getElementOfQuery(Query query);
+    T getElementByQuery(Query query);
 
     // Add Element to Database
     void addElement(T e);

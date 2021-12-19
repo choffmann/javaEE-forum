@@ -22,7 +22,7 @@ public class TagDao implements Dao<Tag> {
     }
 
     @Override
-    public List<Tag> getListOfQuery(Query query) {
+    public List<Tag> getListByQuery(Query query) {
         return query.getResultList();
     }
 
@@ -32,7 +32,7 @@ public class TagDao implements Dao<Tag> {
     }
 
     @Override
-    public Tag getElementOfQuery(Query query) {
+    public Tag getElementByQuery(Query query) {
         return (Tag) query.getSingleResult();
     }
 

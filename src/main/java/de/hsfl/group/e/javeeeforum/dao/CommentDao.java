@@ -22,7 +22,7 @@ public class CommentDao implements Dao<Comment> {
     }
 
     @Override
-    public List<Comment> getListOfQuery(Query query) {
+    public List<Comment> getListByQuery(Query query) {
         return query.getResultList();
     }
 
@@ -32,7 +32,7 @@ public class CommentDao implements Dao<Comment> {
     }
 
     @Override
-    public Comment getElementOfQuery(Query query) {
+    public Comment getElementByQuery(Query query) {
         return (Comment) query.getSingleResult();
     }
 

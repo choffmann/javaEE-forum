@@ -22,7 +22,7 @@ public class CategoryDao implements Dao<Category> {
     }
 
     @Override
-    public List<Category> getListOfQuery(Query query) {
+    public List<Category> getListByQuery(Query query) {
         return query.getResultList();
     }
 
@@ -32,7 +32,7 @@ public class CategoryDao implements Dao<Category> {
     }
 
     @Override
-    public Category getElementOfQuery(Query query) {
+    public Category getElementByQuery(Query query) {
         return (Category) query.getSingleResult();
     }
 

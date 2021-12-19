@@ -22,7 +22,7 @@ public class AnswerDao implements Dao<Answer> {
     }
 
     @Override
-    public List<Answer> getListOfQuery(Query query) {
+    public List<Answer> getListByQuery(Query query) {
         return query.getResultList();
     }
 
@@ -32,7 +32,7 @@ public class AnswerDao implements Dao<Answer> {
     }
 
     @Override
-    public Answer getElementOfQuery(Query query) {
+    public Answer getElementByQuery(Query query) {
         return (Answer) query.getSingleResult();
     }
 

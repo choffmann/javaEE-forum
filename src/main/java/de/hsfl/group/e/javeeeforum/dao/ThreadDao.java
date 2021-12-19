@@ -22,7 +22,7 @@ public class ThreadDao implements Dao<Thread> {
     }
 
     @Override
-    public List<Thread> getListOfQuery(Query query) {
+    public List<Thread> getListByQuery(Query query) {
         return query.getResultList();
     }
 
@@ -32,7 +32,7 @@ public class ThreadDao implements Dao<Thread> {
     }
 
     @Override
-    public Thread getElementOfQuery(Query query) {
+    public Thread getElementByQuery(Query query) {
         return (Thread) query.getSingleResult();
     }
 

@@ -22,7 +22,7 @@ public class CreatorDao implements Dao<Creator> {
     }
 
     @Override
-    public List<Creator> getListOfQuery(Query query) {
+    public List<Creator> getListByQuery(Query query) {
         return query.getResultList();
     }
 
@@ -32,7 +32,7 @@ public class CreatorDao implements Dao<Creator> {
     }
 
     @Override
-    public Creator getElementOfQuery(Query query) {
+    public Creator getElementByQuery(Query query) {
         return (Creator) query.getSingleResult();
     }
 
