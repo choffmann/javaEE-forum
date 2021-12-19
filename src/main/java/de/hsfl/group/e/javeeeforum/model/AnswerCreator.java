@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@NamedQuery(name = "AnswerCreator.findAll", query = "SELECT w FROM AnswerCreator w")
 public class AnswerCreator implements Serializable {
     @EmbeddedId
     AnswerCreatorKey id;

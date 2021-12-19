@@ -12,7 +12,7 @@ public class Answer implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "created_at")
     private Date createdAt;
@@ -25,7 +25,7 @@ public class Answer implements Serializable {
     @OneToMany
     private List<Comment> comment;
 
-    @OneToMany(mappedBy = "answerCreator")
+    @OneToMany(mappedBy = "answer")
     private Set<AnswerCreator> validation;
 
     public Long getId() {

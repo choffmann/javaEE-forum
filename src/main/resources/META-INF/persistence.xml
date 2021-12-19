@@ -3,7 +3,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
-    <persistence-unit name="javaEE-forum">
+    <persistence-unit name="javaEE-forum" transaction-type="RESOURCE_LOCAL">
         <class>de.hsfl.group.e.javeeeforum.model.Answer</class>
         <class>de.hsfl.group.e.javeeeforum.model.AnswerCreator</class>
         <class>de.hsfl.group.e.javeeeforum.model.AnswerCreatorKey</class>
@@ -13,8 +13,8 @@
         <class>de.hsfl.group.e.javeeeforum.model.Tag</class>
         <class>de.hsfl.group.e.javeeeforum.model.Thread</class>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/javaEE_forum"/>
-            <property name="javax.persistence.jdbc.user" value="javaEE_forum_admin"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/javaee_forum"/>
+            <property name="javax.persistence.jdbc.user" value="javaee_forum_admin"/>
             <property name="javax.persistence.jdbc.password" value="ultra_mega_secret_secure_password"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
         </properties>
