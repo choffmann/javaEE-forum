@@ -39,7 +39,7 @@ public class Thread implements Serializable {
     @JoinColumn(name="creator_id", nullable = false, updatable = false)
     private Creator creator;
 
-    @OneToMany(mappedBy="thread")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="thread", orphanRemoval = true)
     private List<Answer> answer;
 
     public Long getId() {

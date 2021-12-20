@@ -27,7 +27,7 @@ public class Answer implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name="thread_id", nullable = false, updatable = false)
     private Thread thread;
-    @OneToMany(mappedBy="answer")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="answer", orphanRemoval = true)
     private List<Comment> comment;
 
     public Long getId() {
