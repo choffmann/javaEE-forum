@@ -88,7 +88,68 @@ public class CommentService {
         if (answer == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The answer was not found").build());
-        return CommentDto.fromModel(commentDao.getByIdFromAnswer(answerID, commentId));
+        return CommentDto.fromModel(commentDao.getByIdFromAnswer(answer.getId(), commentId));
+    }
+
+    @POST
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public CommentDto updateComment(@PathParam("id") long commentId, @QueryParam("creator") Long creatorID, CommentDto commentDto){
+        Answer answer = answerDao.getByIdFromThread(threadId, answerID);
+        if (answer == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("The answer was not found").build());
+        Creator creator = creatorDao.getById(creatorID);
+        if (creator == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
+
+        Comment comment = commentDao.getByIdFromAnswer(answer.getId(), commentId);
+
+        if (comment == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("The comment was not found").build());
+
+        if (!creator.isAdmin() || comment.getCreator().getId().equals(creatorID))
+            throw new WebApplicationException(
+                    Response.status(401).entity("You are not permitted to do that").build());
+
+        if (commentDto.getText() != null)
+            comment.setText(commentDto.getText());
+
+        comment.setModifiedAt(Calendar.getInstance().getTime());
+
+        commentDao.updateElement(comment);
+        return CommentDto.fromModel(comment);
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CommentDto deleteComment(@PathParam("id") long commentId, @QueryParam("creator") Long creatorID, CommentDto commentDto){
+        Answer answer = answerDao.getByIdFromThread(threadId, answerID);
+        if (answer == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("The answer was not found").build());
+        Creator creator = creatorDao.getById(creatorID);
+        if (creator == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
+
+        Comment comment = commentDao.getByIdFromAnswer(answer.getId(), commentId);
+
+        if (comment == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("The comment was not found").build());
+
+        if (!creator.isAdmin())
+            throw new WebApplicationException(
+                    Response.status(401).entity("You are not permitted to do that").build());
+
+        CommentDto resp = CommentDto.fromModel(comment);
+        commentDao.removeElement(comment);
+        return resp;
     }
 
 }
