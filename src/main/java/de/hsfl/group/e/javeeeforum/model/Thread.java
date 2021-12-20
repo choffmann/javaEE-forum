@@ -35,7 +35,7 @@ public class Thread implements Serializable {
     )
     private List<Category> categories;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch=FetchType.LAZY)
     @JoinColumn(name="creator_id", nullable = false, updatable = false)
     private Creator creator;
 
