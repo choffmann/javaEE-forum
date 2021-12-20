@@ -100,4 +100,35 @@ public class ThreadService {
         return ThreadDto.fromModel(threadDao.getById(id));
     }
 
+    @PUT
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ThreadDto updateThread(@PathParam("id") long id, @QueryParam("creator") Long creatorID, ThreadDto threadDto) {
+        Creator creator = creatorDao.getById(creatorID);
+        if (creator == null)
+            throw new WebApplicationException(
+                    Response.status(500).entity("The user was not found").build());
+        Thread thread = threadDao.getById(id);
+
+        if (thread == null)
+            throw new WebApplicationException(
+                    Response.status(500).entity("The thread was not found").build());
+
+        if (!creator.isAdmin() || thread.getCreator().getId().equals(creatorID))
+            throw new WebApplicationException(
+                    Response.status(401).entity("You are not permitted to do that").build());
+
+        if (threadDto.getTitle() != null)
+            thread.setTitle(threadDto.getTitle());
+
+        if (threadDto.getText() != null)
+            thread.setText(threadDto.getText());
+
+        thread.setModifiedAt(Calendar.getInstance().getTime());
+
+        threadDao.updateElement(thread);
+        return ThreadDto.fromModel(thread);
+    }
+
 }
