@@ -21,11 +21,13 @@ public class Answer implements Serializable {
     private String text;
     private int score;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch=FetchType.LAZY)
+    @JoinColumn(name="creator_id", nullable = false, updatable = false)
     private Creator creator;
-    @ManyToOne
+    @ManyToOne(optional = false, fetch=FetchType.LAZY)
+    @JoinColumn(name="thread_id", nullable = false, updatable = false)
     private Thread thread;
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="answer", orphanRemoval = true)
     private List<Comment> comment;
 
     public Long getId() {

@@ -1,5 +1,7 @@
 package de.hsfl.group.e.javeeeforum.dto;
 
+import de.hsfl.group.e.javeeeforum.model.Creator;
+
 import java.util.List;
 
 public class CreatorDto {
@@ -14,7 +16,8 @@ public class CreatorDto {
     private List<AnswerDto> answers;
     private List<ThreadDto> threads;
 
-    public CreatorDto() {}
+    public CreatorDto() {
+    }
 
     public CreatorDto(Long id, String username, String email, String password, boolean isAdmin, int score) {
         this.id = id;
@@ -23,6 +26,10 @@ public class CreatorDto {
         this.password = password;
         this.isAdmin = isAdmin;
         this.score = score;
+    }
+
+    public static CreatorDto fromModel(Creator model) {
+        return new CreatorDto(model.getId(), model.getUsername(), model.getEmail(), model.getPassword(), model.isAdmin(), model.getScore());
     }
 
     public Long getId() {

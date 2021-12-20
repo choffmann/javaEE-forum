@@ -19,9 +19,11 @@ public class Comment implements Serializable {
     private Date modifiedAt;
     private String text;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch=FetchType.LAZY)
+    @JoinColumn(name="creator_id", nullable = false, updatable = false)
     private Creator creator;
-    @ManyToOne
+    @ManyToOne(optional = false, fetch=FetchType.LAZY)
+    @JoinColumn(name="answer_id", nullable = false, updatable = false)
     private Answer answer;
 
     public Long getId() {

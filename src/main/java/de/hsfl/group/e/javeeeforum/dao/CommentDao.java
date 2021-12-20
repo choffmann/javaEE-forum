@@ -2,10 +2,12 @@ package de.hsfl.group.e.javeeeforum.dao;
 
 import de.hsfl.group.e.javeeeforum.model.Comment;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.*;
 import java.util.List;
 import java.util.function.Consumer;
 
+@ApplicationScoped
 public class CommentDao implements Dao<Comment> {
 
     private EntityManager manager;
@@ -19,6 +21,16 @@ public class CommentDao implements Dao<Comment> {
     public List<Comment> getAll() {
         Query query = manager.createQuery("SELECT e FROM Comment e", Comment.class);
         return query.getResultList();
+    }
+
+    public List<Comment> getAllFromAnswer(Long answerId) {
+        Query query = manager.createQuery("SELECT e FROM Comment e WHERE e.answer.id = " + answerId, Comment.class);
+        return query.getResultList();
+    }
+
+    public Comment getByIdFromAnswer(Long answerId, Long commentId) {
+        Query query = manager.createQuery("SELECT e FROM Comment e WHERE e.answer.id = " + answerId + " AND e.id = " + commentId, Comment.class);
+        return (Comment) query.getSingleResult();
     }
 
     @Override

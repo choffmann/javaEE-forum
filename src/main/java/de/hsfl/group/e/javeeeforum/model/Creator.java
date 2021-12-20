@@ -20,13 +20,13 @@ public class Creator implements Serializable {
     private boolean isAdmin;
     private int score;
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="creator", orphanRemoval = true)
     private List<Comment> comment;
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="creator", orphanRemoval = true)
     private List<Answer> answers;
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="creator", orphanRemoval = true)
     private List<Thread> thread;
 
     public Long getId() {

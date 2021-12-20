@@ -1,11 +1,14 @@
 package de.hsfl.group.e.javeeeforum.dao;
 
 import de.hsfl.group.e.javeeeforum.model.Answer;
+import de.hsfl.group.e.javeeeforum.model.Thread;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.*;
 import java.util.List;
 import java.util.function.Consumer;
 
+@ApplicationScoped
 public class AnswerDao implements Dao<Answer> {
 
     private EntityManager manager;
@@ -19,6 +22,16 @@ public class AnswerDao implements Dao<Answer> {
     public List<Answer> getAll() {
         Query query = manager.createQuery("SELECT e FROM Answer e", Answer.class);
         return query.getResultList();
+    }
+
+    public List<Answer> getAllFromThread(Thread thread) {
+        Query query = manager.createQuery("SELECT e FROM Answer e WHERE e.thread.id = " + thread.getId(), Answer.class);
+        return query.getResultList();
+    }
+
+    public Answer getByIdFromThread(long threadId, long id) {
+        Query query = manager.createQuery("SELECT e FROM Answer e WHERE e.thread.id = " + threadId + " AND e.id = " + id, Answer.class);
+        return (Answer) query.getSingleResult();
     }
 
     @Override
