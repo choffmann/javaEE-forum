@@ -1,6 +1,11 @@
 package de.hsfl.group.e.javeeeforum.dto;
 
+import de.hsfl.group.e.javeeeforum.model.Comment;
+import de.hsfl.group.e.javeeeforum.model.Thread;
+
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CommentDto {
     private Long id;
@@ -11,13 +16,28 @@ public class CommentDto {
     private CreatorDto creatorDto;
     private AnswerDto answer;
 
-    public CommentDto() {}
+    public CommentDto() {
+    }
 
     public CommentDto(Long id, Date createdAt, Date modifiedAt, String text) {
         this.id = id;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
         this.text = text;
+    }
+
+    public static CommentDto fromModel(Comment model) {
+        CommentDto dto = new CommentDto(model.getId(), model.getCreatedAt(), model.getModifiedAt(), model.getText());
+        dto.setCreatorDto(CreatorDto.fromModel(model.getCreator()));
+        return dto;
+    }
+
+    public static List<CommentDto> fromModelList(List<Comment> modelList) {
+        List<CommentDto> dtoList = new LinkedList<>();
+        for (Comment model: modelList) {
+            dtoList.add(fromModel(model));
+        }
+        return dtoList;
     }
 
     public Long getId() {

@@ -1,8 +1,9 @@
 package de.hsfl.group.e.javeeeforum.dto;
 
-import de.hsfl.group.e.javeeeforum.model.Tag;
+import de.hsfl.group.e.javeeeforum.model.Thread;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ThreadDto {
@@ -17,7 +18,8 @@ public class ThreadDto {
     private List<AnswerDto> answers;
     private CreatorDto creator;
 
-    public ThreadDto() {}
+    public ThreadDto() {
+    }
 
     public ThreadDto(Long id, String title, Date createdAt, Date modifiedAt, String text) {
         this.id = id;
@@ -25,6 +27,26 @@ public class ThreadDto {
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
         this.text = text;
+    }
+
+    public static ThreadDto fromModel(Thread model) {
+        ThreadDto dto = new ThreadDto(model.getId(), model.getTitle(), model.getCreatedAt(), model.getModifiedAt(), model.getText());
+        dto.setCreator(CreatorDto.fromModel(model.getCreator()));
+
+        dto.setCategories(CategoryDto.fromModelList(model.getCategories()));
+
+        dto.setTags(TagDto.fromModelList(model.getTags()));
+
+        dto.setAnswers(AnswerDto.fromModelList(model.getAnswer()));
+        return dto;
+    }
+
+    public static List<ThreadDto> fromModelList(List<Thread> modelList) {
+        List<ThreadDto> dtoList = new LinkedList<>();
+        for (Thread model : modelList) {
+            dtoList.add(fromModel(model));
+        }
+        return dtoList;
     }
 
     public Long getId() {
