@@ -8,8 +8,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import de.hsfl.group.e.javeeeforum.dao.*;
-import de.hsfl.group.e.javeeeforum.dto.CategoryDto;
-import de.hsfl.group.e.javeeeforum.dto.TagDto;
 import de.hsfl.group.e.javeeeforum.dto.ThreadDto;
 import de.hsfl.group.e.javeeeforum.model.Category;
 import de.hsfl.group.e.javeeeforum.model.Creator;
@@ -37,6 +35,31 @@ public class ThreadService {
     @Inject
     TagDao tagDao;
 
+    private List<Category> getCategoryList (List<Long> categoryIds) {
+        List<Category> categories = new LinkedList<>();
+        for (Long categoryID : categoryIds) {
+            Category category = categoryDao.getById(categoryID);
+            if (category == null)
+                throw new WebApplicationException(
+                        Response.status(500).entity("The category was not found").build());
+            categories.add(category);
+        }
+        return categories;
+    }
+
+    private List<Tag> getTagList (List<String> tagStrings) {
+        List<Tag> tags = new LinkedList<>();
+        for (String tagString : tagStrings) {
+            if (tagString != null) {
+                Tag tag = new Tag();
+                tag.setTag(tagString);
+                tagDao.addElement(tag);
+                tags.add(tag);
+            }
+        }
+        return tags;
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<ThreadDto> getAll(@QueryParam("category") Long categoryID, @QueryParam("creator") Long creatorID) {
@@ -59,31 +82,12 @@ public class ThreadService {
             throw new WebApplicationException(
                     Response.status(500).entity("The user was not found").build());
 
-        List<Category> categories = new LinkedList<>();
-        for (CategoryDto cdto : threadDto.getCategories()) {
-            Category category = categoryDao.getById(cdto.getId());
-            if (category == null)
-                throw new WebApplicationException(
-                        Response.status(500).entity("The category was not found").build());
-            categories.add(category);
-        }
-
-        List<Tag> tags = new LinkedList<>();
-        for (TagDto tdto : threadDto.getTags()) {
-            if (tdto.getTag() != null) {
-                Tag tag = new Tag();
-                tag.setTag(tdto.getTag());
-                tagDao.addElement(tag);
-                tags.add(tag);
-            }
-        }
-
         Thread thread = new Thread();
         thread.setCreator(creator);
         thread.setTitle(threadDto.getTitle());
         thread.setText(threadDto.getText());
-        thread.setCategories(categories);
-        thread.setTags(tags);
+        thread.setCategories(getCategoryList(threadDto.getCategories()));
+        thread.setTags(getTagList(threadDto.getTags()));
         thread.setCreatedAt(Calendar.getInstance().getTime());
         thread.setModifiedAt(Calendar.getInstance().getTime());
 
@@ -124,6 +128,12 @@ public class ThreadService {
 
         if (threadDto.getText() != null)
             thread.setText(threadDto.getText());
+
+        if (threadDto.getCategories() != null)
+            thread.setCategories(getCategoryList(threadDto.getCategories()));
+
+        if (thread.getTags() != null)
+            thread.setTags(thread.getTags());
 
         thread.setModifiedAt(Calendar.getInstance().getTime());
 

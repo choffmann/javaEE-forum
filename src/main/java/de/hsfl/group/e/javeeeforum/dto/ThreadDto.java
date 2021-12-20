@@ -1,5 +1,8 @@
 package de.hsfl.group.e.javeeeforum.dto;
 
+import de.hsfl.group.e.javeeeforum.model.Answer;
+import de.hsfl.group.e.javeeeforum.model.Category;
+import de.hsfl.group.e.javeeeforum.model.Tag;
 import de.hsfl.group.e.javeeeforum.model.Thread;
 
 import java.util.Date;
@@ -13,9 +16,9 @@ public class ThreadDto {
     private Date modifiedAt;
     private String text;
 
-    private List<TagDto> tags;
-    private List<CategoryDto> categories;
-    private List<AnswerDto> answers;
+    private List<String> tags;
+    private List<Long> categories;
+    private List<Long> answers;
     private CreatorDto creator;
 
     public ThreadDto() {
@@ -33,11 +36,23 @@ public class ThreadDto {
         ThreadDto dto = new ThreadDto(model.getId(), model.getTitle(), model.getCreatedAt(), model.getModifiedAt(), model.getText());
         dto.setCreator(CreatorDto.fromModel(model.getCreator()));
 
-        dto.setCategories(CategoryDto.fromModelList(model.getCategories()));
+        List<Long> categories = new LinkedList<>();
+        for (Category category : model.getCategories())
+            categories.add(category.getId());
 
-        dto.setTags(TagDto.fromModelList(model.getTags()));
+        dto.setCategories(categories);
 
-        dto.setAnswers(AnswerDto.fromModelList(model.getAnswer()));
+        List<String> tags = new LinkedList<>();
+        for (Tag tag : model.getTags())
+            tags.add(tag.getTag());
+
+        dto.setTags(tags);
+
+        List<Long> answers = new LinkedList<>();
+        for (Answer answer : model.getAnswer())
+            answers.add(answer.getId());
+
+        dto.setAnswers(answers);
         return dto;
     }
 
@@ -89,27 +104,27 @@ public class ThreadDto {
         this.text = text;
     }
 
-    public List<TagDto> getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(List<TagDto> tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 
-    public List<CategoryDto> getCategories() {
+    public List<Long> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<CategoryDto> categories) {
+    public void setCategories(List<Long> categories) {
         this.categories = categories;
     }
 
-    public List<AnswerDto> getAnswers() {
+    public List<Long> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<AnswerDto> answers) {
+    public void setAnswers(List<Long> answers) {
         this.answers = answers;
     }
 
