@@ -51,13 +51,6 @@ public class ThreadService {
         return ThreadDto.fromModelList(threads);
     }
 
-    @GET
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public ThreadDto getThread(@PathParam("id") long id) {
-        return ThreadDto.fromModel(threadDao.getById(id));
-    }
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createThread(ThreadDto threadDto, @QueryParam("creator") Long creatorID) {
@@ -98,6 +91,13 @@ public class ThreadService {
         URI location = uriInfo.getAbsolutePathBuilder()
                 .path("" + thread.getId()).build();
         return Response.created(location).build();
+    }
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ThreadDto getThread(@PathParam("id") long id) {
+        return ThreadDto.fromModel(threadDao.getById(id));
     }
 
 }
