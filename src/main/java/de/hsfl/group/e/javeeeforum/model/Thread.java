@@ -35,10 +35,11 @@ public class Thread implements Serializable {
     )
     private List<Category> categories;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(name="creator_id", nullable = false, updatable = false)
     private Creator creator;
 
-    @OneToMany
+    @OneToMany(mappedBy="thread")
     private List<Answer> answer;
 
     public Long getId() {

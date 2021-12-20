@@ -20,13 +20,13 @@ public class Creator implements Serializable {
     private boolean isAdmin;
     private int score;
 
-    @OneToMany
+    @OneToMany(mappedBy="creator")
     private List<Comment> comment;
 
-    @OneToMany
+    @OneToMany(mappedBy="creator")
     private List<Answer> answers;
 
-    @OneToMany
+    @OneToMany(mappedBy="creator")
     private List<Thread> thread;
 
     public Long getId() {
