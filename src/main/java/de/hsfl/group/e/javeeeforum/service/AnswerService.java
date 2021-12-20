@@ -85,4 +85,66 @@ public class AnswerService {
         return AnswerDto.fromModel(answerDao.getByIdFromThread(thread, answerId));
     }
 
+    @PUT
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public AnswerDto updateAnswer(@PathParam("id") long answerId, @QueryParam("creator") Long creatorID, AnswerDto answerDto) {
+        Thread thread = threadDao.getById(threadId);
+        if (thread == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("The thread was not found").build());
+
+        Creator creator = creatorDao.getById(creatorID);
+        if (creator == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
+
+        Answer answer = answerDao.getByIdFromThread(thread, answerId);
+
+        if (answer == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("The answer was not found").build());
+
+        if (!creator.isAdmin() || answer.getCreator().getId().equals(creatorID))
+            throw new WebApplicationException(
+                    Response.status(401).entity("You are not permitted to do that").build());
+
+        if (answerDto.getText() != null)
+            answer.setText(answerDto.getText());
+
+        answer.setModifiedAt(Calendar.getInstance().getTime());
+
+        answerDao.updateElement(answer);
+        return AnswerDto.fromModel(answer);
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public AnswerDto deleteAnswer(@PathParam("id") long answerId, @QueryParam("creator") Long creatorID) {
+        Thread thread = threadDao.getById(threadId);
+        if (thread == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("The thread was not found").build());
+
+        Creator creator = creatorDao.getById(creatorID);
+        if (creator == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
+
+        Answer answer = answerDao.getByIdFromThread(thread, answerId);
+
+        if (answer == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("The answer was not found").build());
+
+        if (!creator.isAdmin())
+            throw new WebApplicationException(
+                    Response.status(401).entity("You are not permitted to do that").build());
+
+        AnswerDto resp = AnswerDto.fromModel(answer);
+        answerDao.removeElement(answer);
+        return resp;
+    }
 }

@@ -146,7 +146,7 @@ public class ThreadService {
     @Produces(MediaType.APPLICATION_JSON)
     public ThreadDto deleteThread(@PathParam("id") long id, @QueryParam("creator") Long creatorID) {
         Creator creator = creatorDao.getById(creatorID);
-        if (creator == null)
+        if (creator == null || !creator.isAdmin())
             throw new WebApplicationException(
                     Response.status(401).entity("Not authenticated").build());
         Thread thread = threadDao.getById(id);
