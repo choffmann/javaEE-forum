@@ -1,6 +1,7 @@
 package de.hsfl.group.e.javeeeforum.dao;
 
 import de.hsfl.group.e.javeeeforum.model.Answer;
+import de.hsfl.group.e.javeeeforum.model.Thread;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.*;
@@ -20,6 +21,11 @@ public class AnswerDao implements Dao<Answer> {
     @Override
     public List<Answer> getAll() {
         Query query = manager.createQuery("SELECT e FROM Answer e", Answer.class);
+        return query.getResultList();
+    }
+
+    public List<Answer> getAllFromThread(Thread thread) {
+        Query query = manager.createQuery("SELECT e FROM Answer e WHERE e.thread = " + thread, Answer.class);
         return query.getResultList();
     }
 
