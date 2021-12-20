@@ -29,8 +29,8 @@ public class AnswerDao implements Dao<Answer> {
         return query.getResultList();
     }
 
-    public Answer getByIdFromThread(Thread thread, long id) {
-        Query query = manager.createQuery("SELECT e FROM Answer e WHERE e.thread.id = " + thread.getId() + " AND e.id = " + id, Answer.class);
+    public Answer getByIdFromThread(long threadId, long id) {
+        Query query = manager.createQuery("SELECT e FROM Answer e WHERE e.thread.id = " + threadId + " AND e.id = " + id, Answer.class);
         return (Answer) query.getSingleResult();
     }
 

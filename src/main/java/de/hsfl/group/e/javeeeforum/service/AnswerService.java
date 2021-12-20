@@ -82,7 +82,7 @@ public class AnswerService {
         if (thread == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The thread was not found").build());
-        return AnswerDto.fromModel(answerDao.getByIdFromThread(thread, answerId));
+        return AnswerDto.fromModel(answerDao.getByIdFromThread(thread.getId(), answerId));
     }
 
     @PUT
@@ -100,7 +100,7 @@ public class AnswerService {
             throw new WebApplicationException(
                     Response.status(401).entity("Not authenticated").build());
 
-        Answer answer = answerDao.getByIdFromThread(thread, answerId);
+        Answer answer = answerDao.getByIdFromThread(thread.getId(), answerId);
 
         if (answer == null)
             throw new WebApplicationException(
@@ -133,7 +133,7 @@ public class AnswerService {
             throw new WebApplicationException(
                     Response.status(401).entity("Not authenticated").build());
 
-        Answer answer = answerDao.getByIdFromThread(thread, answerId);
+        Answer answer = answerDao.getByIdFromThread(thread.getId(), answerId);
 
         if (answer == null)
             throw new WebApplicationException(
