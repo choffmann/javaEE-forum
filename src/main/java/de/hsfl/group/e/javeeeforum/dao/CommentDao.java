@@ -23,6 +23,16 @@ public class CommentDao implements Dao<Comment> {
         return query.getResultList();
     }
 
+    public List<Comment> getAllFromAnswer(Long answerId) {
+        Query query = manager.createQuery("SELECT e FROM Comment e WHERE e.answer.id = " + answerId, Comment.class);
+        return query.getResultList();
+    }
+
+    public Comment getByIdFromAnswer(Long answerId, Long commentId) {
+        Query query = manager.createQuery("SELECT e FROM Comment e WHERE e.answer.id = " + answerId + " AND e.id = " + commentId, Comment.class);
+        return (Comment) query.getSingleResult();
+    }
+
     @Override
     public List<Comment> getListByQuery(Query query) {
         return query.getResultList();
