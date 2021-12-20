@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 public class ThreadDao implements Dao<Thread> {
 
-    private EntityManager manager;
+    private final EntityManager manager;
 
     public ThreadDao() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("javaEE-forum");
@@ -18,6 +18,16 @@ public class ThreadDao implements Dao<Thread> {
     @Override
     public List<Thread> getAll() {
         Query query = manager.createQuery("SELECT e FROM Thread e", Thread.class);
+        return query.getResultList();
+    }
+
+    public List<Thread> getAllByCategory(long id) {
+        Query query = manager.createQuery("SELECT e FROM Thread e INNER JOIN e.categories d WHERE d.id = " + id, Thread.class);
+        return query.getResultList();
+    }
+
+    public List<Thread> getAllByCreator(long id) {
+        Query query = manager.createQuery("SELECT e FROM Thread e INNER JOIN e.creator d WHERE d.id = " + id, Thread.class);
         return query.getResultList();
     }
 
