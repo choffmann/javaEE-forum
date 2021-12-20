@@ -2,10 +2,12 @@ package de.hsfl.group.e.javeeeforum.dao;
 
 import de.hsfl.group.e.javeeeforum.model.Answer;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.*;
 import java.util.List;
 import java.util.function.Consumer;
 
+@ApplicationScoped
 public class AnswerDao implements Dao<Answer> {
 
     private EntityManager manager;

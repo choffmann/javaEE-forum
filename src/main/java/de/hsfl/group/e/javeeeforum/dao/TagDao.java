@@ -2,10 +2,12 @@ package de.hsfl.group.e.javeeeforum.dao;
 
 import de.hsfl.group.e.javeeeforum.model.Tag;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.*;
 import java.util.List;
 import java.util.function.Consumer;
 
+@ApplicationScoped
 public class TagDao implements Dao<Tag> {
 
     private EntityManager manager;
