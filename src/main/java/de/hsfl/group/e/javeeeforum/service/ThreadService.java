@@ -41,7 +41,7 @@ public class ThreadService {
             Category category = categoryDao.getById(categoryID);
             if (category == null)
                 throw new WebApplicationException(
-                        Response.status(500).entity("The category was not found").build());
+                        Response.status(404).entity("The category was not found").build());
             categories.add(category);
         }
         return categories;
@@ -80,7 +80,7 @@ public class ThreadService {
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
-                    Response.status(500).entity("The user was not found").build());
+                    Response.status(404).entity("Not authenticated").build());
 
         Thread thread = new Thread();
         thread.setCreator(creator);
@@ -112,12 +112,12 @@ public class ThreadService {
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
-                    Response.status(500).entity("The user was not found").build());
+                    Response.status(401).entity("Not authenticated").build());
         Thread thread = threadDao.getById(id);
 
         if (thread == null)
             throw new WebApplicationException(
-                    Response.status(500).entity("The thread was not found").build());
+                    Response.status(404).entity("The thread was not found").build());
 
         if (!creator.isAdmin() || thread.getCreator().getId().equals(creatorID))
             throw new WebApplicationException(
@@ -141,4 +141,21 @@ public class ThreadService {
         return ThreadDto.fromModel(thread);
     }
 
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ThreadDto deleteThread(@PathParam("id") long id, @QueryParam("creator") Long creatorID) {
+        Creator creator = creatorDao.getById(creatorID);
+        if (creator == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
+        Thread thread = threadDao.getById(id);
+
+        if (thread == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("The thread was not found").build());
+        ThreadDto resp = ThreadDto.fromModel(thread);
+        threadDao.removeElement(thread);
+        return resp;
+    }
 }
