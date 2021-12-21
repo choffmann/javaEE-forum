@@ -15,11 +15,14 @@ public class Thread implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    private String text;
+
     @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date createdAt;
     @Column(name = "modified_at")
+    @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date modifiedAt;
-    private String text;
 
     @ManyToMany
     @JoinTable(

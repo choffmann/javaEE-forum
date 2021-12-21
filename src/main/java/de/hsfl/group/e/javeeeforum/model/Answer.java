@@ -14,12 +14,15 @@ public class Answer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "created_at")
-    private Date createdAt;
-    @Column(name = "modified_at")
-    private Date modifiedAt;
     private String text;
     private int score;
+
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date createdAt;
+    @Column(name = "modified_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date modifiedAt;
 
     @ManyToOne(optional = false, fetch=FetchType.LAZY)
     @JoinColumn(name="creator_id", nullable = false, updatable = false)
