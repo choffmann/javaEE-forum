@@ -2,6 +2,7 @@ package de.hsfl.group.e.javeeeforum.dto;
 
 import de.hsfl.group.e.javeeeforum.model.Creator;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class CreatorDto {
@@ -30,6 +31,13 @@ public class CreatorDto {
 
     public static CreatorDto fromModel(Creator model) {
         return new CreatorDto(model.getId(), model.getUsername(), model.getEmail(), model.getPassword(), model.isAdmin(), model.getScore());
+    }
+
+    public static List<CreatorDto> fromModelList(List<Creator> modelList){
+        List<CreatorDto> dtoList = new LinkedList<>();
+        for(Creator model : modelList)
+            dtoList.add(CreatorDto.fromModel(model));
+        return dtoList;
     }
 
     public Long getId() {
