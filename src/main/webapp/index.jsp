@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -11,6 +12,7 @@
     <!-- Wird für JS Bootstrap benötigt, was ich für die Bootstrap Modal benötige -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <!--<script type="text/javascript" src="js/load.js"></script>-->
+
 </head>
 <!-- TODO: Bei nicht eingeloggtem Zustand soll zu login.jsp gewechselt werden -->
 <!-- Navigationsleiste -->
@@ -81,26 +83,43 @@
     </div>
     <!-- table für die Threads -->
     <div id="threads">
-    <!-- Beispieldaten -->
-    <div class="row p-2 border border-primary rounded highlight">
-        <h4 class="mb-0 mt-0">[Titel] Beispieltitel der dazu da ist zu gucken, wie das ganze dann aussehen wird!</h4>
-        <p class="pl-4 pt-1">Beitrag von [NAME], erstellt am [DATUM]</p>
-        <div class="p-2 d-flex justify-content-between rounded">
-            Hier kommt dann der Text rein, der toll gemacht ist und so.Hier kommt dann der Text rein, der toll gemacht
-            ist und so.Hier kommt dann der Text rein, der toll gemacht ist und so.
+        <!-- Beispieldaten -->
+        <div class="row p-2 border border-primary rounded highlight">
+            <h4 class="mb-0 mt-0">[Titel] Beispieltitel der dazu da ist zu gucken, wie das ganze dann aussehen
+                wird!</h4>
+            <p class="pl-4 pt-1">Beitrag von [NAME], erstellt am [DATUM]</p>
+            <div class="p-2 d-flex justify-content-between rounded">
+                Hier kommt dann der Text rein, der toll gemacht ist und so.Hier kommt dann der Text rein, der toll
+                gemacht
+                ist und so.Hier kommt dann der Text rein, der toll gemacht ist und so.
+            </div>
+            <div>17 Kommentare</div>
         </div>
-        <div>17 Kommentare</div>
-    </div>
-    <hr>
-    <div class="row p-2 border border-primary rounded highlight">
-        <h4 class="mb-0 mt-0">[Titel] Beispieltitel der dazu da ist zu gucken, wie das ganze dann aussehen wird!</h4>
-        <p class="pl-4 pt-1">Beitrag von [NAME], erstellt am [DATUM]</p>
-        <div class="p-2 d-flex justify-content-between rounded">
-            Hier kommt dann der Text rein, der toll gemacht ist und so.Hier kommt dann der Text rein, der toll gemacht
-            ist und so.Hier kommt dann der Text rein, der toll gemacht ist und so.
+        <hr>
+        <div class="row p-2 border border-primary rounded highlight">
+            <h4 class="mb-0 mt-0">[Titel] Beispieltitel der dazu da ist zu gucken, wie das ganze dann aussehen
+                wird!</h4>
+            <p class="pl-4 pt-1">Beitrag von [NAME], erstellt am [DATUM]</p>
+            <div class="p-2 d-flex justify-content-between rounded">
+                Hier kommt dann der Text rein, der toll gemacht ist und so.Hier kommt dann der Text rein, der toll
+                gemacht
+                ist und so.Hier kommt dann der Text rein, der toll gemacht ist und so.
+            </div>
+            <div>17 Kommentare</div>
         </div>
-        <div>17 Kommentare</div>
-    </div>
+            <c:forEach items="${threads}" var="thread">
+                <tr>
+                    <div class="row p-2 border border-primary rounded highlight">
+                        <h4 class="mb-0 mt-0">${thread.title}</h4>
+                        <p class="pl-4 pt-1">Beitrag von ${thread.creator}, erstellt am ${thread.createdAt}</p>
+                        <div class="p-2 d-flex justify-content-between rounded">
+                                ${thread.text}
+                        </div>
+                        <div>${thread.answers.size()}</div>
+                    </div>
+                    <hr>
+                </tr>
+            </c:forEach>
     </div>
     <a href="hello-servlet">Hello Servlet</a>
 </div>

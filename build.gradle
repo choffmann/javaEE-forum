@@ -27,6 +27,7 @@ dependencies {
     compileOnly('javax.json:javax.json-api:1.1.4')
     compileOnly('javax.ws.rs:javax.ws.rs-api:2.1.1')
     compileOnly('javax.servlet:javax.servlet-api:4.0.1')
+    compileOnly('javax.servlet:jstl:1.2')
     implementation('org.eclipse.persistence:eclipselink:2.7.9')
 
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
