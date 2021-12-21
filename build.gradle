@@ -29,7 +29,7 @@ dependencies {
     compileOnly('javax.servlet:javax.servlet-api:4.0.1')
     compileOnly('javax.servlet:jstl:1.2')
     implementation('org.eclipse.persistence:eclipselink:2.7.9')
-
+    implementation("org.glassfish.jersey.core:jersey-client:2.30.1")
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
     implementation 'org.postgresql:postgresql:42.2.1'
 
