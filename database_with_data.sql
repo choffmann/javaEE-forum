@@ -28,8 +28,8 @@ CREATE TABLE public.answer (
     id integer NOT NULL,
     thread_id integer,
     creator_id integer,
-    created_at date DEFAULT CURRENT_DATE NOT NULL,
-    modified_at date,
+    created_at timestamp without time zone DEFAULT CURRENT_DATE NOT NULL,
+    modified_at timestamp without time zone,
     text text NOT NULL,
     score integer DEFAULT 0
 );
@@ -101,8 +101,8 @@ CREATE TABLE public.comment (
     id integer NOT NULL,
     answer_id integer,
     creator_id integer,
-    created_at date DEFAULT CURRENT_DATE NOT NULL,
-    modified_at date,
+    created_at timestamp without time zone DEFAULT CURRENT_DATE NOT NULL,
+    modified_at timestamp without time zone,
     text text NOT NULL
 );
 
@@ -211,8 +211,8 @@ CREATE TABLE public.thread (
     id integer NOT NULL,
     creator_id integer,
     title text NOT NULL,
-    created_at date DEFAULT CURRENT_DATE NOT NULL,
-    modified_at date,
+    created_at timestamp without time zone DEFAULT CURRENT_DATE NOT NULL,
+    modified_at timestamp without time zone,
     text text NOT NULL
 );
 
@@ -312,8 +312,8 @@ ALTER TABLE ONLY public.thread ALTER COLUMN id SET DEFAULT nextval('public.threa
 --
 
 COPY public.answer (id, thread_id, creator_id, created_at, modified_at, text, score) FROM stdin;
-6	1	1	2021-12-19	\N	A answer to a Thread, maybe this is a helpful answer??	-9
-7	1	2	2021-12-19	\N	Another answer to a Thread, hopefully this is a more helpful answer??	10
+10	12	5	2021-12-21 14:31:29.135	2021-12-21 14:33:13.802	A answer to a Thread, maybe this is a helpful answer??	10
+11	12	6	2021-12-21 14:31:29.135	2021-12-21 14:33:13.803	Another answer to a Thread, hopefully this is a more helpful answer??	-9
 \.
 
 
@@ -322,11 +322,11 @@ COPY public.answer (id, thread_id, creator_id, created_at, modified_at, text, sc
 --
 
 COPY public.category (id, text) FROM stdin;
-1	Category #1
-2	Category #4
-3	Category #3
-4	Category #2
-5	Category #0
+16	Category #0
+17	Category #1
+18	Category #2
+19	Category #3
+20	Category #4
 \.
 
 
@@ -335,8 +335,8 @@ COPY public.category (id, text) FROM stdin;
 --
 
 COPY public.comment (id, answer_id, creator_id, created_at, modified_at, text) FROM stdin;
-3	6	1	2021-12-19	\N	This answer is bullshit!
-4	7	2	2021-12-19	\N	This answer was helpful!
+7	10	5	2021-12-21 14:32:19.8	\N	This answer was helpful!
+8	11	6	2021-12-21 14:32:19.8	\N	This answer is bullshit!
 \.
 
 
@@ -345,8 +345,8 @@ COPY public.comment (id, answer_id, creator_id, created_at, modified_at, text) F
 --
 
 COPY public.creator (id, username, email, password, is_admin, score) FROM stdin;
-1	choffmann	cedrik.hoffmann@stud.hs-flensburg.de	secret_password!	t	10
-2	mustermann	max.mustermann@stud.hs-flensburg.de	password!	f	0
+5	choffmann	cedrik.hoffmann@stud.hs-flensburg.de	secret_password!	t	10
+6	mustermann	max.mustermann@stud.hs-flensburg.de	password!	f	0
 \.
 
 
@@ -355,11 +355,11 @@ COPY public.creator (id, username, email, password, is_admin, score) FROM stdin;
 --
 
 COPY public.tag (id, tag) FROM stdin;
-1	Tag #3
-2	Tag #0
-3	Tag #1
-4	Tag #2
-5	Tag #4
+16	Tag #0
+17	Tag #1
+18	Tag #2
+19	Tag #3
+20	Tag #4
 \.
 
 
@@ -368,7 +368,7 @@ COPY public.tag (id, tag) FROM stdin;
 --
 
 COPY public.thread (id, creator_id, title, created_at, modified_at, text) FROM stdin;
-1	1	Thread #1	2021-12-19	\N	Demo Thread to test function
+12	5	Thread #1	2021-12-21 14:30:30.152	\N	Demo Thread to test function
 \.
 
 
@@ -377,8 +377,8 @@ COPY public.thread (id, creator_id, title, created_at, modified_at, text) FROM s
 --
 
 COPY public.thread_category (thread_id, category_id) FROM stdin;
-1	3
-1	2
+12	17
+12	19
 \.
 
 
@@ -387,8 +387,8 @@ COPY public.thread_category (thread_id, category_id) FROM stdin;
 --
 
 COPY public.thread_tag (thread_id, tag_id) FROM stdin;
-1	3
-1	1
+12	18
+12	19
 \.
 
 
@@ -396,42 +396,42 @@ COPY public.thread_tag (thread_id, tag_id) FROM stdin;
 -- Name: answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.answer_id_seq', 7, true);
+SELECT pg_catalog.setval('public.answer_id_seq', 11, true);
 
 
 --
 -- Name: category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.category_id_seq', 10, true);
+SELECT pg_catalog.setval('public.category_id_seq', 20, true);
 
 
 --
 -- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.comment_id_seq', 4, true);
+SELECT pg_catalog.setval('public.comment_id_seq', 8, true);
 
 
 --
 -- Name: creator_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.creator_id_seq', 2, true);
+SELECT pg_catalog.setval('public.creator_id_seq', 6, true);
 
 
 --
 -- Name: tag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.tag_id_seq', 5, true);
+SELECT pg_catalog.setval('public.tag_id_seq', 20, true);
 
 
 --
 -- Name: thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.thread_id_seq', 1, true);
+SELECT pg_catalog.setval('public.thread_id_seq', 12, true);
 
 
 --

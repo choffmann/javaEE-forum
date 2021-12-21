@@ -28,8 +28,8 @@ CREATE TABLE public.answer (
     id integer NOT NULL,
     thread_id integer,
     creator_id integer,
-    created_at date DEFAULT CURRENT_DATE NOT NULL,
-    modified_at date,
+    created_at timestamp without time zone DEFAULT CURRENT_DATE NOT NULL,
+    modified_at timestamp without time zone,
     text text NOT NULL,
     score integer DEFAULT 0
 );
@@ -101,8 +101,8 @@ CREATE TABLE public.comment (
     id integer NOT NULL,
     answer_id integer,
     creator_id integer,
-    created_at date DEFAULT CURRENT_DATE NOT NULL,
-    modified_at date,
+    created_at timestamp without time zone DEFAULT CURRENT_DATE NOT NULL,
+    modified_at timestamp without time zone,
     text text NOT NULL
 );
 
@@ -211,8 +211,8 @@ CREATE TABLE public.thread (
     id integer NOT NULL,
     creator_id integer,
     title text NOT NULL,
-    created_at date DEFAULT CURRENT_DATE NOT NULL,
-    modified_at date,
+    created_at timestamp without time zone DEFAULT CURRENT_DATE NOT NULL,
+    modified_at timestamp without time zone,
     text text NOT NULL
 );
 
@@ -375,42 +375,42 @@ COPY public.thread_tag (thread_id, tag_id) FROM stdin;
 -- Name: answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.answer_id_seq', 7, true);
+SELECT pg_catalog.setval('public.answer_id_seq', 11, true);
 
 
 --
 -- Name: category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.category_id_seq', 10, true);
+SELECT pg_catalog.setval('public.category_id_seq', 20, true);
 
 
 --
 -- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.comment_id_seq', 4, true);
+SELECT pg_catalog.setval('public.comment_id_seq', 8, true);
 
 
 --
 -- Name: creator_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.creator_id_seq', 2, true);
+SELECT pg_catalog.setval('public.creator_id_seq', 6, true);
 
 
 --
 -- Name: tag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.tag_id_seq', 5, true);
+SELECT pg_catalog.setval('public.tag_id_seq', 20, true);
 
 
 --
 -- Name: thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.thread_id_seq', 1, true);
+SELECT pg_catalog.setval('public.thread_id_seq', 12, true);
 
 
 --
