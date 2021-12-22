@@ -85,15 +85,15 @@
     <div id="threads">
             <c:forEach items="${threads}" var="thread">
                     <div class="column p-2 border border-primary rounded highlight">
-                        <h4 class="mb-0 mt-0"><a href="threadServlet">${thread.title}</a></h4>
+                        <h4 class="mb-0 mt-0">${thread.title}</h4>
                         <p class="pl-4 pt-1 mb-1">Beitrag von ${thread.creator.getUsername()}, erstellt am ${thread.createdAt}</p>
                         <div class="p-2 d-flex justify-content-between rounded">
                                 ${thread.text}
                         </div>
-                        <div>${thread.answers.size()} Kommentare</div>
+                        <div>${thread.answers.size()} Antworten</div>
                         <form name="loginForm" method="post" action="threadServlet">
                             <input type="hidden" value="${thread.id}" name="threadid"/> <br/>
-                            <input type="submit" value="${thread.id}" name="threadid2"/>
+                            <input type="submit" value="Öffne den Thread"/>
                         </form>
                     </div>
                     <hr>

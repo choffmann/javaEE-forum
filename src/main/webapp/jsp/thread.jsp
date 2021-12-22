@@ -83,20 +83,28 @@
     </div>
     <!-- table für die Threads -->
     <div id="thread">
-            <c:out value="${title}"/>
-                    <div class="column p-2 border border-primary rounded highlight">
-                        <h4 class="mb-0 mt-0"><a href="threadServlet">${thread.title}</a></h4>
-                        <p class="pl-4 pt-1 mb-1">Beitrag von ${thread.creator.getUsername()}, erstellt am ${thread.createdAt}</p>
-                        <div class="p-2 d-flex justify-content-between rounded">
-                                ${thread.text}
-                        </div>
-                        <div>${thread.answers.size()} Kommentare</div>
-                        <form name="loginForm" method="post" action="threadServlet">
-                            <input type="hidden" value="${thread.id}" name="threadid"/> <br/>
-                            <input type="submit" value="${thread.id}" name="threadid2"/>
-                        </form>
-                    </div>
-                    <hr>
+        <div class="column p-2 border border-primary rounded highlight">
+            <h4 class="mb-0 mt-0">${thread.title}</h4>
+            <p class="pl-4 pt-1 mb-1">Beitrag von ${thread.creator.getUsername()}, erstellt am ${thread.createdAt}</p>
+            <div class="p-2 d-flex justify-content-between rounded">
+                ${thread.text}
+            </div>
+            <div>${thread.answers.size()} Antworten</div>
+        </div>
+        <hr>
+        <c:if test="${thread.answers.size() > 0}">
+            <c:forEach items="${answers}" var="answer">
+                <div class="row pl-2">${answer.text}</div>
+                <br>
+                <c:if test="${answer.comments.size() > 0}">
+                    <c:forEach items="${answer.comments}" var="comment">
+                    <div class="row pl-5">${comment.text}</div>
+                    <br>
+                    </c:forEach>
+                </c:if>
+                <hr>
+            </c:forEach>
+        </c:if>
     </div>
 </div>
 </body>

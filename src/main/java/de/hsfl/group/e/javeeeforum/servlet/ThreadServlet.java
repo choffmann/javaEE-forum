@@ -1,5 +1,6 @@
 package de.hsfl.group.e.javeeeforum.servlet;
 
+import de.hsfl.group.e.javeeeforum.dto.AnswerDto;
 import de.hsfl.group.e.javeeeforum.dto.ThreadDto;
 import org.glassfish.jersey.client.ClientConfig;
 
@@ -41,7 +42,12 @@ public class ThreadServlet extends HttpServlet {
         ThreadDto thread = target.path("threads/"+threadId).request().accept(MediaType.APPLICATION_JSON).get(
                 new GenericType<ThreadDto>() {
                 });
+        List<AnswerDto> answers = target.path("threads/"+threadId+"/answers").request().accept(MediaType.APPLICATION_JSON).get(
+                new GenericType<List<AnswerDto>>() {
+                });
         request.setAttribute("thread", thread);
+        request.setAttribute("answers", answers);
+        //Comments sind schon unter den answers in ner Liste gespeichert.
         request.getRequestDispatcher("/jsp/thread.jsp").forward(request, response);
     }
     private WebTarget startConnection(){
