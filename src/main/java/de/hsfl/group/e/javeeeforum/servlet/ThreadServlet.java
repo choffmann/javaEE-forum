@@ -20,18 +20,34 @@ import java.util.List;
 @WebServlet(name = "threadServlet", value = "/threadServlet")
 public class ThreadServlet extends HttpServlet {
 
+    //Normale Homepage Abfrage;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // TODO: Falls nicht eingeloggt zu login redirecten
-        ClientConfig clientconfig = new ClientConfig();
-        Client client = ClientBuilder.newClient(clientconfig);
-        WebTarget target = client.target(UriBuilder
-                .fromUri("http://localhost:8080/javeEE-forum-1.0-SNAPSHOT/api/").build());
+        WebTarget target = startConnection();
 
+        //TODO: Query an die request, falls nach threads gesucht wurde
         List<ThreadDto> threads = target.path("threads").request().accept(MediaType.APPLICATION_JSON).get(
                 new GenericType<List<ThreadDto>>() {
                 });
-
         request.setAttribute("threads", threads);
         request.getRequestDispatcher("/jsp/homepage.jsp").forward(request, response);
+    }
+    //Abfrage
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String threadId = request.getParameter("threadid");
+        //Request die Threaddaten zu bekommen über queryparameter id
+        WebTarget target = startConnection();
+        //Unnötig, wird aber für creator wieder gebraucht: target.queryParam("id",threadId);
+        ThreadDto thread = target.path("threads/"+threadId).request().accept(MediaType.APPLICATION_JSON).get(
+                new GenericType<ThreadDto>() {
+                });
+        request.setAttribute("thread", thread);
+        request.getRequestDispatcher("/jsp/thread.jsp").forward(request, response);
+    }
+    private WebTarget startConnection(){
+        ClientConfig clientconfig = new ClientConfig();
+        Client client = ClientBuilder.newClient(clientconfig);
+        return client.target(UriBuilder
+                .fromUri("http://localhost:8080/javeEE-forum-1.0-SNAPSHOT/api/").build());
     }
 }

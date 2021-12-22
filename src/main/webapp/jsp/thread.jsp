@@ -79,11 +79,11 @@
 <div class="container mt-5">
     <!-- Normaler Content -->
     <div class="row pt-5">
-        <h1>Die letzten Threads</h1>
+        <h1>Der Thread [WIP Seite]:</h1>
     </div>
     <!-- table für die Threads -->
-    <div id="threads">
-            <c:forEach items="${threads}" var="thread">
+    <div id="thread">
+            <c:out value="${title}"/>
                     <div class="column p-2 border border-primary rounded highlight">
                         <h4 class="mb-0 mt-0"><a href="threadServlet">${thread.title}</a></h4>
                         <p class="pl-4 pt-1 mb-1">Beitrag von ${thread.creator.getUsername()}, erstellt am ${thread.createdAt}</p>
@@ -97,9 +97,7 @@
                         </form>
                     </div>
                     <hr>
-            </c:forEach>
     </div>
-    <a href="threadServlet">Hier klicken zum neuladen</a>
 </div>
 </body>
 </html>
