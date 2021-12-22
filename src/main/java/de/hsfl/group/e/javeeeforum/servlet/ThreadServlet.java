@@ -21,7 +21,7 @@ import java.util.List;
 public class ThreadServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        //TODO: Abfrage an den Endpunkt
+        // TODO: Falls nicht eingeloggt zu login redirecten
         ClientConfig clientconfig = new ClientConfig();
         Client client = ClientBuilder.newClient(clientconfig);
         WebTarget target = client.target(UriBuilder
@@ -32,7 +32,6 @@ public class ThreadServlet extends HttpServlet {
                 });
 
         request.setAttribute("threads", threads);
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
-
+        request.getRequestDispatcher("/jsp/homepage.jsp").forward(request, response);
     }
 }
