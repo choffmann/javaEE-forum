@@ -14,13 +14,13 @@
     <!--<script type="text/javascript" src="js/load.js"></script>-->
 
 </head>
+<body>
 <!-- TODO: Bei nicht eingeloggtem Zustand soll zu login.jsp gewechselt werden -->
 <!-- Navigationsleiste -->
-<nav class="navbar fixed-top navbar-dark bg-dark container-fluid pl-20 pr-20">
+<nav class="navbar navbar-dark bg-dark container-fluid pl-20 pr-20">
+    <!-- Startseite -->
     <div class="row pl-3">
-        <button class="loggedIn btn btn-light mr-sm-2" type="button" data-toggle="modal"
-                data-target="#listModal">Startseite <!-- TODO Startseite aufrufen -->
-        </button>
+        <a class="loggedIn btn btn-light mr-sm-2" href="threadServlet">Startseite</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
                                                                                     id="loggedUser"></b></p>
@@ -73,7 +73,6 @@
 
     </div>
 </div>
-<br/>
 
 <!-- Seiteninhalt -->
 <div class="container mt-5">
@@ -91,15 +90,14 @@
                                 ${thread.text}
                         </div>
                         <div>${thread.answers.size()} Antworten</div>
-                        <form name="loginForm" method="post" action="threadServlet">
+                        <form name="openThreadForm" method="post" action="threadServlet">
                             <input type="hidden" value="${thread.id}" name="threadid"/> <br/>
-                            <input type="submit" value="Öffne den Thread"/>
+                            <input class="btn btn-primary" type="submit" value="Öffne den Thread"/>
                         </form>
                     </div>
                     <hr>
             </c:forEach>
     </div>
-    <a href="threadServlet">Hier klicken zum neuladen</a>
 </div>
 </body>
 </html>

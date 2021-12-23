@@ -14,16 +14,16 @@
     <!--<script type="text/javascript" src="js/load.js"></script>-->
 
 </head>
+<body>
 <!-- TODO: Bei nicht eingeloggtem Zustand soll zu login.jsp gewechselt werden -->
 <!-- Navigationsleiste -->
-<nav class="navbar fixed-top navbar-dark bg-dark container-fluid pl-20 pr-20">
+<nav class="navbar navbar-dark bg-dark container-fluid pl-20 pr-20">
+    <!-- Startseite -->
     <div class="row pl-3">
-        <button class="loggedIn btn btn-light mr-sm-2" type="button" data-toggle="modal"
-                data-target="#listModal">Startseite <!-- TODO Startseite aufrufen -->
-        </button>
+        <a class="loggedIn btn btn-light mr-sm-2" href="threadServlet">Startseite</a>
         <div>
-            <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
-                                                                                    id="loggedUser"></b></p>
+            <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als:
+                <b class="text-white" id="loggedUser"></b></p>
         </div>
     </div>
     <div>
@@ -73,35 +73,38 @@
 
     </div>
 </div>
-<br/>
-
 <!-- Seiteninhalt -->
 <div class="container mt-5">
     <!-- Normaler Content -->
-    <div class="row pt-5">
-        <h1>Der Thread [WIP Seite]:</h1>
-    </div>
+
     <!-- table für die Threads -->
-    <div id="thread">
-        <div class="column p-2 border border-primary rounded highlight">
-            <h4 class="mb-0 mt-0">${thread.title}</h4>
-            <p class="pl-4 pt-1 mb-1">Beitrag von ${thread.creator.getUsername()}, erstellt am ${thread.createdAt}</p>
-            <div class="p-2 d-flex justify-content-between rounded">
-                ${thread.text}
-            </div>
-            <div>${thread.answers.size()} Antworten</div>
+    <div id="thread" class="p-2 border border-primary rounded">
+        <h1>${thread.title}</h1>
+        <p class="pt-1 mb-1">Beitrag von ${thread.creator.getUsername()}, erstellt am ${thread.createdAt}</p>
+        <div class="p-2 d-flex justify-content-between rounded">
+            ${thread.text}
         </div>
+        <br>
+    </div>
+    <div id="antworten" class="p-1">
+        <h4>${thread.answers.size()} Antworten</h4>
         <hr>
         <c:if test="${thread.answers.size() > 0}">
             <c:forEach items="${answers}" var="answer">
-                <div class="row pl-2">${answer.text}</div>
-                <br>
-                <c:if test="${answer.comments.size() > 0}">
-                    <c:forEach items="${answer.comments}" var="comment">
-                    <div class="row pl-5">${comment.text}</div>
-                    <br>
-                    </c:forEach>
-                </c:if>
+                <div class="border border-info rounded p-1">
+                    <b>Antwort von ${answer.creator.username} </b>
+                    <p>${answer.text}</p>
+                    <c:if test="${answer.comments.size() > 0}">
+                        <c:forEach items="${answer.comments}" var="comment">
+                            <div class="border border-secondary rounded p-1">
+                                <b>Kommentar von ${comment.creatorDto.username} </b>
+                                <p>${comment.text}</p>
+                            </div>
+
+
+                        </c:forEach>
+                    </c:if>
+                </div>
                 <hr>
             </c:forEach>
         </c:if>
