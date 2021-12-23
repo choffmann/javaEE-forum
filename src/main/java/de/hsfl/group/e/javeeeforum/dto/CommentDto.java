@@ -13,7 +13,7 @@ public class CommentDto {
     private Date modifiedAt;
     private String text;
 
-    private CreatorDto creatorDto;
+    private CreatorDto creator;
     private AnswerDto answer;
 
     public CommentDto() {
@@ -73,11 +73,11 @@ public class CommentDto {
     }
 
     public CreatorDto getCreatorDto() {
-        return creatorDto;
+        return creator;
     }
 
     public void setCreatorDto(CreatorDto creatorDto) {
-        this.creatorDto = creatorDto;
+        this.creator = creatorDto;
     }
 
     public AnswerDto getAnswer() {
