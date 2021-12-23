@@ -35,6 +35,7 @@ public class ThreadServlet extends HttpServlet {
     }
     //Abfrage
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //TODO: Frage Klären: Müsste das nicht in get, da das quasi get informationen sind?
         String threadId = request.getParameter("threadid");
         //Request die Threaddaten zu bekommen über queryparameter id
         WebTarget target = startConnection();

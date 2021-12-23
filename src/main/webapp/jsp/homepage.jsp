@@ -77,9 +77,7 @@
 <!-- Seiteninhalt -->
 <div class="container mt-5">
     <!-- Normaler Content -->
-    <div class="row pt-5">
-        <h1>Die letzten Threads</h1>
-    </div>
+    <h1>Die letzten Threads</h1>
     <!-- table für die Threads -->
     <div id="threads">
             <c:forEach items="${threads}" var="thread">
@@ -91,7 +89,7 @@
                         </div>
                         <div>${thread.answers.size()} Antworten</div>
                         <form name="openThreadForm" method="post" action="threadServlet">
-                            <input type="hidden" value="${thread.id}" name="threadid"/> <br/>
+                            <input type="hidden" value="${thread.id}" name="threadid"/>
                             <input class="btn btn-primary" type="submit" value="Öffne den Thread"/>
                         </form>
                     </div>

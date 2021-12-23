@@ -80,13 +80,25 @@
     <!-- table für die Threads -->
     <div id="thread" class="p-2 border border-primary rounded">
         <h1>${thread.title}</h1>
-        <p class="pt-1 mb-1">Beitrag von ${thread.creator.getUsername()}, erstellt am ${thread.createdAt}</p>
+        <b class="mb-1">Beitrag von ${thread.creator.getUsername()}, erstellt am ${thread.createdAt}</b>
         <div class="p-2 d-flex justify-content-between rounded">
             ${thread.text}
         </div>
-        <br>
     </div>
-    <div id="antworten" class="p-1">
+    <br>
+    <div class="p-2" id="createAnswer">
+        <form id="createAnswerForm" name="createAnswerForm" method="post" action="answerServlet">
+            <input type="hidden" value="${thread.id}" name="threadid"/>
+            <div class="form-group">
+                <label for="answerTextarea">Verfasse eine Antwort:</label>
+                <textarea class="form-control" id="answerTextarea" placeholder="..." name="answertext"
+                          rows="4"></textarea>
+            </div>
+            <input class="btn btn-success float-right" type="submit" value="Antwort absenden"/>
+        </form>
+    </div>
+    <br>
+    <div id="answers" class="p-1">
         <h4>${thread.answers.size()} Antworten</h4>
         <hr>
         <c:if test="${thread.answers.size() > 0}">
@@ -94,6 +106,23 @@
                 <div class="border border-info rounded p-1">
                     <b>Antwort von ${answer.creator.username} </b>
                     <p>${answer.text}</p>
+                    <!-- Falls wir mit Score arbeiten: <div class="row">
+                        <div></div>
+                        <div>
+                            <form name="openThreadForm" method="post" action="answerServlet">
+                                <input type="hidden" value="${thread.id}" name="threadid"/>
+                                <input type="hidden" value="${answer.id}" name="answerid"/>
+                                <input type="hidden" value="1" name=""/>
+                                <input class="btn btn-success" type="submit" value="Like"/>
+                            </form>
+                            <form name="openThreadForm" method="post" action="answerServlet">
+                                <input type="hidden" value="${thread.id}" name="threadid"/>
+                                <input type="hidden" value="${answer.id}" name="answerid"/>
+                                <input type="hidden" value="0" name="rating"/>
+                                <input class="btn btn-success" type="submit" value="Like"/>
+                            </form>
+                        </div>
+                    </div>-->
                     <c:if test="${answer.comments.size() > 0}">
                         <c:forEach items="${answer.comments}" var="comment">
                             <div class="border border-secondary rounded p-1">
