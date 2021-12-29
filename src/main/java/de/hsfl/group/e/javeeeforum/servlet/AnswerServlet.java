@@ -2,6 +2,8 @@ package de.hsfl.group.e.javeeeforum.servlet;
 
 import org.glassfish.jersey.client.ClientConfig;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,18 +24,15 @@ public class AnswerServlet extends HttpServlet {
     //Antwort senden
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String threadId = request.getParameter("threadid");
-        String answerText = request.getParameter("answertext");
+        String text = request.getParameter("answertext");
         //String creator = request.getParameter("creator");
-        String creator = "Pascal";
-        System.out.println(threadId+" "+creator+" "+answerText);
+        long creatorId = 1L; //Queryparameter muss CreatorID in Long sein
         //TODO: Antwort posten
         WebTarget target = startConnection();
-        target.queryParam("creator",creator);
         //Sendet die Antwort an den Server
-        Response serverResponse = target.path("threads/"+threadId+"/answers").request().accept(MediaType.APPLICATION_JSON).post(Entity.entity(answerText,MediaType.APPLICATION_JSON));
+        Response serverResponse = target.path("threads/"+threadId+"/answers?creatorid="+creatorId).request().accept(MediaType.APPLICATION_JSON).post(Entity.json(text));
         //Fragt die Seite neu ab, ggf. später mit der serverResponse URL umändern
-        request.setAttribute("threadid",threadId);
-        request.getRequestDispatcher("java/de/hsfl/group/e/javeeeforum/servlet/ThreadServlet.java").forward(request, response);
+        request.getRequestDispatcher("/threadServlet?threadid="+threadId).forward(request, response);
     }
     private WebTarget startConnection(){
         ClientConfig clientconfig = new ClientConfig();

@@ -48,12 +48,12 @@ public class AnswerService {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createAnswer(AnswerDto answerDto, @QueryParam("creator") Long creatorID) {
+    public Response createAnswer(String text, @QueryParam("creatorid") Long creatorID) {
         Thread thread = threadDao.getById(threadId);
         if (thread == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The thread was not found").build());
-        Creator creator = creatorDao.getById(creatorID);
+        Creator creator = creatorDao.getById(creatorID); //
         if (creator == null)
             throw new WebApplicationException(
                     Response.status(401).entity("Not authenticated").build());
@@ -61,7 +61,7 @@ public class AnswerService {
         Answer answer = new Answer();
         answer.setCreator(creator);
         answer.setScore(0);
-        answer.setText(answerDto.getText());
+        answer.setText(text);
         answer.setThread(thread);
 
         answer.setCreatedAt(Calendar.getInstance().getTime());
