@@ -88,10 +88,7 @@
                                 ${thread.text}
                         </div>
                         <div>${thread.answers.size()} Antworten</div>
-                        <form name="openThreadForm" method="post" action="threadServlet">
-                            <input type="hidden" value="${thread.id}" name="threadid"/>
-                            <input class="btn btn-primary" type="submit" value="Öffne den Thread"/>
-                        </form>
+                        <a class="btn btn-primary" href="threadServlet?threadid=${thread.id}">Öffne den Thread</a>
                     </div>
                     <hr>
             </c:forEach>
