@@ -18,6 +18,7 @@
 <div class="container mt-5">
     <!-- Normaler Content -->
     <a class="btn btn-primary" href="threadServlet">Homepage (threadServlet)</a>
+    <a class="btn btn-primary" href="categoryServlet">Kategorienliste</a>
     <a class="btn btn-primary" href="threadServlet?threadid=1">Thread 1</a>
 </div>
 </body>
