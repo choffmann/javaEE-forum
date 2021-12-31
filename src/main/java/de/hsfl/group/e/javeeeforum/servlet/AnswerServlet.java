@@ -25,7 +25,6 @@ public class AnswerServlet extends HttpServlet {
         String text = request.getParameter("answertext");
         //String creator = request.getParameter("creator");
         long creatorId = 1L; //Queryparameter muss CreatorID in Long sein
-        //TODO: Antwort posten
         WebTarget target = startConnection();
         //Sendet die Antwort an den Server
         Response serverResponse = target.path("threads/"+threadId+"/answers?creatorid="+creatorId).request().accept(MediaType.APPLICATION_JSON).post(Entity.json(text));
