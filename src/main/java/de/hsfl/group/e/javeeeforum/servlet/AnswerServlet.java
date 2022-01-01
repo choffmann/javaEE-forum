@@ -27,9 +27,10 @@ public class AnswerServlet extends HttpServlet {
         long creatorId = 1L; //Queryparameter muss CreatorID in Long sein
         WebTarget target = startConnection();
         //Sendet die Antwort an den Server
-        Response serverResponse = target.path("threads/"+threadId+"/answers?creatorid="+creatorId).request().accept(MediaType.APPLICATION_JSON).post(Entity.json(text));
+        Response serverResponse = target.queryParam("creatorid",creatorId).path("threads/"+threadId+"/answers").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(text));
         //Fragt die Seite neu ab, ggf. später mit der serverResponse URL umändern
-        request.getRequestDispatcher("/threadServlet?threadid="+threadId).forward(request, response);
+        new ThreadServlet().doGet(request,response);
+        //request.getRequestDispatcher("/threadServlet?threadid="+threadId).forward(request, response);
     }
     private WebTarget startConnection(){
         ClientConfig clientconfig = new ClientConfig();
