@@ -54,6 +54,9 @@
                     </div>
                     <hr>
             </c:forEach>
+    <c:if test="${threads.isEmpty()}">
+    <p>Leider konnten keine Threads gefunden werden!</p>
+    </c:if>
     </div>
 </div>
 </body>
