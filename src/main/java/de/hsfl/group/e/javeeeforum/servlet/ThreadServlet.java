@@ -31,8 +31,9 @@ public class ThreadServlet extends HttpServlet {
             List<ThreadDto> threads = target.path("threads").request().accept(MediaType.APPLICATION_JSON).get(
                     new GenericType<List<ThreadDto>>() {
                     });
+            request.setAttribute("title", "Die neusten Threads");
             request.setAttribute("threads", threads);
-            request.getRequestDispatcher("/jsp/homepage.jsp").forward(request, response);
+            request.getRequestDispatcher("/jsp/threadList.jsp").forward(request, response);
         }else{
             //Abfrage eines spezifischen Posts
             ThreadDto thread = target.path("threads/"+threadId).request().accept(MediaType.APPLICATION_JSON).get(

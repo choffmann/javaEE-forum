@@ -72,31 +72,12 @@
                 <div class="border border-info rounded p-1">
                     <b>Antwort von ${answer.creator.username} </b>
                     <p>${answer.text}</p>
-                    <!-- Falls wir mit Score arbeiten: <div class="row">
-                        <div></div>
-                        <div>
-                            <form name="openThreadForm" method="post" action="answerServlet">
-                                <input type="hidden" value="${thread.id}" name="threadid"/>
-                                <input type="hidden" value="${answer.id}" name="answerid"/>
-                                <input type="hidden" value="1" name=""/>
-                                <input class="btn btn-success" type="submit" value="Like"/>
-                            </form>
-                            <form name="openThreadForm" method="post" action="answerServlet">
-                                <input type="hidden" value="${thread.id}" name="threadid"/>
-                                <input type="hidden" value="${answer.id}" name="answerid"/>
-                                <input type="hidden" value="0" name="rating"/>
-                                <input class="btn btn-success" type="submit" value="Like"/>
-                            </form>
-                        </div>
-                    </div>-->
                     <c:if test="${answer.comments.size() > 0}">
                         <c:forEach items="${answer.comments}" var="comment">
                             <div class="border border-secondary rounded p-1">
                                 <b>Kommentar von ${comment.creatorDto.username} </b>
                                 <p>${comment.text}</p>
                             </div>
-
-
                         </c:forEach>
                     </c:if>
                 </div>

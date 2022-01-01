@@ -3,11 +3,10 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>Homepage</title>
+    <title>Threads</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <meta charset="utf-8">
-
 
 </head>
 <body>
@@ -43,21 +42,21 @@
 <!-- Seiteninhalt -->
 <div class="container mt-5">
     <!-- Normaler Content -->
-    <h1>Threads der Kategorie ${category.text}</h1>
+    <h1>${title}</h1>
     <!-- table für die Threads -->
     <div id="threads">
-        <c:forEach items="${category.threads}" var="thread">
-            <div class="column p-2 border border-primary rounded highlight">
-                <h4 class="mb-0 mt-0">${thread.title}</h4>
-                <p class="pl-4 pt-1 mb-1">Beitrag von ${thread.creator.getUsername()}, erstellt am ${thread.createdAt}</p>
-                <div class="p-2 d-flex justify-content-between rounded">
-                        ${thread.text}
-                </div>
-                <div>${thread.answers.size()} Antworten</div>
-                <a class="btn btn-primary" href="threadServlet?threadid=${thread.id}">Öffne den Thread</a>
-            </div>
-            <hr>
-        </c:forEach>
+            <c:forEach items="${threads}" var="thread">
+                    <div class="column p-2 border border-primary rounded highlight">
+                        <h4 class="mb-0 mt-0">${thread.title}</h4>
+                        <p class="pl-4 pt-1 mb-1">Beitrag von ${thread.creator.getUsername()}, erstellt am ${thread.createdAt}</p>
+                        <div class="p-2 d-flex justify-content-between rounded">
+                                ${thread.text}
+                        </div>
+                        <div>${thread.answers.size()} Antworten</div>
+                        <a class="btn btn-primary" href="threadServlet?threadid=${thread.id}">Öffne den Thread</a>
+                    </div>
+                    <hr>
+            </c:forEach>
     </div>
 </div>
 </body>

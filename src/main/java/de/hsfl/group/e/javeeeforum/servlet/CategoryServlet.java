@@ -38,8 +38,9 @@ public class CategoryServlet extends HttpServlet {
             CategoryDto category = target.path("categories/"+categoryId).request().accept(MediaType.APPLICATION_JSON).get(
                     new GenericType<CategoryDto>() {
                     });
-            request.setAttribute("category", category);
-            request.getRequestDispatcher("jsp/search.jsp").forward(request, response);
+            request.setAttribute("title", "Threads der Kategorie "+category.getText());
+            request.setAttribute("threads", category.getThreads());
+            request.getRequestDispatcher("jsp/threadList.jsp").forward(request, response);
         }
 
 
