@@ -71,6 +71,20 @@
                 <div class="border border-info rounded p-1">
                     <b>Antwort von ${answer.creator.username} </b>
                     <p>${answer.text}</p>
+                    <div class="p-2" id="createComment">
+                        <form id="createCommentForm" name="createCommentForm" method="post" action="commentServlet">
+                            <input type="hidden" value="${thread.id}" name="threadid"/>
+                            <input type="hidden" value="${answer.id}" name="answerid"/>
+                            <div class="form-group">
+                                <label for="commentTextarea">Kommentiere die Antwort:</label>
+                                <textarea class="form-control" id="commentTextarea" placeholder="..." name="commenttext"
+                                          rows="1"></textarea>
+                                <div class="text-right">
+                                <input class="btn btn-success mt-1 p-1>" type="submit" value="Antwort absenden"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <c:if test="${answer.comments.size() > 0}">
                         <c:forEach items="${answer.comments}" var="comment">
                             <div class="border border-secondary rounded p-1">
