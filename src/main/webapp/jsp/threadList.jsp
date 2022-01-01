@@ -18,25 +18,22 @@
         <a class="loggedIn btn btn-light mr-sm-2" href="threadServlet">Startseite</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
-                                                                                    id="loggedUser"></b></p>
+                                                                                    id="loggedUser">${username}</b></p>
         </div>
     </div>
     <div>
         <!-- Kategorien-->
         <a class="btn btn-warning mr-sm-2" href="categoryServlet">Kategorien</a>
         <!-- Userliste [Admin Knopf] -->
-        <button class="loggedIn isAdmin btn btn-danger mr-sm-2" type="button" data-toggle="modal"
-                data-target="#listModal">Users <!-- TODO Userliste aufrufen -->
-        </button>
+        <a class="loggedIn isAdmin btn btn-danger mr-sm-2" href="userServlet">Users</a>
     </div>
     <!-- Suchleiste -->
-    <form class="form-inline">
-        <input class="form-control my-2 mr-sm-2" type="search" id="searchInput" placeholder="Suche">
-        <button class="btn btn-primary mr-sm-2" type="button"
-                onclick="loadData('search',document.getElementById('searchInput').value)">Suchen
-            <!-- TODO: Threadsuche -->
-        </button> <!-- wichtig! type=button damit er die seite nicht submittet/refreshed -->
-    </form>
+    <div>
+        <form class="form-inline" method="get" action="threadServlet">
+            <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" placeholder="Suche"/>
+            <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
+        </form>
+    </div>
 </nav>
 
 <!-- Seiteninhalt -->

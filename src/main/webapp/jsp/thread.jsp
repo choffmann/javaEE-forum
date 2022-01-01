@@ -18,7 +18,7 @@
         <a class="loggedIn btn btn-light mr-sm-2" href="threadServlet">Startseite</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als:
-                <b class="text-white" id="loggedUser"></b></p>
+                <b class="text-white" id="loggedUser">${username}</b></p>
         </div>
     </div>
     <div>
@@ -30,13 +30,12 @@
         </button>
     </div>
     <!-- Suchleiste -->
-    <form class="form-inline">
-        <input class="form-control my-2 mr-sm-2" type="search" id="searchInput" placeholder="Suche">
-        <button class="btn btn-primary mr-sm-2" type="button"
-                onclick="loadData('search',document.getElementById('searchInput').value)">Suchen
-            <!-- TODO: Threadsuche -->
-        </button> <!-- wichtig! type=button damit er die seite nicht submittet/refreshed -->
-    </form>
+    <div>
+        <form class="form-inline" method="get" action="threadServlet">
+            <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" placeholder="Suche"/>
+            <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
+        </form>
+    </div>
 </nav>
 
 <!-- Seiteninhalt -->
