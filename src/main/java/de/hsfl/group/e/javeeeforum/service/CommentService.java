@@ -53,7 +53,7 @@ public class CommentService {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createComment(CommentDto commentDto, @QueryParam("creatorid") Long creatorID){
+    public Response createComment(String text, @QueryParam("creatorid") Long creatorID){
         Answer answer = answerDao.getByIdFromThread(threadId, answerID);
 
         if (answer == null)
@@ -66,7 +66,7 @@ public class CommentService {
 
         Comment comment = new Comment();
         comment.setCreator(creator);
-        comment.setText(commentDto.getText());
+        comment.setText(text);
         comment.setAnswer(answer);
 
         comment.setCreatedAt(Calendar.getInstance().getTime());
