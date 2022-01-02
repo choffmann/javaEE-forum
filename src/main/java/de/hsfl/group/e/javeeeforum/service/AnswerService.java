@@ -89,7 +89,7 @@ public class AnswerService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public AnswerDto updateAnswer(@PathParam("id") long answerId, @QueryParam("creator") Long creatorID, AnswerDto answerDto) {
+    public AnswerDto updateAnswer(@PathParam("id") long answerId, @QueryParam("creatorid") Long creatorID, AnswerDto answerDto) {
         Thread thread = threadDao.getById(threadId);
         if (thread == null)
             throw new WebApplicationException(
@@ -122,7 +122,7 @@ public class AnswerService {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public AnswerDto deleteAnswer(@PathParam("id") long answerId, @QueryParam("creator") Long creatorID) {
+    public AnswerDto deleteAnswer(@PathParam("id") long answerId, @QueryParam("creatorid") Long creatorID) {
         Thread thread = threadDao.getById(threadId);
         if (thread == null)
             throw new WebApplicationException(

@@ -3,7 +3,6 @@ package de.hsfl.group.e.javeeeforum.service;
 import de.hsfl.group.e.javeeeforum.dao.AnswerDao;
 import de.hsfl.group.e.javeeeforum.dao.CommentDao;
 import de.hsfl.group.e.javeeeforum.dao.CreatorDao;
-import de.hsfl.group.e.javeeeforum.dto.AnswerDto;
 import de.hsfl.group.e.javeeeforum.dto.CommentDto;
 import de.hsfl.group.e.javeeeforum.model.Answer;
 import de.hsfl.group.e.javeeeforum.model.Comment;
@@ -54,7 +53,7 @@ public class CommentService {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createComment(CommentDto answerDto, @QueryParam("creator") Long creatorID){
+    public Response createComment(CommentDto commentDto, @QueryParam("creatorid") Long creatorID){
         Answer answer = answerDao.getByIdFromThread(threadId, answerID);
 
         if (answer == null)
@@ -67,7 +66,7 @@ public class CommentService {
 
         Comment comment = new Comment();
         comment.setCreator(creator);
-        comment.setText(answerDto.getText());
+        comment.setText(commentDto.getText());
         comment.setAnswer(answer);
 
         comment.setCreatedAt(Calendar.getInstance().getTime());
@@ -91,11 +90,11 @@ public class CommentService {
         return CommentDto.fromModel(commentDao.getByIdFromAnswer(answer.getId(), commentId));
     }
 
-    @POST
+    @PUT
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public CommentDto updateComment(@PathParam("id") long commentId, @QueryParam("creator") Long creatorID, CommentDto commentDto){
+    public CommentDto updateComment(@PathParam("id") long commentId, @QueryParam("creatorid") Long creatorID, CommentDto commentDto){
         Answer answer = answerDao.getByIdFromThread(threadId, answerID);
         if (answer == null)
             throw new WebApplicationException(
@@ -127,7 +126,7 @@ public class CommentService {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CommentDto deleteComment(@PathParam("id") long commentId, @QueryParam("creator") Long creatorID, CommentDto commentDto){
+    public CommentDto deleteComment(@PathParam("id") long commentId, @QueryParam("creatorid") Long creatorID, CommentDto commentDto){
         Answer answer = answerDao.getByIdFromThread(threadId, answerID);
         if (answer == null)
             throw new WebApplicationException(

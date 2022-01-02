@@ -19,7 +19,7 @@ public class UserService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<CreatorDto> getAll(@QueryParam("creator") Long creatorID){
+    public List<CreatorDto> getAll(@QueryParam("creatorid") Long creatorID){
 
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null || !creator.isAdmin())

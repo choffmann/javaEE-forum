@@ -62,7 +62,7 @@ public class ThreadService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ThreadDto> getAll(@QueryParam("category") Long categoryID, @QueryParam("creator") Long creatorID) {
+    public List<ThreadDto> getAll(@QueryParam("category") Long categoryID, @QueryParam("creatorid") Long creatorID) {
         List<Thread> threads;
         if (creatorID != null)
             threads = threadDao.getAllByCreator(categoryID);
@@ -76,7 +76,7 @@ public class ThreadService {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createThread(ThreadDto threadDto, @QueryParam("creator") Long creatorID) {
+    public Response createThread(ThreadDto threadDto, @QueryParam("creatorid") Long creatorID) {
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
@@ -108,7 +108,7 @@ public class ThreadService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public ThreadDto updateThread(@PathParam("id") long id, @QueryParam("creator") Long creatorID, ThreadDto threadDto) {
+    public ThreadDto updateThread(@PathParam("id") long id, @QueryParam("creatorid") Long creatorID, ThreadDto threadDto) {
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
@@ -144,7 +144,7 @@ public class ThreadService {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ThreadDto deleteThread(@PathParam("id") long id, @QueryParam("creator") Long creatorID) {
+    public ThreadDto deleteThread(@PathParam("id") long id, @QueryParam("creatorid") Long creatorID) {
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null || !creator.isAdmin())
             throw new WebApplicationException(
