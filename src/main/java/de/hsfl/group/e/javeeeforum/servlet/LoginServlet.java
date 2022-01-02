@@ -26,7 +26,14 @@ public class LoginServlet extends HttpServlet {
     @Inject
     ServletGlobalFunctions sgl;
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //Beim Aufruf wird man immer ausgelogged und zum Login.jsp gebracht
+        WebTarget target = sgl.startConnection();
+        userData.setCreatorDto(null);
+        request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
+    }
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException  {
         WebTarget target = sgl.startConnection();
         CreatorDto creatorDto = new CreatorDto();
         creatorDto.setUsername(request.getParameter("loginUsername"));

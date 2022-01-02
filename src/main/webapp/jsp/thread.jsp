@@ -1,3 +1,5 @@
+<jsp:useBean id="userData" scope="request" type="de.hsfl.group.e.javeeeforum.UserData"/>
+<jsp:useBean id="thread" scope="request" type="de.hsfl.group.e.javeeeforum.dto.ThreadDto"/>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -10,22 +12,22 @@
 
 </head>
 <body>
-<!-- TODO: Bei nicht eingeloggtem Zustand soll zu login.jsp gewechselt werden -->
 <!-- Navigationsleiste -->
 <nav class="navbar navbar-dark bg-dark container-fluid pl-20 pr-20">
-    <!-- Startseite -->
+    <!-- Startseite & Logindaten -->
     <div class="row pl-3">
         <a class="loggedIn btn btn-light mr-sm-2" href="threadServlet">Startseite</a>
+        <a class="loggedIn btn btn-danger mr-sm-2" href="loginServlet">Ausloggen</a>
         <div>
-            <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als:
-                <b class="text-white" id="loggedUser">${userData.creatorDto.username}</b></p>
+            <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
+                                                                                    id="loggedUser">${userData.creatorDto.username}</b>
+            </p>
         </div>
     </div>
+    <!-- Mittlere Knöpfe: Kategorien & Userliste [Admin Knopf] -->
     <div>
-        <!-- Kategorien-->
         <a class="btn btn-warning mr-sm-2" href="categoryServlet">Kategorien</a>
-        <!-- Userliste [Admin Knopf] -->
-        <button class="loggedIn isAdmin btn btn-danger mr-sm-2" type="button" data-toggle="modal"
+        <button class="loggedIn isAdmin btn btn-info mr-sm-2" type="button" data-toggle="modal"
                 data-target="#listModal">Users <!-- TODO Userliste aufrufen -->
         </button>
     </div>
@@ -45,7 +47,7 @@
     <!-- table für die Threads -->
     <div id="thread" class="p-2 border border-primary rounded">
         <h1>${thread.title}</h1>
-        <b class="mb-1">Beitrag von ${thread.creator.getUsername()}, erstellt am ${thread.createdAt}</b>
+        <b class="mb-1">Beitrag von ${thread.creator.username}, erstellt am ${thread.createdAt}</b>
         <div class="p-2 d-flex justify-content-between rounded">
             ${thread.text}
         </div>
@@ -87,7 +89,7 @@
                     </div>
                     <c:if test="${answer.comments.size() > 0}">
                         <c:forEach items="${answer.comments}" var="comment">
-                            <div class="border border-secondary rounded p-1">
+                            <div class="border border-secondary rounded p-1 my-1">
                                 <b>Kommentar von ${comment.creatorDto.username} </b>
                                 <p>${comment.text}</p>
                             </div>

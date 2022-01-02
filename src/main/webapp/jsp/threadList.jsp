@@ -16,6 +16,7 @@
     <!-- Startseite -->
     <div class="row pl-3">
         <a class="loggedIn btn btn-light mr-sm-2" href="threadServlet">Startseite</a>
+        <a class="loggedIn btn btn-danger mr-sm-2" href="loginServlet">Ausloggen</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
                                                                                     id="loggedUser">${userData.creatorDto.username}</b></p>
@@ -25,7 +26,7 @@
         <!-- Kategorien-->
         <a class="btn btn-warning mr-sm-2" href="categoryServlet">Kategorien</a>
         <!-- Userliste [Admin Knopf] -->
-        <a class="loggedIn isAdmin btn btn-danger mr-sm-2" href="userServlet">Users</a>
+        <a class="loggedIn isAdmin btn btn-info mr-sm-2" href="userServlet">Users</a>
     </div>
     <!-- Suchleiste -->
     <div>
