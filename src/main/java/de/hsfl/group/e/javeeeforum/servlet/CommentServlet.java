@@ -25,7 +25,7 @@ public class CommentServlet extends HttpServlet {
         String answerId = request.getParameter("answerid");
         String text = request.getParameter("commenttext");
         System.out.println("threadid:"+threadId+"; AnswerId: "+answerId+"; text= "+text);
-        long creatorId = 1L; //Queryparameter muss CreatorID in Long sein //TODO: Richtigen User einbinden
+        long creatorId = 5L; //Queryparameter muss CreatorID in Long sein //TODO: Richtigen User einbinden
         WebTarget target = startConnection();
         //Sendet die Antwort an den Server
         Response serverResponse = target.queryParam("creatorid",creatorId).path("threads/"+threadId+"/answers/"+answerId+"/comments").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(text));

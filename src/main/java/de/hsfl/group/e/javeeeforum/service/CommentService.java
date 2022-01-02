@@ -73,6 +73,7 @@ public class CommentService {
         comment.setModifiedAt(Calendar.getInstance().getTime());
 
         commentDao.addElement(comment);
+        answer.getComment().add(comment);
 
         URI location = uriInfo.getAbsolutePathBuilder()
                 .path("" + comment.getId()).build();

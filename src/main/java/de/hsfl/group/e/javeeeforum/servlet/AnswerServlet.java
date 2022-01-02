@@ -23,7 +23,7 @@ public class AnswerServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String threadId = request.getParameter("threadid");
         String text = request.getParameter("answertext");
-        long creatorId = 1L; //Queryparameter muss CreatorID in Long sein //TODO: Richtigen User einbinden
+        long creatorId = 5L; //Queryparameter muss CreatorID in Long sein //TODO: Richtigen User einbinden
         WebTarget target = startConnection();
         //Sendet die Antwort an den Server
         Response serverResponse = target.queryParam("creatorid",creatorId).path("threads/"+threadId+"/answers").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(text));

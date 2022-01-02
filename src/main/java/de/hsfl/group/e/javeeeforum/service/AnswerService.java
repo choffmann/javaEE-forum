@@ -68,6 +68,7 @@ public class AnswerService {
         answer.setModifiedAt(Calendar.getInstance().getTime());
 
         answerDao.addElement(answer);
+        thread.getAnswer().add(answer);
 
         URI location = uriInfo.getAbsolutePathBuilder()
                 .path("" + answer.getId()).build();
