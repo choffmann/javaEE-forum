@@ -1,5 +1,6 @@
 package de.hsfl.group.e.javeeeforum.servlet;
 
+import de.hsfl.group.e.javeeeforum.ServletGlobalFunctions;
 import de.hsfl.group.e.javeeeforum.UserData;
 import de.hsfl.group.e.javeeeforum.dto.CreatorDto;
 import org.glassfish.jersey.client.ClientConfig;
@@ -22,9 +23,10 @@ import java.io.IOException;
 public class RegisterServlet extends HttpServlet {
     @Inject
     UserData userData;
-
+    @Inject
+    ServletGlobalFunctions sgl;
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        WebTarget target = startConnection();
+        WebTarget target = sgl.startConnection();
         CreatorDto creatorDto = new CreatorDto();
         creatorDto.setUsername(request.getParameter("registerUsername"));
         creatorDto.setEmail(request.getParameter("registerEmail"));
@@ -33,11 +35,5 @@ public class RegisterServlet extends HttpServlet {
                 .request().accept(MediaType.APPLICATION_JSON).post(Entity.json(creatorDto), CreatorDto.class);
         userData.setCreatorDto(registeredUser);
         response.sendRedirect(request.getContextPath() + "/threadServlet");
-    }
-    private WebTarget startConnection(){
-        ClientConfig clientconfig = new ClientConfig();
-        Client client = ClientBuilder.newClient(clientconfig);
-        return client.target(UriBuilder
-                .fromUri("http://localhost:8080/javeEE-forum-1.0-SNAPSHOT/api/").build());
     }
 }
