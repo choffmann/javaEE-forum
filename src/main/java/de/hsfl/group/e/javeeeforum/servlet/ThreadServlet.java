@@ -1,5 +1,6 @@
 package de.hsfl.group.e.javeeeforum.servlet;
 
+import de.hsfl.group.e.javeeeforum.ServletGlobalFunctions;
 import de.hsfl.group.e.javeeeforum.UserData;
 import de.hsfl.group.e.javeeeforum.dto.AnswerDto;
 import de.hsfl.group.e.javeeeforum.dto.ThreadDto;
@@ -7,6 +8,7 @@ import jersey.repackaged.com.google.common.collect.Lists;
 import org.glassfish.jersey.client.ClientConfig;
 
 import javax.inject.Inject;
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,19 +27,19 @@ import java.util.stream.Collectors;
 
 @WebServlet(name = "threadServlet", value = "/threadServlet")
 public class ThreadServlet extends HttpServlet {
-
     @Inject
     UserData userData;
+    @Inject
+    ServletGlobalFunctions sgl;
 
     //Normale Homepage Abfrage;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        sgl.isLoggedIn(request,response);
+        WebTarget target = sgl.startConnection();
         // TODO: Falls nicht eingeloggt zu login redirecten
         String threadId = request.getParameter("threadid");
         String searchRequest = request.getParameter("searchrequest");
-        WebTarget target = startConnection();
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + userData);
-        System.out.println(userData.getCreatorDto().getUsername());
-        request.setAttribute("userData", userData);
+
         if(threadId != null){
             //Abfrage eines spezifischen Posts
             ThreadDto thread = target.path("threads/"+threadId).request().accept(MediaType.APPLICATION_JSON).get(
@@ -70,15 +72,5 @@ public class ThreadServlet extends HttpServlet {
             request.setAttribute("threads", threads);
             request.getRequestDispatcher("/jsp/threadList.jsp").forward(request, response);
         }
-    }
-
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-    }
-    private WebTarget startConnection(){
-        ClientConfig clientconfig = new ClientConfig();
-        Client client = ClientBuilder.newClient(clientconfig);
-        return client.target(UriBuilder
-                .fromUri("http://localhost:8080/javeEE-forum-1.0-SNAPSHOT/api/").build());
     }
 }
