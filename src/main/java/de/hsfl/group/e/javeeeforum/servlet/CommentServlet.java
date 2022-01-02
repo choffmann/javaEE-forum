@@ -33,22 +33,9 @@ public class CommentServlet extends HttpServlet {
         String answerId = request.getParameter("answerid");
         String text = request.getParameter("commenttext");
         System.out.println("threadid:"+threadId+"; AnswerId: "+answerId+"; text= "+text);
-        long creatorId = 5L; //Queryparameter muss CreatorID in Long sein //TODO: Richtigen User einbinden
         //Sendet die Antwort an den Server
-        Response serverResponse = target.queryParam("creatorid",creatorId).path("threads/"+threadId+"/answers/"+answerId+"/comments").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(text));
+        Response serverResponse = target.queryParam("creatorid",userData.getCreatorDto().getId()).path("threads/"+threadId+"/answers/"+answerId+"/comments").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(text));
         //Fragt die Seite neu ab, ggf. später mit der serverResponse URL umändern
         response.sendRedirect(request.getContextPath() + "/threadServlet?threadid="+threadId);
-    }
-    private WebTarget startConnection(){
-        ClientConfig clientconfig = new ClientConfig();
-        Client client = ClientBuilder.newClient(clientconfig);
-        return client.target(UriBuilder
-                .fromUri("http://localhost:8080/javeEE-forum-1.0-SNAPSHOT/api/").build());
-    }
-    private void isLoggedIn(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-        if (userData.getCreatorDto() == null){
-            request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
-        }
-        request.setAttribute("userData", userData);
     }
 }

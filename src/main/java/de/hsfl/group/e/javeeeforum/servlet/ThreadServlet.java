@@ -5,25 +5,17 @@ import de.hsfl.group.e.javeeeforum.UserData;
 import de.hsfl.group.e.javeeeforum.dto.AnswerDto;
 import de.hsfl.group.e.javeeeforum.dto.ThreadDto;
 import jersey.repackaged.com.google.common.collect.Lists;
-import org.glassfish.jersey.client.ClientConfig;
-
 import javax.inject.Inject;
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @WebServlet(name = "threadServlet", value = "/threadServlet")
 public class ThreadServlet extends HttpServlet {
@@ -36,7 +28,6 @@ public class ThreadServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         sgl.isLoggedIn(request,response);
         WebTarget target = sgl.startConnection();
-        // TODO: Falls nicht eingeloggt zu login redirecten
         String threadId = request.getParameter("threadid");
         String searchRequest = request.getParameter("searchrequest");
 
