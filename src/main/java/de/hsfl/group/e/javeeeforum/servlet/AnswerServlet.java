@@ -28,7 +28,7 @@ public class AnswerServlet extends HttpServlet {
         //Sendet die Antwort an den Server
         Response serverResponse = target.queryParam("creatorid",creatorId).path("threads/"+threadId+"/answers").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(text));
         //Fragt die Seite neu ab, ggf. später mit der serverResponse URL umändern
-        new ThreadServlet().doGet(request,response);
+        response.sendRedirect(request.getContextPath() + "/threadServlet?threadid="+threadId);
     }
     private WebTarget startConnection(){
         ClientConfig clientconfig = new ClientConfig();
