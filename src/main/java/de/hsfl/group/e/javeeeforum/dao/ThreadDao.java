@@ -33,6 +33,13 @@ public class ThreadDao implements Dao<Thread> {
         return query.getResultList();
     }
 
+    public List<Thread> searchThread(String searchText) {
+        Query query = manager.createQuery("SELECT e FROM Thread e INNER JOIN e.categories d INNER JOIN e.tags f " +
+                        "WHERE e.title like '%" + searchText + "%' OR d.text like '%" + searchText + "%' OR f.tag like '%" + searchText + "%'"
+                , Thread.class);
+        return query.getResultList();
+    }
+
     @Override
     public List<Thread> getListByQuery(Query query) {
         return query.getResultList();

@@ -62,12 +62,14 @@ public class ThreadService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ThreadDto> getAll(@QueryParam("category") Long categoryID, @QueryParam("creatorid") Long creatorID) {
+    public List<ThreadDto> getAll(@QueryParam("category") Long categoryID, @QueryParam("creatorid") Long creatorID, @QueryParam("searchText") String searchText) {
         List<Thread> threads;
         if (creatorID != null)
             threads = threadDao.getAllByCreator(categoryID);
         else if (categoryID != null)
             threads = threadDao.getAllByCategory(categoryID);
+        else if (searchText != null)
+            threads = threadDao.searchThread(searchText);
         else
             threads = threadDao.getAll();
 
