@@ -16,17 +16,19 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 
-@WebServlet(name = "answerServlet", value = "/answerServlet")
-public class AnswerServlet extends HttpServlet {
+@WebServlet(name = "commentServlet", value = "/commentServlet")
+public class CommentServlet extends HttpServlet {
 
     //Antwort senden
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String threadId = request.getParameter("threadid");
-        String text = request.getParameter("answertext");
+        String answerId = request.getParameter("answerid");
+        String text = request.getParameter("commenttext");
+        System.out.println("threadid:"+threadId+"; AnswerId: "+answerId+"; text= "+text);
         long creatorId = 1L; //Queryparameter muss CreatorID in Long sein //TODO: Richtigen User einbinden
         WebTarget target = startConnection();
         //Sendet die Antwort an den Server
-        Response serverResponse = target.queryParam("creatorid",creatorId).path("threads/"+threadId+"/answers").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(text));
+        Response serverResponse = target.queryParam("creatorid",creatorId).path("threads/"+threadId+"/answers/"+answerId+"/comments").request().accept(MediaType.APPLICATION_JSON).post(Entity.json(text));
         //Fragt die Seite neu ab, ggf. später mit der serverResponse URL umändern
         new ThreadServlet().doGet(request,response);
     }

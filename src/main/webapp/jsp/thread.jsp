@@ -8,11 +8,6 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <meta charset="utf-8">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Wird für JS Bootstrap benötigt, was ich für die Bootstrap Modal benötige -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <!--<script type="text/javascript" src="js/load.js"></script>-->
-
 </head>
 <body>
 <!-- TODO: Bei nicht eingeloggtem Zustand soll zu login.jsp gewechselt werden -->
@@ -23,56 +18,26 @@
         <a class="loggedIn btn btn-light mr-sm-2" href="threadServlet">Startseite</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als:
-                <b class="text-white" id="loggedUser"></b></p>
+                <b class="text-white" id="loggedUser">${username}</b></p>
         </div>
     </div>
     <div>
         <!-- Kategorien-->
-        <button class="loggedIn btn btn-warning mr-sm-2" type="button" data-toggle="modal"
-                data-target="#listModal">Kategorien
-        </button>
+        <a class="btn btn-warning mr-sm-2" href="categoryServlet">Kategorien</a>
         <!-- Userliste [Admin Knopf] -->
         <button class="loggedIn isAdmin btn btn-danger mr-sm-2" type="button" data-toggle="modal"
                 data-target="#listModal">Users <!-- TODO Userliste aufrufen -->
         </button>
     </div>
     <!-- Suchleiste -->
-    <form class="form-inline">
-        <input class="form-control my-2 mr-sm-2" type="search" id="searchInput" placeholder="Suche">
-        <button class="btn btn-primary mr-sm-2" type="button"
-                onclick="loadData('search',document.getElementById('searchInput').value)">Suchen
-            <!-- TODO: Threadsuche -->
-        </button> <!-- wichtig! type=button damit er die seite nicht submittet/refreshed -->
-    </form>
-</nav>
-<!-- Kategorien Modalfenster -->
-<div id="listModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Kategorien</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div id="catAlert" class="alert alert-danger" style="display: none" role="alert"></div>
-                <div class="list-group" id="categories" role="tablist"> <!--Wird über die js eingefügt-->
-                    <!-- TODO: Abfrage der Kategorien-->
-                </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <!-- j-c-b macht, dass die eine Gruppe links und die andere rechts ist,deshalb leerer container zum start-->
-                <div></div>
-                <div>
-                    <button id="searchCategory" class="btn btn-primary mr-sm-2" type="button"
-                            onclick="loadFromFavorite('search')"> <!-- TODO: Suche der Kategorie-->
-                        Suchen
-                    </button>
-                </div>
-            </div>
-        </div>
-
+    <div>
+        <form class="form-inline" method="get" action="threadServlet">
+            <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" placeholder="Suche"/>
+            <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
+        </form>
     </div>
-</div>
+</nav>
+
 <!-- Seiteninhalt -->
 <div class="container mt-5">
     <!-- Normaler Content -->
@@ -106,31 +71,26 @@
                 <div class="border border-info rounded p-1">
                     <b>Antwort von ${answer.creator.username} </b>
                     <p>${answer.text}</p>
-                    <!-- Falls wir mit Score arbeiten: <div class="row">
-                        <div></div>
-                        <div>
-                            <form name="openThreadForm" method="post" action="answerServlet">
-                                <input type="hidden" value="${thread.id}" name="threadid"/>
-                                <input type="hidden" value="${answer.id}" name="answerid"/>
-                                <input type="hidden" value="1" name=""/>
-                                <input class="btn btn-success" type="submit" value="Like"/>
-                            </form>
-                            <form name="openThreadForm" method="post" action="answerServlet">
-                                <input type="hidden" value="${thread.id}" name="threadid"/>
-                                <input type="hidden" value="${answer.id}" name="answerid"/>
-                                <input type="hidden" value="0" name="rating"/>
-                                <input class="btn btn-success" type="submit" value="Like"/>
-                            </form>
-                        </div>
-                    </div>-->
+                    <div class="p-2" id="createComment">
+                        <form id="createCommentForm" name="createCommentForm" method="post" action="commentServlet">
+                            <input type="hidden" value="${thread.id}" name="threadid"/>
+                            <input type="hidden" value="${answer.id}" name="answerid"/>
+                            <div class="form-group">
+                                <label for="commentTextarea">Kommentiere die Antwort:</label>
+                                <textarea class="form-control" id="commentTextarea" placeholder="..." name="commenttext"
+                                          rows="1"></textarea>
+                                <div class="text-right">
+                                <input class="btn btn-success mt-1 p-1>" type="submit" value="Antwort absenden"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <c:if test="${answer.comments.size() > 0}">
                         <c:forEach items="${answer.comments}" var="comment">
                             <div class="border border-secondary rounded p-1">
                                 <b>Kommentar von ${comment.creatorDto.username} </b>
                                 <p>${comment.text}</p>
                             </div>
-
-
                         </c:forEach>
                     </c:if>
                 </div>

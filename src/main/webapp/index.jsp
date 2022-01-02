@@ -18,10 +18,8 @@
 <div class="container mt-5">
     <!-- Normaler Content -->
     <a class="btn btn-primary" href="threadServlet">Homepage (threadServlet)</a>
-    <form name="openThreadForm" method="post" action="threadServlet">
-        <input type="hidden" value="1" name="threadid"/> <br/>
-        <input class="btn btn-primary" type="submit" value="Thread 1"/>
-    </form>
+    <a class="btn btn-primary" href="categoryServlet">Kategorienliste</a>
+    <a class="btn btn-primary" href="threadServlet?threadid=1">Thread 1</a>
 </div>
 </body>
 </html>
