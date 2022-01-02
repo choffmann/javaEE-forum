@@ -1,10 +1,12 @@
 package de.hsfl.group.e.javeeeforum.servlet;
 
+import de.hsfl.group.e.javeeeforum.UserData;
 import de.hsfl.group.e.javeeeforum.dto.AnswerDto;
 import de.hsfl.group.e.javeeeforum.dto.ThreadDto;
 import jersey.repackaged.com.google.common.collect.Lists;
 import org.glassfish.jersey.client.ClientConfig;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,12 +26,18 @@ import java.util.stream.Collectors;
 @WebServlet(name = "threadServlet", value = "/threadServlet")
 public class ThreadServlet extends HttpServlet {
 
+    @Inject
+    UserData userData;
+
     //Normale Homepage Abfrage;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // TODO: Falls nicht eingeloggt zu login redirecten
         String threadId = request.getParameter("threadid");
         String searchRequest = request.getParameter("searchrequest");
         WebTarget target = startConnection();
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + userData);
+        System.out.println(userData.getCreatorDto().getUsername());
+        request.setAttribute("userData", userData);
         if(threadId != null){
             //Abfrage eines spezifischen Posts
             ThreadDto thread = target.path("threads/"+threadId).request().accept(MediaType.APPLICATION_JSON).get(
