@@ -80,7 +80,7 @@
                                 <textarea class="form-control" id="commentTextarea" placeholder="..." name="commenttext"
                                           rows="1"></textarea>
                                 <div class="text-right">
-                                <input class="btn btn-success mt-1 p-1>" type="submit" value="Antwort absenden"/>
+                                <input class="btn btn-success mt-1 p-1>" type="submit" value="Kommentar absenden"/>
                                 </div>
                             </div>
                         </form>
