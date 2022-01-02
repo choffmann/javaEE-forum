@@ -17,7 +17,7 @@
         <a class="loggedIn btn btn-light mr-sm-2" href="threadServlet">Startseite</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
-                                                                                    id="loggedUser">${username}</b></p>
+                                                                                    id="loggedUser">${userData.creatorDto.username}</b></p>
         </div>
     </div>
     <div>
