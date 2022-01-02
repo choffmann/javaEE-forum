@@ -36,6 +36,16 @@ public class UserService {
         return CreatorDto.fromModel(creatorDao.getById(id));
     }
 
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CreatorDto deleteUser(@PathParam("id") long id){
+        Creator creator = creatorDao.getById(id);
+        // creator.setIsDeleted(true);
+        creatorDao.updateElement(creator);
+        return CreatorDto.fromModel(creator);
+    }
+
     @POST
     @Path("register")
     @Consumes(MediaType.APPLICATION_JSON)
