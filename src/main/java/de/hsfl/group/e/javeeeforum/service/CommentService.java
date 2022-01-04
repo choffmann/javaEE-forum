@@ -91,7 +91,12 @@ public class CommentService {
         if (answer == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The answer was not found").build());
-        return CommentDto.fromModel(commentDao.getByIdFromAnswer(answer.getId(), commentId));
+        Comment comment = commentDao.getByIdFromAnswer(answer.getId(), commentId);
+
+        if (comment == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("The comment was not found").build());
+        return CommentDto.fromModel(comment);
     }
 
     @PUT
