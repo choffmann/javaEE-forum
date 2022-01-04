@@ -1,7 +1,6 @@
 package de.hsfl.group.e.javeeeforum.dto;
 
 import de.hsfl.group.e.javeeeforum.model.Answer;
-import de.hsfl.group.e.javeeeforum.model.Category;
 import de.hsfl.group.e.javeeeforum.model.Tag;
 import de.hsfl.group.e.javeeeforum.model.Thread;
 
@@ -16,8 +15,8 @@ public class ThreadDto {
     private Date modifiedAt;
     private String text;
 
+    private Long category;
     private List<String> tags;
-    private List<Long> categories;
     private List<Long> answers;
     private CreatorDto creator;
 
@@ -35,12 +34,14 @@ public class ThreadDto {
     public static ThreadDto fromModel(Thread model) {
         ThreadDto dto = new ThreadDto(model.getId(), model.getTitle(), model.getCreatedAt(), model.getModifiedAt(), model.getText());
         dto.setCreator(CreatorDto.fromModel(model.getCreator()));
+        dto.setCategory(model.getCategory().getId());
 
-        List<Long> categories = new LinkedList<>();
+/*        List<Long> categories = new LinkedList<>();
+
         for (Category category : model.getCategories())
             categories.add(category.getId());
 
-        dto.setCategories(categories);
+        dto.setCategories(categories);*/
 
         List<String> tags = new LinkedList<>();
         for (Tag tag : model.getTags())
@@ -112,12 +113,12 @@ public class ThreadDto {
         this.tags = tags;
     }
 
-    public List<Long> getCategories() {
-        return categories;
+    public Long getCategory() {
+        return category;
     }
 
-    public void setCategories(List<Long> categories) {
-        this.categories = categories;
+    public void setCategory(Long category) {
+        this.category = category;
     }
 
     public List<Long> getAnswers() {
