@@ -64,6 +64,11 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public CreatorDto registerUser(CreatorDto creatorDto){
+        Creator check = creatorDao.getByUsername(creatorDto.getUsername());
+        if (check != null)
+            throw new WebApplicationException(
+                    Response.status(400).entity("user already exists").build());
+
         Creator creator = new Creator();
         creator.setAdmin(false);
         creator.setEmail(creatorDto.getEmail());
