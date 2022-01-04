@@ -5,7 +5,6 @@ import de.hsfl.group.e.javeeeforum.UserData;
 import de.hsfl.group.e.javeeeforum.dto.AnswerDto;
 import de.hsfl.group.e.javeeeforum.dto.ThreadDto;
 import jersey.repackaged.com.google.common.collect.Lists;
-
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +31,7 @@ public class ThreadServlet extends HttpServlet {
         String threadId = request.getParameter("threadid");
         String searchRequest = request.getParameter("searchrequest");
         String creatorId = request.getParameter("creatorid");
+        if(threadId != null){
         request.setAttribute("userData", userData);
         if (threadId != null) {
             //Abfrage eines spezifischen Posts
