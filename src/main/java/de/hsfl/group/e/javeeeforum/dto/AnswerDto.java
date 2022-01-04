@@ -37,9 +37,9 @@ public class AnswerDto {
         return dto;
     }
 
-    public static List<AnswerDto> fromModelList (List<Answer> modelList) {
+    public static List<AnswerDto> fromModelList(List<Answer> modelList) {
         List<AnswerDto> dtoList = new LinkedList<>();
-        for (Answer model: modelList) {
+        for (Answer model : modelList) {
             dtoList.add(AnswerDto.fromModel(model));
         }
         return dtoList;

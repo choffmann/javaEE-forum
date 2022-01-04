@@ -35,7 +35,10 @@ public class CategoryService {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createCategory(CategoryDto categoryDto, @QueryParam("creator") Long creatorID){
+    public Response createCategory(CategoryDto categoryDto, @QueryParam("creator") Long creatorID) {
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null || !creator.isAdmin())
             throw new WebApplicationException(
@@ -53,8 +56,12 @@ public class CategoryService {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CategoryDto getCategory(@PathParam("id") long id){
-        return CategoryDto.fromModel(categoryDao.getById(id));
+    public CategoryDto getCategory(@PathParam("id") long id) {
+        Category category = categoryDao.getById(id);
+        if (category == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("Not found").build());
+        return CategoryDto.fromModel(category);
     }
 
 }

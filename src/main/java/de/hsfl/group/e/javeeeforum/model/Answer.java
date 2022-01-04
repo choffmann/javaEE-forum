@@ -24,13 +24,13 @@ public class Answer implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date modifiedAt;
 
-    @ManyToOne(optional = false, fetch=FetchType.LAZY)
-    @JoinColumn(name="creator_id", nullable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id", nullable = false, updatable = false)
     private Creator creator;
-    @ManyToOne(optional = false, fetch=FetchType.LAZY)
-    @JoinColumn(name="thread_id", nullable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "thread_id", nullable = false, updatable = false)
     private Thread thread;
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="answer", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer", orphanRemoval = true)
     private List<Comment> comment;
 
     public Long getId() {

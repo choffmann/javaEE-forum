@@ -19,8 +19,10 @@ public class UserService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<CreatorDto> getAll(@QueryParam("creatorid") Long creatorID){
-
+    public List<CreatorDto> getAll(@QueryParam("creatorid") Long creatorID) {
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null || !creator.isAdmin())
             throw new WebApplicationException(
@@ -32,17 +34,28 @@ public class UserService {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CreatorDto getUser(@PathParam("id") long id){
-        return CreatorDto.fromModel(creatorDao.getById(id));
+    public CreatorDto getUser(@PathParam("id") long id) {
+        Creator creator = creatorDao.getById(id);
+        if (creator == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not found").build());
+        return CreatorDto.fromModel(creator);
     }
 
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CreatorDto deleteUser(@PathParam("id") long id){
-        Creator creator = creatorDao.getById(id);
-        // creator.setIsDeleted(true);
-        creatorDao.updateElement(creator);
+    public CreatorDto deleteUser(@PathParam("id") long id, @QueryParam("creatorid") Long creatorID) {
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
+        Creator creator = creatorDao.getById(creatorID);
+        if (creator == null || !(creator.isAdmin() || creator.getId().equals(id)))
+            throw new WebApplicationException(
+                    Response.status(404).entity("Not authenticated").build());
+        Creator creator_to_delete = creatorDao.getById(id);
+        // creator_to_delete.setIsDeleted(true);
+        creatorDao.updateElement(creator_to_delete);
         return CreatorDto.fromModel(creator);
     }
 
@@ -50,7 +63,12 @@ public class UserService {
     @Path("register")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public CreatorDto registerUser(CreatorDto creatorDto){
+    public CreatorDto registerUser(CreatorDto creatorDto) {
+        Creator check = creatorDao.getByUsername(creatorDto.getUsername());
+        if (check != null)
+            throw new WebApplicationException(
+                    Response.status(400).entity("user already exists").build());
+
         Creator creator = new Creator();
         creator.setAdmin(false);
         creator.setEmail(creatorDto.getEmail());
@@ -66,7 +84,7 @@ public class UserService {
     @Path("login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public CreatorDto loginUser(CreatorDto creatorDto){
+    public CreatorDto loginUser(CreatorDto creatorDto) {
         Creator creator = creatorDao.getByUsername(creatorDto.getUsername());
         if (creator == null)
             throw new WebApplicationException(

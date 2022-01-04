@@ -35,7 +35,7 @@ public class ThreadService {
     @Inject
     TagDao tagDao;
 
-    private List<Category> getCategoryList (List<Long> categoryIds) {
+    private List<Category> getCategoryList(List<Long> categoryIds) {
         List<Category> categories = new LinkedList<>();
         for (Long categoryID : categoryIds) {
             Category category = categoryDao.getById(categoryID);
@@ -47,7 +47,7 @@ public class ThreadService {
         return categories;
     }
 
-    private List<Tag> getTagList (List<String> tagStrings) {
+    private List<Tag> getTagList(List<String> tagStrings) {
         List<Tag> tags = new LinkedList<>();
         for (String tagString : tagStrings) {
             if (tagString != null) {
@@ -65,7 +65,7 @@ public class ThreadService {
     public List<ThreadDto> getAll(@QueryParam("category") Long categoryID, @QueryParam("creatorid") Long creatorID, @QueryParam("searchText") String searchText) {
         List<Thread> threads;
         if (creatorID != null)
-            threads = threadDao.getAllByCreator(categoryID);
+            threads = threadDao.getAllByCreator(creatorID);
         else if (categoryID != null)
             threads = threadDao.getAllByCategory(categoryID);
         else if (searchText != null)
@@ -79,10 +79,13 @@ public class ThreadService {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createThread(ThreadDto threadDto, @QueryParam("creatorid") Long creatorID) {
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
-                    Response.status(404).entity("Not authenticated").build());
+                    Response.status(404).entity("user not found").build());
 
         Thread thread = new Thread();
         thread.setCreator(creator);
@@ -103,7 +106,11 @@ public class ThreadService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public ThreadDto getThread(@PathParam("id") long id) {
-        return ThreadDto.fromModel(threadDao.getById(id));
+        Thread thread = threadDao.getById(id);
+        if (thread == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("Not found").build());
+        return ThreadDto.fromModel(thread);
     }
 
     @PUT
@@ -111,10 +118,13 @@ public class ThreadService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public ThreadDto updateThread(@PathParam("id") long id, @QueryParam("creatorid") Long creatorID, ThreadDto threadDto) {
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
-                    Response.status(401).entity("Not authenticated").build());
+                    Response.status(401).entity("user not found").build());
         Thread thread = threadDao.getById(id);
 
         if (thread == null)
@@ -147,6 +157,9 @@ public class ThreadService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public ThreadDto deleteThread(@PathParam("id") long id, @QueryParam("creatorid") Long creatorID) {
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null || !creator.isAdmin())
             throw new WebApplicationException(

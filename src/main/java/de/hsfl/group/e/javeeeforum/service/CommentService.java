@@ -53,12 +53,15 @@ public class CommentService {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createComment(String text, @QueryParam("creatorid") Long creatorID){
+    public Response createComment(String text, @QueryParam("creatorid") Long creatorID) {
         Answer answer = answerDao.getByIdFromThread(threadId, answerID);
 
         if (answer == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The answer was not found").build());
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
@@ -83,23 +86,31 @@ public class CommentService {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CommentDto getComment(@PathParam("id") long commentId){
+    public CommentDto getComment(@PathParam("id") long commentId) {
         Answer answer = answerDao.getByIdFromThread(threadId, answerID);
         if (answer == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The answer was not found").build());
-        return CommentDto.fromModel(commentDao.getByIdFromAnswer(answer.getId(), commentId));
+        Comment comment = commentDao.getByIdFromAnswer(answer.getId(), commentId);
+
+        if (comment == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("The comment was not found").build());
+        return CommentDto.fromModel(comment);
     }
 
     @PUT
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public CommentDto updateComment(@PathParam("id") long commentId, @QueryParam("creatorid") Long creatorID, CommentDto commentDto){
+    public CommentDto updateComment(@PathParam("id") long commentId, @QueryParam("creatorid") Long creatorID, CommentDto commentDto) {
         Answer answer = answerDao.getByIdFromThread(threadId, answerID);
         if (answer == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The answer was not found").build());
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
@@ -127,11 +138,14 @@ public class CommentService {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CommentDto deleteComment(@PathParam("id") long commentId, @QueryParam("creatorid") Long creatorID, CommentDto commentDto){
+    public CommentDto deleteComment(@PathParam("id") long commentId, @QueryParam("creatorid") Long creatorID, CommentDto commentDto) {
         Answer answer = answerDao.getByIdFromThread(threadId, answerID);
         if (answer == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The answer was not found").build());
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(

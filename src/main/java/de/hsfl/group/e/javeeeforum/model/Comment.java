@@ -22,11 +22,11 @@ public class Comment implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date modifiedAt;
 
-    @ManyToOne(optional = false, fetch=FetchType.LAZY)
-    @JoinColumn(name="creator_id", nullable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id", nullable = false, updatable = false)
     private Creator creator;
-    @ManyToOne(optional = false, fetch=FetchType.LAZY)
-    @JoinColumn(name="answer_id", nullable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "answer_id", nullable = false, updatable = false)
     private Answer answer;
 
     public Long getId() {
