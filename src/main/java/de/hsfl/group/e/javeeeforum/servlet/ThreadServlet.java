@@ -24,13 +24,14 @@ public class ThreadServlet extends HttpServlet {
     @Inject
     ServletGlobalFunctions sgl;
 
-    //Normale Homepage Abfrage;
+    //Alle Abfragen von Threads kommen hier rein
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         sgl.isLoggedIn(request,response);
         WebTarget target = sgl.startConnection();
         String threadId = request.getParameter("threadid");
         String searchRequest = request.getParameter("searchrequest");
-
+        String creatorId = request.getParameter("creatorid");
+        System.out.println(threadId+" "+searchRequest);
         if(threadId != null){
             //Abfrage eines spezifischen Posts
             ThreadDto thread = target.path("threads/"+threadId).request().accept(MediaType.APPLICATION_JSON).get(
@@ -45,12 +46,20 @@ public class ThreadServlet extends HttpServlet {
             request.getRequestDispatcher("/jsp/thread.jsp").forward(request, response);
         }else if (searchRequest != null){
             //Abfrage von Threads nach Suchkriterium
-            //TODO: Richtige Abfrage, aber ThreadService.java hat keinen Endpunkt zur Suche
-            List<ThreadDto> threads = target.path("threads").request().accept(MediaType.APPLICATION_JSON).get(
+            List<ThreadDto> threads = target.queryParam("searchText",searchRequest).path("threads").request().accept(MediaType.APPLICATION_JSON).get(
                     new GenericType<List<ThreadDto>>() {
                     });
             threads= Lists.reverse(threads); //Eigentlich sollten sie schon direkt richtig ankommen, da sie es aber nicht tun, wird hier quasi "sortiert"
-            request.setAttribute("title", "Die neusten Threads");
+            request.setAttribute("title", "Threads mit dem Suchbegriff: '"+searchRequest+"'");
+            request.setAttribute("threads", threads);
+            request.getRequestDispatcher("/jsp/threadList.jsp").forward(request, response);
+        }else if (creatorId != null){
+            //Abfrage von Threads vom Creator mit CreatorId
+            List<ThreadDto> threads = target.queryParam("creatorid",creatorId).path("threads").request().accept(MediaType.APPLICATION_JSON).get(
+                    new GenericType<List<ThreadDto>>() {
+                    });
+            threads= Lists.reverse(threads); //Eigentlich sollten sie schon direkt richtig ankommen, da sie es aber nicht tun, wird hier quasi "sortiert"
+            request.setAttribute("title", "Threads vom User mit der ID: "+creatorId);
             request.setAttribute("threads", threads);
             request.getRequestDispatcher("/jsp/threadList.jsp").forward(request, response);
         }else{

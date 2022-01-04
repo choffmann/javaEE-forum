@@ -34,7 +34,7 @@
     <!-- Suchleiste -->
     <div>
         <form class="form-inline" method="get" action="threadServlet">
-            <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" placeholder="Suche"/>
+            <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" name="searchrequest" placeholder="Suche"/>
             <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
         </form>
     </div>
@@ -47,7 +47,7 @@
     <!-- table für die Threads -->
     <div id="thread" class="p-2 border border-primary rounded">
         <h1>${thread.title}</h1>
-        <b class="mb-1">Beitrag von ${thread.creator.username}, erstellt am ${thread.createdAt}</b>
+        <b class="mb-1">Beitrag von <a href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt am ${thread.createdAt}</b>
         <div class="p-2 d-flex justify-content-between rounded">
             ${thread.text}
         </div>
@@ -71,7 +71,7 @@
         <c:if test="${thread.answers.size() > 0}">
             <c:forEach items="${answers}" var="answer">
                 <div class="border border-info rounded p-1">
-                    <b>Antwort von ${answer.creator.username} </b>
+                    <b>Antwort von <a href="threadServlet?creatorid=${answer.creator.id}">${answer.creator.username}</a></b>
                     <p>${answer.text}</p>
                     <div class="p-2" id="createComment">
                         <form id="createCommentForm" name="createCommentForm" method="post" action="commentServlet">
@@ -90,7 +90,7 @@
                     <c:if test="${answer.comments.size() > 0}">
                         <c:forEach items="${answer.comments}" var="comment">
                             <div class="border border-secondary rounded p-1 my-1">
-                                <b>Kommentar von ${comment.creatorDto.username} </b>
+                                <b>Kommentar von <a href="threadServlet?creatorid=${comment.creatorDto.id}">${comment.creatorDto.username}</a></b>
                                 <p>${comment.text}</p>
                             </div>
                         </c:forEach>
