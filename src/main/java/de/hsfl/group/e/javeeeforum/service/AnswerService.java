@@ -53,6 +53,9 @@ public class AnswerService {
         if (thread == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The thread was not found").build());
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID); //
         if (creator == null)
             throw new WebApplicationException(
@@ -95,7 +98,9 @@ public class AnswerService {
         if (thread == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The thread was not found").build());
-
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
@@ -128,7 +133,9 @@ public class AnswerService {
         if (thread == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The thread was not found").build());
-
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(

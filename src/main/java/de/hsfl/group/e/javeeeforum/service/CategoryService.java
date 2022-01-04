@@ -36,6 +36,9 @@ public class CategoryService {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createCategory(CategoryDto categoryDto, @QueryParam("creator") Long creatorID){
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null || !creator.isAdmin())
             throw new WebApplicationException(

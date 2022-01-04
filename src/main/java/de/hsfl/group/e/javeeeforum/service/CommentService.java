@@ -59,6 +59,9 @@ public class CommentService {
         if (answer == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The answer was not found").build());
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
@@ -100,6 +103,9 @@ public class CommentService {
         if (answer == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The answer was not found").build());
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
@@ -132,6 +138,9 @@ public class CommentService {
         if (answer == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The answer was not found").build());
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
