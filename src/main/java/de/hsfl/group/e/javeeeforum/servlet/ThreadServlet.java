@@ -31,7 +31,6 @@ public class ThreadServlet extends HttpServlet {
         String threadId = request.getParameter("threadid");
         String searchRequest = request.getParameter("searchrequest");
         String creatorId = request.getParameter("creatorid");
-        System.out.println(threadId+" "+searchRequest);
         if(threadId != null){
             //Abfrage eines spezifischen Posts
             ThreadDto thread = target.path("threads/"+threadId).request().accept(MediaType.APPLICATION_JSON).get(
