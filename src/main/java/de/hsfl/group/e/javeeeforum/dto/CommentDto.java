@@ -34,7 +34,7 @@ public class CommentDto {
 
     public static List<CommentDto> fromModelList(List<Comment> modelList) {
         List<CommentDto> dtoList = new LinkedList<>();
-        for (Comment model: modelList) {
+        for (Comment model : modelList) {
             dtoList.add(fromModel(model));
         }
         return dtoList;

@@ -53,7 +53,7 @@ public class CommentService {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createComment(String text, @QueryParam("creatorid") Long creatorID){
+    public Response createComment(String text, @QueryParam("creatorid") Long creatorID) {
         Answer answer = answerDao.getByIdFromThread(threadId, answerID);
 
         if (answer == null)
@@ -86,7 +86,7 @@ public class CommentService {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CommentDto getComment(@PathParam("id") long commentId){
+    public CommentDto getComment(@PathParam("id") long commentId) {
         Answer answer = answerDao.getByIdFromThread(threadId, answerID);
         if (answer == null)
             throw new WebApplicationException(
@@ -103,7 +103,7 @@ public class CommentService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public CommentDto updateComment(@PathParam("id") long commentId, @QueryParam("creatorid") Long creatorID, CommentDto commentDto){
+    public CommentDto updateComment(@PathParam("id") long commentId, @QueryParam("creatorid") Long creatorID, CommentDto commentDto) {
         Answer answer = answerDao.getByIdFromThread(threadId, answerID);
         if (answer == null)
             throw new WebApplicationException(
@@ -138,7 +138,7 @@ public class CommentService {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CommentDto deleteComment(@PathParam("id") long commentId, @QueryParam("creatorid") Long creatorID, CommentDto commentDto){
+    public CommentDto deleteComment(@PathParam("id") long commentId, @QueryParam("creatorid") Long creatorID, CommentDto commentDto) {
         Answer answer = answerDao.getByIdFromThread(threadId, answerID);
         if (answer == null)
             throw new WebApplicationException(

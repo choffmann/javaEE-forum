@@ -25,9 +25,9 @@ public class CategoryDto implements Serializable {
         return new CategoryDto(model.getId(), model.getText());
     }
 
-    public static List<CategoryDto> fromModelList (List<Category> modelList) {
+    public static List<CategoryDto> fromModelList(List<Category> modelList) {
         List<CategoryDto> dtoList = new LinkedList<>();
-        for (Category model: modelList) {
+        for (Category model : modelList) {
             dtoList.add(CategoryDto.fromModel(model));
         }
         return dtoList;
