@@ -20,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name = "createThreadServlet", value = "/createThreadServlet")
@@ -43,15 +44,22 @@ public class CreateThreadServlet extends HttpServlet {
                 });
         request.setAttribute("tags", tags);
         */
+        request.getRequestDispatcher("/jsp/createThread.jsp").forward(request, response);
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         WebTarget target = startConnection();
+        Long categoryId = Long.valueOf(request.getParameter("categoryid"));
+
         ThreadDto threadDto = new ThreadDto();
         threadDto.setTitle(request.getParameter("title"));
-        threadDto.setTitle(request.getParameter("text"));
+        threadDto.setText(request.getParameter("text"));
         threadDto.setCreator(userData.getCreatorDto());
-        Response response1 = target.path("threads")
+        threadDto.setTags(Collections.singletonList("test"));
+        threadDto.setCategories(Collections.singletonList(categoryId));
+
+        Response response1 = target.queryParam("threads", userData.getCreatorDto().getId())
                 .request().accept(MediaType.APPLICATION_JSON).post(Entity.json(threadDto));
+        response.sendRedirect(request.getContextPath() + "/threadServlet");
     }
     private WebTarget startConnection(){
         ClientConfig clientconfig = new ClientConfig();
