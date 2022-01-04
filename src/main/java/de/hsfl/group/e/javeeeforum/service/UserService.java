@@ -41,10 +41,17 @@ public class UserService {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CreatorDto deleteUser(@PathParam("id") long id){
-        Creator creator = creatorDao.getById(id);
-        // creator.setIsDeleted(true);
-        creatorDao.updateElement(creator);
+    public CreatorDto deleteUser(@PathParam("id") long id, @QueryParam("creatorid") Long creatorID){
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
+        Creator creator = creatorDao.getById(creatorID);
+        if (creator == null || !(creator.isAdmin() || creator.getId().equals(id)))
+            throw new WebApplicationException(
+                    Response.status(404).entity("Not authenticated").build());
+        Creator creator_to_delete = creatorDao.getById(id);
+        // creator_to_delete.setIsDeleted(true);
+        creatorDao.updateElement(creator_to_delete);
         return CreatorDto.fromModel(creator);
     }
 
