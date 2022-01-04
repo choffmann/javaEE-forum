@@ -48,11 +48,11 @@
         <h1>Erstelle einen Thread</h1>
     </div>
     <div class="rounded-3 container-sm bg-primary">
-        <form action="" method="post" id="createThread">
+        <form action="${pageContext.request.contextPath}/createThreadServlet" method="post" id="createThread">
             <div class="row mb-3">
-                <label for="titel" class="col-sm-2 col-form-label">Titel</label>
+                <label for="title" class="col-sm-2 col-form-label">Titel</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="titel" name=titel>
+                    <input type="text" class="form-control" id="title" name=title>
                 </div>
             </div>
             <div class="row mb-3">

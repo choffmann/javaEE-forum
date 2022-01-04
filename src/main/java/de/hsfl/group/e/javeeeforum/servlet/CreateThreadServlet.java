@@ -52,11 +52,10 @@ public class CreateThreadServlet extends HttpServlet {
         ThreadDto threadDto = new ThreadDto();
         threadDto.setTitle(request.getParameter("title"));
         threadDto.setText(request.getParameter("text"));
-        threadDto.setCreator(userData.getCreatorDto());
         threadDto.setTags(Collections.singletonList("test"));
         threadDto.setCategories(Collections.singletonList(categoryId));
 
-        Response response1 = target.queryParam("threads", userData.getCreatorDto().getId())
+        Response response1 = target.queryParam("creatorid", userData.getCreatorDto().getId()).path("threads")
                 .request().accept(MediaType.APPLICATION_JSON).post(Entity.json(threadDto));
 
         response.sendRedirect(request.getContextPath() + "/threadServlet");
