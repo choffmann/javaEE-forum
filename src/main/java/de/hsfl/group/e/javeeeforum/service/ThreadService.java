@@ -85,7 +85,7 @@ public class ThreadService {
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
-                    Response.status(404).entity("Not found").build());
+                    Response.status(404).entity("user not found").build());
 
         Thread thread = new Thread();
         thread.setCreator(creator);
@@ -118,10 +118,13 @@ public class ThreadService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public ThreadDto updateThread(@PathParam("id") long id, @QueryParam("creatorid") Long creatorID, ThreadDto threadDto) {
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
-                    Response.status(401).entity("Not authenticated").build());
+                    Response.status(401).entity("user not found").build());
         Thread thread = threadDao.getById(id);
 
         if (thread == null)
@@ -154,6 +157,9 @@ public class ThreadService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public ThreadDto deleteThread(@PathParam("id") long id, @QueryParam("creatorid") Long creatorID) {
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null || !creator.isAdmin())
             throw new WebApplicationException(
