@@ -2,7 +2,6 @@ package de.hsfl.group.e.javeeeforum.servlet;
 
 import de.hsfl.group.e.javeeeforum.UserData;
 import de.hsfl.group.e.javeeeforum.dto.*;
-import jersey.repackaged.com.google.common.collect.Lists;
 import org.glassfish.jersey.client.ClientConfig;
 
 import javax.inject.Inject;
@@ -46,7 +45,7 @@ public class CreateThreadServlet extends HttpServlet {
         */
         request.getRequestDispatcher("/jsp/createThread.jsp").forward(request, response);
     }
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         WebTarget target = startConnection();
         Long categoryId = Long.valueOf(request.getParameter("categoryid"));
 
@@ -59,6 +58,7 @@ public class CreateThreadServlet extends HttpServlet {
 
         Response response1 = target.queryParam("threads", userData.getCreatorDto().getId())
                 .request().accept(MediaType.APPLICATION_JSON).post(Entity.json(threadDto));
+
         response.sendRedirect(request.getContextPath() + "/threadServlet");
     }
     private WebTarget startConnection(){

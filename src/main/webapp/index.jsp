@@ -19,6 +19,7 @@
     <!-- Normaler Content -->
     <a class="btn btn-primary" href="jsp/register.jsp">Register</a>
     <a class="btn btn-primary" href="jsp/login.jsp">Login</a>
+    <a class="btn btn-primary" href="userListServlet">User List</a>
     <a class="btn btn-primary" href="createThreadServlet">Create Thread</a>
     <a class="btn btn-primary" href="threadServlet">Homepage (threadServlet)</a>
     <a class="btn btn-primary" href="categoryServlet">Kategorienliste</a>
