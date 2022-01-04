@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User List</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 <body>
 <!-- Navigationsleiste -->
@@ -23,10 +23,9 @@
             </p>
         </div>
     </div>
+    <!-- Mittlere Knöpfe: Kategorien & Userliste [Admin Knopf] -->
     <div>
-        <!-- Kategorien-->
         <a class="btn btn-warning mr-sm-2" href="categoryServlet">Kategorien</a>
-        <!-- Userliste [Admin Knopf] -->
         <button class="loggedIn isAdmin btn btn-info mr-sm-2" type="button" data-toggle="modal"
                 data-target="#listModal">Users <!-- TODO Userliste aufrufen -->
         </button>
@@ -55,14 +54,13 @@
         <th scope="col"></th>
     </tr>
     </thead>
-    <tbody>
-    <jsp:useBean id="users" scope="request" type="java.util.List"/>
-    <c:forEach items="${users}" var="users">
+    <tbody id="userList">
+    <c:forEach items="${userList}" var="user">
         <tr>
-            <td>${users.id}</td>
-            <td>${users.username}</td>
-            <td>${users.email}</td>
-            <td>${users.isAdmin}</td>
+            <td>${user.id}</td>
+            <td>${user.username}</td>
+            <td>${user.email}</td>
+            <td>${user.isAdmin()}</td>
             <td><button type="button" class="btn btn-danger">Löschen</button></td>
         </tr>
     </c:forEach>
