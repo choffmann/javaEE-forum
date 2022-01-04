@@ -79,10 +79,13 @@ public class ThreadService {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createThread(ThreadDto threadDto, @QueryParam("creatorid") Long creatorID) {
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null)
             throw new WebApplicationException(
-                    Response.status(404).entity("Not authenticated").build());
+                    Response.status(404).entity("Not found").build());
 
         Thread thread = new Thread();
         thread.setCreator(creator);
