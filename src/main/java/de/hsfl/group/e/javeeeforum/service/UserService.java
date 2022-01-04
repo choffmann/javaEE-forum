@@ -35,7 +35,11 @@ public class UserService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public CreatorDto getUser(@PathParam("id") long id){
-        return CreatorDto.fromModel(creatorDao.getById(id));
+        Creator creator = creatorDao.getById(id);
+        if (creator == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("Not found").build());
+        return CreatorDto.fromModel(creator);
     }
 
     @DELETE
