@@ -30,9 +30,10 @@ public class UserListServlet extends HttpServlet {
         WebTarget target = startConnection();
         request.setAttribute("userData", userData);
 
-        List<CreatorDto> userList = target.queryParam("users", userData.getCreatorDto().getId()).request().accept(MediaType.APPLICATION_JSON).get(
+        List<CreatorDto> userList = target.queryParam("creatorid", userData.getCreatorDto().getId()).path("users").request().accept(MediaType.APPLICATION_JSON).get(
                 new GenericType<List<CreatorDto>>() {
                 });
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + userList.size());
         request.setAttribute("userList", userList);
 
         request.getRequestDispatcher("/jsp/userList.jsp").forward(request, response);

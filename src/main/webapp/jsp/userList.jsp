@@ -54,13 +54,13 @@
         <th scope="col"></th>
     </tr>
     </thead>
-    <tbody name="userList", id="userList">
-    <c:forEach items="${users}" var="users">
+    <tbody id="userList">
+    <c:forEach items="${userList}" var="user">
         <tr>
-            <td>${users.id}</td>
-            <td>${users.username}</td>
-            <td>${users.email}</td>
-            <td>${users.isAdmin}</td>
+            <td>${user.id}</td>
+            <td>${user.username}</td>
+            <td>${user.email}</td>
+            <td>${user.isAdmin()}</td>
             <td><button type="button" class="btn btn-danger">Löschen</button></td>
         </tr>
     </c:forEach>
