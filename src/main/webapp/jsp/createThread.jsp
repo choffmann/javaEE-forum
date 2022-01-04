@@ -80,24 +80,22 @@
             <div class="row mb-3">
                 <label for="titel" class="col-sm-2 col-form-label">Titel</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="titel" name=Titel>
+                    <input type="text" class="form-control" id="titel" name=titel>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="text" class="col-sm-2 col-form-label">Text</label>
                 <div class="col-sm-10">
-                    <textarea type="text" class="form-control" id="text" name=Text></textarea>
+                    <textarea type="text" class="form-control" id="text" name=text></textarea>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="category" class="col-sm-2 col-form-label">Category</label>
                 <div class="col-sm-10">
                     <select name="Category" class="form-control" id="category">
-                        <option>Category 1</option>
-                        <option>Category 2</option>
-                        <option>Category 3</option>
-                        <option>Category 4</option>
-                        <option>Category 5</option>
+                        <c:forEach items="${categories}" var="category">
+                            <option>${category.text}</option>
+                        </c:forEach>
                     </select>
                 </div>
             </div>
