@@ -20,7 +20,9 @@ public class UserService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<CreatorDto> getAll(@QueryParam("creatorid") Long creatorID){
-
+        if (creatorID == null)
+            throw new WebApplicationException(
+                    Response.status(401).entity("Not authenticated").build());
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null || !creator.isAdmin())
             throw new WebApplicationException(
