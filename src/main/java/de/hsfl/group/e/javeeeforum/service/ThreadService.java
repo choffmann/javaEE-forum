@@ -106,7 +106,11 @@ public class ThreadService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public ThreadDto getThread(@PathParam("id") long id) {
-        return ThreadDto.fromModel(threadDao.getById(id));
+        Thread thread = threadDao.getById(id);
+        if (thread == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("Not found").build());
+        return ThreadDto.fromModel(thread);
     }
 
     @PUT
