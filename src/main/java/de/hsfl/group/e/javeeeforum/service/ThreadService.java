@@ -65,7 +65,7 @@ public class ThreadService {
     public List<ThreadDto> getAll(@QueryParam("category") Long categoryID, @QueryParam("creatorid") Long creatorID, @QueryParam("searchText") String searchText) {
         List<Thread> threads;
         if (creatorID != null)
-            threads = threadDao.getAllByCreator(categoryID);
+            threads = threadDao.getAllByCreator(creatorID);
         else if (categoryID != null)
             threads = threadDao.getAllByCategory(categoryID);
         else if (searchText != null)
