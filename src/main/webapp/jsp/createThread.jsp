@@ -27,10 +27,9 @@
     </div>
     <!-- Mittlere Knöpfe: Kategorien & Userliste [Admin Knopf] -->
     <div>
+        <a class="btn btn-secondary mr-sm-2" href="createThreadServlet">Thread erstellen</a>
         <a class="btn btn-warning mr-sm-2" href="categoryServlet">Kategorien</a>
-        <button class="loggedIn isAdmin btn btn-info mr-sm-2" type="button" data-toggle="modal"
-                data-target="#listModal">Users <!-- TODO Userliste aufrufen -->
-        </button>
+        <a class="loggedIn isAdmin btn btn-info mr-sm-2" href="userListServlet">Users</a>
     </div>
     <!-- Suchleiste -->
     <div>
@@ -44,10 +43,8 @@
 
 <br/>
 <div class="container mt-5">
-    <div class="row pt-5">
-        <h1>Erstelle einen Thread</h1>
-    </div>
     <div class="rounded-3 container-sm bg-primary">
+        <h1>Erstelle einen Thread</h1>
         <form action="${pageContext.request.contextPath}/createThreadServlet" method="post" id="createThread">
             <div class="row mb-3">
                 <label for="title" class="col-sm-2 col-form-label">Titel</label>
@@ -62,7 +59,7 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="category" class="col-sm-2 col-form-label">Category</label>
+                <label for="category" class="col-sm-2 col-form-label">Kategorie</label>
                 <div class="col-sm-10">
                     <select name="categoryid" class="form-control" id="category">
                         <c:forEach items="${categories}" var="category">
@@ -72,15 +69,9 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="tag" class="col-sm-2 col-form-label">Tag</label>
+                <label for="tag" class="col-sm-2 col-form-label">Tags</label>
                 <div class="col-sm-10">
-                    <select name="tag" class="form-control" id="tag" size="3" multiple="multiple">
-                        <option>Tag 1</option>
-                        <option>Tag 2</option>
-                        <option>Tag 3</option>
-                        <option>Tag 4</option>
-                        <option>Tag 5</option>
-                    </select>
+                    <input type="text" class="form-control" id="tag" name=tag placeholder="Tags durch Komma trennen">
                 </div>
             </div>
             <div class="row mb-3">
