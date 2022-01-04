@@ -46,7 +46,7 @@
             <c:forEach items="${threads}" var="thread">
                     <div class="column p-2 border border-primary rounded highlight">
                         <h4 class="mb-0 mt-0">${thread.title}</h4>
-                        <p class="pl-4 pt-1 mb-1">Beitrag von ${thread.creator.getUsername()}, erstellt am ${thread.createdAt}</p>
+                        <b class="pl-4 pt-1 mb-1">Beitrag von <a href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt am ${thread.createdAt}</b>
                         <div class="p-2 d-flex justify-content-between rounded">
                                 ${thread.text}
                         </div>
