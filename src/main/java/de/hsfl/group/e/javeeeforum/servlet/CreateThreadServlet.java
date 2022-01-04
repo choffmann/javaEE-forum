@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,10 +50,13 @@ public class CreateThreadServlet extends HttpServlet {
         WebTarget target = startConnection();
         Long categoryId = Long.valueOf(request.getParameter("categoryid"));
 
+        String tags = request.getParameter("tag");
+        List<String> tagsList = Arrays.asList(tags.split(", "));
+
         ThreadDto threadDto = new ThreadDto();
         threadDto.setTitle(request.getParameter("title"));
         threadDto.setText(request.getParameter("text"));
-        threadDto.setTags(Collections.singletonList("test"));
+        threadDto.setTags(tagsList);
         threadDto.setCategories(Collections.singletonList(categoryId));
 
         Response response1 = target.queryParam("creatorid", userData.getCreatorDto().getId()).path("threads")

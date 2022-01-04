@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Auswahlseite</title>
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <meta charset="utf-8">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -27,4 +25,3 @@
     <a class="btn btn-primary" href="threadServlet?creatorid=5">Userthreads 1</a>
 </div>
 </body>
-</html>

@@ -26,10 +26,9 @@
     </div>
     <!-- Mittlere Knöpfe: Kategorien & Userliste [Admin Knopf] -->
     <div>
+        <a class="btn btn-secondary mr-sm-2" href="createThreadServlet">Thread erstellen</a>
         <a class="btn btn-warning mr-sm-2" href="categoryServlet">Kategorien</a>
-        <button class="loggedIn isAdmin btn btn-info mr-sm-2" type="button" data-toggle="modal"
-                data-target="#listModal">Users <!-- TODO Userliste aufrufen -->
-        </button>
+        <a class="loggedIn isAdmin btn btn-info mr-sm-2" href="userListServlet">Users</a>
     </div>
     <!-- Suchleiste -->
     <div>
