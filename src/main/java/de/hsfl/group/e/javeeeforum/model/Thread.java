@@ -38,11 +38,11 @@ public class Thread implements Serializable {
     )
     private List<Category> categories;
 
-    @ManyToOne(optional = false, fetch=FetchType.LAZY)
-    @JoinColumn(name="creator_id", nullable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id", nullable = false, updatable = false)
     private Creator creator;
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="thread", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "thread", orphanRemoval = true)
     private List<Answer> answer;
 
     public Long getId() {

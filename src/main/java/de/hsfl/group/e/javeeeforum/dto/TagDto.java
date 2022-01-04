@@ -23,7 +23,7 @@ public class TagDto {
 
     public static List<TagDto> fromModelList(List<Tag> modelList) {
         List<TagDto> dtoList = new LinkedList<>();
-        for (Tag model: modelList) {
+        for (Tag model : modelList) {
             dtoList.add(fromModel(model));
         }
         return dtoList;

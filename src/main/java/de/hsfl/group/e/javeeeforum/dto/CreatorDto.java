@@ -33,9 +33,9 @@ public class CreatorDto {
         return new CreatorDto(model.getId(), model.getUsername(), model.getEmail(), model.getPassword(), model.isAdmin(), model.getScore());
     }
 
-    public static List<CreatorDto> fromModelList(List<Creator> modelList){
+    public static List<CreatorDto> fromModelList(List<Creator> modelList) {
         List<CreatorDto> dtoList = new LinkedList<>();
-        for(Creator model : modelList)
+        for (Creator model : modelList)
             dtoList.add(CreatorDto.fromModel(model));
         return dtoList;
     }

@@ -29,7 +29,7 @@ public class CreatorDao implements Dao<Creator> {
     }
 
     public Creator getByUsername(String username) {
-        Query query = manager.createQuery("SELECT e FROM Creator e WHERE e.username = '" +username + "'", Creator.class);
+        Query query = manager.createQuery("SELECT e FROM Creator e WHERE e.username = '" + username + "'", Creator.class);
         return (Creator) query.getSingleResult();
     }
 

@@ -35,7 +35,7 @@ public class ThreadService {
     @Inject
     TagDao tagDao;
 
-    private List<Category> getCategoryList (List<Long> categoryIds) {
+    private List<Category> getCategoryList(List<Long> categoryIds) {
         List<Category> categories = new LinkedList<>();
         for (Long categoryID : categoryIds) {
             Category category = categoryDao.getById(categoryID);
@@ -47,7 +47,7 @@ public class ThreadService {
         return categories;
     }
 
-    private List<Tag> getTagList (List<String> tagStrings) {
+    private List<Tag> getTagList(List<String> tagStrings) {
         List<Tag> tags = new LinkedList<>();
         for (String tagString : tagStrings) {
             if (tagString != null) {
