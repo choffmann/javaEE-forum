@@ -86,7 +86,11 @@ public class AnswerService {
         if (thread == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The thread was not found").build());
-        return AnswerDto.fromModel(answerDao.getByIdFromThread(thread.getId(), answerId));
+        Answer answer = answerDao.getByIdFromThread(thread.getId(), answerId);
+        if (answer == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("Not found").build());
+        return AnswerDto.fromModel(answer);
     }
 
     @PUT
