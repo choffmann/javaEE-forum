@@ -34,10 +34,10 @@ public class ThreadDao implements Dao<Thread> {
     }
 
     public List<Thread> searchThread(String searchText) {
+        String s = searchText.toLowerCase();
         Query query = manager.createQuery("SELECT e FROM Thread e INNER JOIN e.categories d INNER JOIN e.tags f " +
-                        "WHERE e.title like '%" + searchText + "%' OR d.text like '%" + searchText + "%' " +
-                        "OR f.tag like '%" + searchText + "%' OR e.text like '%" + searchText + "%' GROUP BY e.id"
-                , Thread.class);
+                "WHERE lower(e.title) like '%" + s + "%' OR lower(d.text) like '%" + s + "%' " +
+                "OR lower(f.tag) like '%" + s + "%' OR lower(e.text) like '%" + s + "%' GROUP BY e.id", Thread.class);
         return query.getResultList();
     }
 
