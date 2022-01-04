@@ -30,7 +30,7 @@ public class ThreadServlet extends HttpServlet {
         WebTarget target = sgl.startConnection();
         String threadId = request.getParameter("threadid");
         String searchRequest = request.getParameter("searchrequest");
-
+        System.out.println(threadId+" "+searchRequest);
         if(threadId != null){
             //Abfrage eines spezifischen Posts
             ThreadDto thread = target.path("threads/"+threadId).request().accept(MediaType.APPLICATION_JSON).get(
@@ -46,11 +46,11 @@ public class ThreadServlet extends HttpServlet {
         }else if (searchRequest != null){
             //Abfrage von Threads nach Suchkriterium
             //TODO: Richtige Abfrage, aber ThreadService.java hat keinen Endpunkt zur Suche
-            List<ThreadDto> threads = target.path("threads").request().accept(MediaType.APPLICATION_JSON).get(
+            List<ThreadDto> threads = target.queryParam("searchText",searchRequest).path("threads").request().accept(MediaType.APPLICATION_JSON).get(
                     new GenericType<List<ThreadDto>>() {
                     });
             threads= Lists.reverse(threads); //Eigentlich sollten sie schon direkt richtig ankommen, da sie es aber nicht tun, wird hier quasi "sortiert"
-            request.setAttribute("title", "Die neusten Threads");
+            request.setAttribute("title", "Threads mit '"+searchRequest+"'");
             request.setAttribute("threads", threads);
             request.getRequestDispatcher("/jsp/threadList.jsp").forward(request, response);
         }else{
