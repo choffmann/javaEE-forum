@@ -6,6 +6,7 @@ import de.hsfl.group.e.javeeeforum.dto.CreatorDto;
 import de.hsfl.group.e.javeeeforum.model.Creator;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -64,8 +65,16 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public CreatorDto registerUser(CreatorDto creatorDto) {
-        Creator check = creatorDao.getByUsername(creatorDto.getUsername());
-        if (check != null)
+        boolean already_exists;
+        try {
+            creatorDao.getByUsername(creatorDto.getUsername());
+            already_exists = true;
+        }
+        catch (NoResultException err){
+            already_exists = false;
+        }
+
+        if (already_exists)
             throw new WebApplicationException(
                     Response.status(400).entity("user already exists").build());
 
