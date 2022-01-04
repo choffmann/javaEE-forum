@@ -6,12 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 
 <body>
 
+<!-- Navigationsleiste -->
+<nav class="navbar navbar-dark bg-dark container-fluid pl-20 pr-20">
+    <!-- Startseite & Logindaten -->
+    <div class="row pl-3">
+        <a class="loggedIn btn btn-light mr-sm-2" href="login.jsp">Login</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
     <div class="rounded-3 container-sm bg-primary">
         <h1>Register</h1>
         <form action="${pageContext.request.contextPath}/registerServlet" method="post">
@@ -37,6 +46,7 @@
         </form>
     </div>
 
+</div>
 </body>
 
 </html>
