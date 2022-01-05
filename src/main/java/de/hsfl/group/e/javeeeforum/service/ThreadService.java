@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import de.hsfl.group.e.javeeeforum.dao.*;
+import de.hsfl.group.e.javeeeforum.dto.CategoryDto;
 import de.hsfl.group.e.javeeeforum.dto.ThreadDto;
 import de.hsfl.group.e.javeeeforum.model.Category;
 import de.hsfl.group.e.javeeeforum.model.Creator;
@@ -35,16 +36,12 @@ public class ThreadService {
     @Inject
     TagDao tagDao;
 
-    private List<Category> getCategoryList(List<Long> categoryIds) {
-        List<Category> categories = new LinkedList<>();
-        for (Long categoryID : categoryIds) {
-            Category category = categoryDao.getById(categoryID);
-            if (category == null)
-                throw new WebApplicationException(
-                        Response.status(404).entity("The category was not found").build());
-            categories.add(category);
-        }
-        return categories;
+    private Category getCategory(CategoryDto categoryDto) {
+        Category category = categoryDao.getById(categoryDto.getId());
+        if (category == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("The category was not found").build());
+        return category;
     }
 
     private List<Tag> getTagList(List<String> tagStrings) {
@@ -91,7 +88,7 @@ public class ThreadService {
         thread.setCreator(creator);
         thread.setTitle(threadDto.getTitle());
         thread.setText(threadDto.getText());
-        thread.setCategories(getCategoryList(threadDto.getCategories()));
+        thread.setCategory(getCategory(threadDto.getCategory()));
         thread.setTags(getTagList(threadDto.getTags()));
         thread.setCreatedAt(Calendar.getInstance().getTime());
         thread.setModifiedAt(Calendar.getInstance().getTime());
@@ -141,8 +138,8 @@ public class ThreadService {
         if (threadDto.getText() != null)
             thread.setText(threadDto.getText());
 
-        if (threadDto.getCategories() != null)
-            thread.setCategories(getCategoryList(threadDto.getCategories()));
+        if (threadDto.getCategory() != null)
+            thread.setCategory(getCategory(threadDto.getCategory()));
 
         if (thread.getTags() != null)
             thread.setTags(thread.getTags());

@@ -69,8 +69,7 @@ public class UserService {
         try {
             creatorDao.getByUsername(creatorDto.getUsername());
             already_exists = true;
-        }
-        catch (NoResultException err){
+        } catch (NoResultException err) {
             already_exists = false;
         }
 
@@ -83,7 +82,6 @@ public class UserService {
         creator.setEmail(creatorDto.getEmail());
         creator.setPassword(creatorDto.getPassword());
         creator.setUsername(creatorDto.getUsername());
-        creator.setScore(0);
 
         creatorDao.addElement(creator);
         return CreatorDto.fromModel(creator);
@@ -94,10 +92,13 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public CreatorDto loginUser(CreatorDto creatorDto) {
-        Creator creator = creatorDao.getByUsername(creatorDto.getUsername());
-        if (creator == null)
+        Creator creator;
+        try {
+            creator = creatorDao.getByUsername(creatorDto.getUsername());
+        } catch (NoResultException err) {
             throw new WebApplicationException(
                     Response.status(404).entity("User not found").build());
+        }
 
         if (!creator.getPassword().equals(creatorDto.getPassword()))
             throw new WebApplicationException(
