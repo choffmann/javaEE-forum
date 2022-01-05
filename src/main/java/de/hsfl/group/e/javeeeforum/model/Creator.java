@@ -18,7 +18,6 @@ public class Creator implements Serializable {
     private String password;
     @Column(name = "is_admin")
     private boolean isAdmin;
-    private int score;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "creator", orphanRemoval = true)
     private List<Comment> comment;
@@ -67,14 +66,6 @@ public class Creator implements Serializable {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
     }
 
     public void setComment(List<Comment> comment) {
