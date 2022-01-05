@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 14.0
--- Dumped by pg_dump version 14.0
+-- Dumped by pg_dump version 14.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -30,8 +30,7 @@ CREATE TABLE public.answer (
     creator_id integer,
     created_at timestamp without time zone DEFAULT CURRENT_DATE NOT NULL,
     modified_at timestamp without time zone,
-    text text NOT NULL,
-    score integer DEFAULT 0
+    text text NOT NULL
 );
 
 
@@ -141,7 +140,7 @@ CREATE TABLE public.creator (
     email text NOT NULL,
     password text NOT NULL,
     is_admin boolean DEFAULT false NOT NULL,
-    score numeric DEFAULT 0 NOT NULL
+    is_deleted boolean DEFAULT false NOT NULL
 );
 
 
@@ -213,23 +212,12 @@ CREATE TABLE public.thread (
     title text NOT NULL,
     created_at timestamp without time zone DEFAULT CURRENT_DATE NOT NULL,
     modified_at timestamp without time zone,
-    text text NOT NULL
-);
-
-
-ALTER TABLE public.thread OWNER TO hoffmann;
-
---
--- Name: thread_category; Type: TABLE; Schema: public; Owner: javaee_forum_admin
---
-
-CREATE TABLE public.thread_category (
-    thread_id integer NOT NULL,
+    text text NOT NULL,
     category_id integer NOT NULL
 );
 
 
-ALTER TABLE public.thread_category OWNER TO javaee_forum_admin;
+ALTER TABLE public.thread OWNER TO hoffmann;
 
 --
 -- Name: thread_id_seq; Type: SEQUENCE; Schema: public; Owner: hoffmann
@@ -311,9 +299,11 @@ ALTER TABLE ONLY public.thread ALTER COLUMN id SET DEFAULT nextval('public.threa
 -- Data for Name: answer; Type: TABLE DATA; Schema: public; Owner: hoffmann
 --
 
-COPY public.answer (id, thread_id, creator_id, created_at, modified_at, text, score) FROM stdin;
-10	12	5	2021-12-21 14:31:29.135	2021-12-21 14:33:13.802	A answer to a Thread, maybe this is a helpful answer??	10
-11	12	6	2021-12-21 14:31:29.135	2021-12-21 14:33:13.803	Another answer to a Thread, hopefully this is a more helpful answer??	-9
+COPY public.answer (id, thread_id, creator_id, created_at, modified_at, text) FROM stdin;
+14	14	6	2022-01-05 12:48:44.777	2022-01-05 12:48:44.777	Das hab ich mich auch immer gefragt ð¤
+16	15	9	2022-01-05 13:00:12.394	2022-01-05 13:00:12.394	Bestimmt hÃ¶ren die ihre TrÃ¤ume
+17	16	6	2022-01-05 13:07:04.671	2022-01-05 13:07:04.671	Ja, kann ich dir aus eigener Erfahrung bestÃ¤tigen!
+18	16	11	2022-01-05 13:08:21.209	2022-01-05 13:08:21.209	Quatsch!
 \.
 
 
@@ -335,8 +325,10 @@ COPY public.category (id, text) FROM stdin;
 --
 
 COPY public.comment (id, answer_id, creator_id, created_at, modified_at, text) FROM stdin;
-7	10	5	2021-12-21 14:32:19.8	\N	This answer was helpful!
-8	11	6	2021-12-21 14:32:19.8	\N	This answer is bullshit!
+9	14	9	2022-01-05 13:01:05.947	2022-01-05 13:01:05.948	Ich auch
+10	14	5	2022-01-05 13:01:36.867	2022-01-05 13:01:36.867	Toll, das hilft mir nicht weiter...
+11	16	6	2022-01-05 13:06:02.616	2022-01-05 13:06:02.616	Okay, danke!
+12	16	6	2022-01-05 13:06:02.616	2022-01-05 13:06:02.616	Okay, danke!
 \.
 
 
@@ -344,9 +336,13 @@ COPY public.comment (id, answer_id, creator_id, created_at, modified_at, text) F
 -- Data for Name: creator; Type: TABLE DATA; Schema: public; Owner: hoffmann
 --
 
-COPY public.creator (id, username, email, password, is_admin, score) FROM stdin;
-5	choffmann	cedrik.hoffmann@stud.hs-flensburg.de	secret_password!	t	10
-6	mustermann	max.mustermann@stud.hs-flensburg.de	password!	f	0
+COPY public.creator (id, username, email, password, is_admin, is_deleted) FROM stdin;
+8	admin	admin@example.com	geheim	t	f
+5	choffmann	cedrik.hoffmann@stud.hs-flensburg.de	secret_password!	f	f
+6	pfriedrichsen	pascal.friedrichsen@stud.hs-flensburg.de	password!	f	f
+9	dheckner	dominik.heckner@stud.hs-flensburg.de	super_geheim	f	f
+10	fpetersen	fabian.petersen@stud.hs-flensburg.de	mega_geheim	f	f
+11	kheuer	kajsa.heuer@stud.hs-flensburg.de	super_duppa_geheim	f	f
 \.
 
 
@@ -360,6 +356,11 @@ COPY public.tag (id, tag) FROM stdin;
 18	Tag #2
 19	Tag #3
 20	Tag #4
+21	zzh
+22	zebra
+23	streifen
+24	traum
+25	
 \.
 
 
@@ -367,18 +368,10 @@ COPY public.tag (id, tag) FROM stdin;
 -- Data for Name: thread; Type: TABLE DATA; Schema: public; Owner: hoffmann
 --
 
-COPY public.thread (id, creator_id, title, created_at, modified_at, text) FROM stdin;
-12	5	Thread #1	2021-12-21 14:30:30.152	\N	Demo Thread to test function
-\.
-
-
---
--- Data for Name: thread_category; Type: TABLE DATA; Schema: public; Owner: javaee_forum_admin
---
-
-COPY public.thread_category (thread_id, category_id) FROM stdin;
-12	17
-12	19
+COPY public.thread (id, creator_id, title, created_at, modified_at, text, category_id) FROM stdin;
+14	5	Haben Zebras eigentlich weiÃe oder schwarze Streifen? 	2022-01-05 12:26:54.916	2022-01-05 12:26:54.916	Eine sehr wichtige Frage, die mich sehr beschÃ¤ftigt...	16
+15	6	Wovon trÃ¤umen blinde Menschen?	2022-01-05 12:47:52.729	2022-01-05 12:47:52.729	Kann mir jemand verraten, was bilde Menschen trÃ¤umen?	17
+16	10	Kann durch die richtige Beleuchtung die hÃ¤sslichste Person hÃ¼bsch sein? 	2022-01-05 12:57:17.819	2022-01-05 12:57:17.819	Nichts persÃ¶nliches, nur eine Frage	16
 \.
 
 
@@ -387,8 +380,10 @@ COPY public.thread_category (thread_id, category_id) FROM stdin;
 --
 
 COPY public.thread_tag (thread_id, tag_id) FROM stdin;
-12	18
-12	19
+14	22
+14	23
+15	24
+16	25
 \.
 
 
@@ -396,7 +391,7 @@ COPY public.thread_tag (thread_id, tag_id) FROM stdin;
 -- Name: answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.answer_id_seq', 11, true);
+SELECT pg_catalog.setval('public.answer_id_seq', 18, true);
 
 
 --
@@ -410,28 +405,28 @@ SELECT pg_catalog.setval('public.category_id_seq', 20, true);
 -- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.comment_id_seq', 8, true);
+SELECT pg_catalog.setval('public.comment_id_seq', 12, true);
 
 
 --
 -- Name: creator_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.creator_id_seq', 6, true);
+SELECT pg_catalog.setval('public.creator_id_seq', 11, true);
 
 
 --
 -- Name: tag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.tag_id_seq', 20, true);
+SELECT pg_catalog.setval('public.tag_id_seq', 25, true);
 
 
 --
 -- Name: thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.thread_id_seq', 12, true);
+SELECT pg_catalog.setval('public.thread_id_seq', 16, true);
 
 
 --
@@ -472,14 +467,6 @@ ALTER TABLE ONLY public.creator
 
 ALTER TABLE ONLY public.tag
     ADD CONSTRAINT tag_pkey PRIMARY KEY (id);
-
-
---
--- Name: thread_category thread_category_pkey; Type: CONSTRAINT; Schema: public; Owner: javaee_forum_admin
---
-
-ALTER TABLE ONLY public.thread_category
-    ADD CONSTRAINT thread_category_pkey PRIMARY KEY (thread_id, category_id);
 
 
 --
@@ -531,19 +518,11 @@ ALTER TABLE ONLY public.comment
 
 
 --
--- Name: thread_category thread_category_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: javaee_forum_admin
+-- Name: thread thread_category_fk; Type: FK CONSTRAINT; Schema: public; Owner: hoffmann
 --
 
-ALTER TABLE ONLY public.thread_category
-    ADD CONSTRAINT thread_category_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.category(id);
-
-
---
--- Name: thread_category thread_category_thread_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: javaee_forum_admin
---
-
-ALTER TABLE ONLY public.thread_category
-    ADD CONSTRAINT thread_category_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES public.thread(id);
+ALTER TABLE ONLY public.thread
+    ADD CONSTRAINT thread_category_fk FOREIGN KEY (category_id) REFERENCES public.category(id);
 
 
 --
