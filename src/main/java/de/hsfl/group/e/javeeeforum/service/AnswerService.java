@@ -63,7 +63,6 @@ public class AnswerService {
 
         Answer answer = new Answer();
         answer.setCreator(creator);
-        answer.setScore(0);
         answer.setText(text);
         answer.setThread(thread);
 

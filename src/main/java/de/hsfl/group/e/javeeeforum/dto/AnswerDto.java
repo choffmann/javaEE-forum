@@ -13,7 +13,6 @@ public class AnswerDto {
     private Date createdAt;
     private Date modifiedAt;
     private String text;
-    private int score;
 
     private CreatorDto creator;
     private ThreadDto thread;
@@ -22,16 +21,15 @@ public class AnswerDto {
     public AnswerDto() {
     }
 
-    public AnswerDto(Long id, Date createdAt, Date modifiedAt, String text, int score) {
+    public AnswerDto(Long id, Date createdAt, Date modifiedAt, String text) {
         this.id = id;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
         this.text = text;
-        this.score = score;
     }
 
     public static AnswerDto fromModel(Answer model) {
-        AnswerDto dto = new AnswerDto(model.getId(), model.getCreatedAt(), model.getModifiedAt(), model.getText(), model.getScore());
+        AnswerDto dto = new AnswerDto(model.getId(), model.getCreatedAt(), model.getModifiedAt(), model.getText());
         dto.setCreator(CreatorDto.fromModel(model.getCreator()));
         dto.setComments(CommentDto.fromModelList(model.getComment()));
         return dto;
@@ -75,14 +73,6 @@ public class AnswerDto {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
     }
 
     public CreatorDto getCreator() {

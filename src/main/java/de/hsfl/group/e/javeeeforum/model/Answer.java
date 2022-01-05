@@ -15,7 +15,6 @@ public class Answer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String text;
-    private int score;
 
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
@@ -59,14 +58,6 @@ public class Answer implements Serializable {
 
     public String getText() {
         return text;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
     }
 
     public void setText(String text) {
