@@ -57,7 +57,7 @@
                     <b><a class="pl-1 border border-warning rounded highlight"
                        href="categoryServlet?categoryid=${thread.category.id}">${thread.category.text}</a></b> <!-- TODO: Thread muss CategoryDTO und nicht die ID davon speichern -->
                     <c:forEach items="${thread.tags}" var="tag">
-                        <a class="m-1 border border-info rounded highlight">${tag}</a>
+                        <a class="m-1 border border-info rounded highlight" href="threadServlet?searchrequest=${tag}">${tag}</a>
                     </c:forEach>
                 </div>
                 <div class="p-2 d-flex justify-content-between rounded">

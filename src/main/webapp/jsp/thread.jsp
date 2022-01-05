@@ -33,7 +33,7 @@
     <div>
         <form class="form-inline" method="get" action="threadServlet">
             <label for="searchrequest"></label>
-            <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" name="searchrequest"
+            <input class="form-control mr-sm-2" type="search" id="searchrequest" name="searchrequest"
                    placeholder="Suche"/>
             <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
         </form>
@@ -52,7 +52,7 @@
             <b><a class="pl-1 border border-warning rounded highlight"
                   href="categoryServlet?categoryid=${category.id}">${category.text}</a></b>
             <c:forEach items="${thread.tags}" var="tag">
-                <a class="m-1 border border-info rounded highlight">${tag}</a>
+                <a class="m-1 border border-info rounded highlight" href="threadServlet?searchrequest=${tag}">${tag}</a>
             </c:forEach>
         </div>
         <div class="p-2 d-flex justify-content-between rounded">
