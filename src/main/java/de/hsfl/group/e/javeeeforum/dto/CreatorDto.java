@@ -20,16 +20,17 @@ public class CreatorDto {
     public CreatorDto() {
     }
 
-    public CreatorDto(Long id, String username, String email, String password, boolean isAdmin) {
+    public CreatorDto(Long id, String username, String email, String password, boolean isAdmin, boolean isDeleted) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.isDeleted = isDeleted;
     }
 
     public static CreatorDto fromModel(Creator model) {
-        return new CreatorDto(model.getId(), model.getUsername(), model.getEmail(), model.getPassword(), model.isAdmin());
+        return new CreatorDto(model.getId(), model.getUsername(), model.getEmail(), model.getPassword(), model.isAdmin(), model.isDeleted());
     }
 
     public static List<CreatorDto> fromModelList(List<Creator> modelList) {

@@ -55,7 +55,10 @@ public class UserService {
             throw new WebApplicationException(
                     Response.status(404).entity("Not authenticated").build());
         Creator creator_to_delete = creatorDao.getById(id);
-        // creator_to_delete.setIsDeleted(true);
+        if (creator_to_delete == null)
+            throw new WebApplicationException(
+                    Response.status(404).entity("not found or already deleted").build());
+        creator_to_delete.setDeleted(true);
         creatorDao.updateElement(creator_to_delete);
         return CreatorDto.fromModel(creator);
     }
@@ -67,7 +70,7 @@ public class UserService {
     public CreatorDto registerUser(CreatorDto creatorDto) {
         boolean already_exists;
         try {
-            creatorDao.getByUsername(creatorDto.getUsername());
+            creatorDao.getByUsername(creatorDto.getUsername(), true);
             already_exists = true;
         } catch (NoResultException err) {
             already_exists = false;
@@ -94,7 +97,7 @@ public class UserService {
     public CreatorDto loginUser(CreatorDto creatorDto) {
         Creator creator;
         try {
-            creator = creatorDao.getByUsername(creatorDto.getUsername());
+            creator = creatorDao.getByUsername(creatorDto.getUsername(), false);
         } catch (NoResultException err) {
             throw new WebApplicationException(
                     Response.status(404).entity("User not found").build());
