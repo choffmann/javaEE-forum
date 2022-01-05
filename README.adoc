@@ -60,5 +60,5 @@ public interface Dao<T> {
 
 == Schritte
 1. Datenbank erstellen und JPA Schnittstelle erstellen https://github.com/choffmann/javaEE-forum/tree/main/Doku/Database[siehe Doku]
-2. REST Schnittstelle definieren
+2. REST Schnittstelle definieren https://github.com/choffmann/javaEE-forum/tree/main/Doku/REST_Api[siehe Doku]
 3. Frontend erstellen
