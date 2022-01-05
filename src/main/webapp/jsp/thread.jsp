@@ -67,7 +67,7 @@
             <div class="form-group">
                 <label for="answerTextarea">Verfasse eine Antwort:</label>
                 <textarea class="form-control" id="answerTextarea" placeholder="..." name="answertext"
-                          rows="4"></textarea>
+                          rows="4" required></textarea>
             </div>
             <input class="btn btn-success float-right" type="submit" value="Antwort absenden"/>
         </form>
@@ -89,7 +89,7 @@
                             <div class="form-group">
                                 <label for="commentTextarea">Kommentiere die Antwort:</label>
                                 <textarea class="form-control" id="commentTextarea" placeholder="..." name="commenttext"
-                                          rows="1"></textarea>
+                                          rows="1" required></textarea>
                                 <div class="text-right">
                                     <input class="btn btn-success mt-1 p-1>" type="submit" value="Kommentar absenden"/>
                                 </div>
