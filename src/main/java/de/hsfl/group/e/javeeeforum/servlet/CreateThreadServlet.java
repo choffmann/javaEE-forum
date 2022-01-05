@@ -50,8 +50,8 @@ public class CreateThreadServlet extends HttpServlet {
         WebTarget target = startConnection();
         Long categoryId = Long.valueOf(request.getParameter("categoryid"));
 
-        String tags = request.getParameter("tag");
-        List<String> tagsList = Arrays.asList(tags.split(", "));
+        String tags = request.getParameter("tag").replaceAll(" ", "");
+        List<String> tagsList = Arrays.asList(tags.split(","));
 
         ThreadDto threadDto = new ThreadDto();
         threadDto.setTitle(request.getParameter("title"));
