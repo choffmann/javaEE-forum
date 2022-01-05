@@ -1,3 +1,4 @@
+<jsp:useBean id="category" scope="request" type="de.hsfl.group.e.javeeeforum.dto.CategoryDto"/>
 <jsp:useBean id="userData" scope="request" type="de.hsfl.group.e.javeeeforum.UserData"/>
 <jsp:useBean id="thread" scope="request" type="de.hsfl.group.e.javeeeforum.dto.ThreadDto"/>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -76,6 +77,7 @@
         <h4>${thread.answers.size()} Antworten</h4>
         <hr>
         <c:if test="${thread.answers.size() > 0}">
+            <jsp:useBean id="answers" scope="request" type="java.util.List"/>
             <c:forEach items="${answers}" var="answer">
                 <div class="border border-info rounded p-1">
                     <b>Antwort von <a href="threadServlet?creatorid=${answer.creator.id}">${answer.creator.username}</a></b>
