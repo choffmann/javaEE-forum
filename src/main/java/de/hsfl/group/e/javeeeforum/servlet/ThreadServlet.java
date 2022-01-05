@@ -7,6 +7,7 @@ import de.hsfl.group.e.javeeeforum.dto.CategoryDto;
 import de.hsfl.group.e.javeeeforum.dto.CreatorDto;
 import de.hsfl.group.e.javeeeforum.dto.ThreadDto;
 import jersey.repackaged.com.google.common.collect.Lists;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,8 +34,8 @@ public class ThreadServlet extends HttpServlet {
         String threadId = request.getParameter("threadid");
         String searchRequest = request.getParameter("searchrequest");
         String creatorId = request.getParameter("creatorid");
-        if(threadId != null){
         request.setAttribute("userData", userData);
+
         if (threadId != null) {
             //Abfrage eines spezifischen Posts
             ThreadDto thread = target.path("threads/" + threadId).request().accept(MediaType.APPLICATION_JSON).get(
@@ -62,14 +63,14 @@ public class ThreadServlet extends HttpServlet {
             request.getRequestDispatcher("/jsp/threadList.jsp").forward(request, response);
         } else if (creatorId != null) {
             //Abfrage von Threads vom Creator mit CreatorId
-            List<ThreadDto> threads = Lists.reverse(target.queryParam("creatorid",creatorId).path("threads").request().accept(MediaType.APPLICATION_JSON).get(
+            List<ThreadDto> threads = Lists.reverse(target.queryParam("creatorid", creatorId).path("threads").request().accept(MediaType.APPLICATION_JSON).get(
                     new GenericType<List<ThreadDto>>() {
                     }));
             //Abfrage des Nutzernamens, da wir anzeigen wollen, von welchem Nutzer die Threads sind
-            String creatorName = target.path("users/"+creatorId).request().accept(MediaType.APPLICATION_JSON).get(
+            String creatorName = target.path("users/" + creatorId).request().accept(MediaType.APPLICATION_JSON).get(
                     new GenericType<CreatorDto>() {
                     }).getUsername();
-            request.setAttribute("title", "Threads vom User: "+creatorName);
+            request.setAttribute("title", "Threads vom User: " + creatorName);
             request.setAttribute("threads", threads);
             request.getRequestDispatcher("/jsp/threadList.jsp").forward(request, response);
         } else {
