@@ -1,3 +1,4 @@
+<jsp:useBean id="category" scope="request" type="de.hsfl.group.e.javeeeforum.dto.CategoryDto"/>
 <jsp:useBean id="userData" scope="request" type="de.hsfl.group.e.javeeeforum.UserData"/>
 <jsp:useBean id="thread" scope="request" type="de.hsfl.group.e.javeeeforum.dto.ThreadDto"/>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -31,7 +32,7 @@
     </div>
     <!-- Suchleiste -->
     <div>
-        <form class="form-inline" method="get" action="threadServlet">
+        <form class="form-inline m-0" method="get" action="threadServlet">
             <label for="searchrequest"></label>
             <input class="form-control mr-sm-2" type="search" id="searchrequest" name="searchrequest"
                    placeholder="Suche"/>
@@ -49,7 +50,7 @@
         <h1>${thread.title}</h1>
         <b class="mb-1">Beitrag von <a href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt am ${thread.createdAt}</b>
         <div id="categoryAndTagList">
-            <b><a class="pl-1 border border-warning rounded highlight text-dark"
+            <b><a class="px-1 border border-warning rounded highlight text-dark"
                   href="categoryServlet?categoryid=${category.id}">${category.text}</a></b>
             <c:forEach items="${thread.tags}" var="tag">
                 <a class="m-1 mr-0 border border-info rounded highlight text-info" href="threadServlet?searchrequest=${tag}">${tag}</a>
@@ -66,7 +67,7 @@
             <div class="form-group">
                 <label for="answerTextarea">Verfasse eine Antwort:</label>
                 <textarea class="form-control" id="answerTextarea" placeholder="..." name="answertext"
-                          rows="4"></textarea>
+                          rows="4" required></textarea>
             </div>
             <input class="btn btn-success float-right" type="submit" value="Antwort absenden"/>
         </form>
@@ -76,6 +77,7 @@
         <h4>${thread.answers.size()} Antworten</h4>
         <hr>
         <c:if test="${thread.answers.size() > 0}">
+            <jsp:useBean id="answers" scope="request" type="java.util.List"/>
             <c:forEach items="${answers}" var="answer">
                 <div class="border border-info rounded p-1">
                     <b>Antwort von <a href="threadServlet?creatorid=${answer.creator.id}">${answer.creator.username}</a></b>
@@ -87,7 +89,7 @@
                             <div class="form-group">
                                 <label for="commentTextarea">Kommentiere die Antwort:</label>
                                 <textarea class="form-control" id="commentTextarea" placeholder="..." name="commenttext"
-                                          rows="1"></textarea>
+                                          rows="1" required></textarea>
                                 <div class="text-right">
                                     <input class="btn btn-success mt-1 p-1>" type="submit" value="Kommentar absenden"/>
                                 </div>

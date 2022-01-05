@@ -1,3 +1,4 @@
+<jsp:useBean id="userData" scope="request" type="de.hsfl.group.e.javeeeforum.UserData"/>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -28,9 +29,9 @@
     </div>
     <!-- Suchleiste -->
     <div>
-        <form class="form-inline" method="get" action="threadServlet">
+        <form class="form-inline m-0" method="get" action="threadServlet">
             <label for="searchrequest"></label>
-            <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" name="searchrequest"
+            <input class="form-control mr-sm-2" type="search" id="searchrequest" name="searchrequest"
                    placeholder="Suche"/>
             <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
         </form>
@@ -43,6 +44,7 @@
     <h1>Kategorien</h1>
     <!-- table für die Threads -->
     <div id="categories">
+        <jsp:useBean id="categories" scope="request" type="java.util.List"/>
         <c:forEach items="${categories}" var="category">
             <a class="btn btn-primary" href="categoryServlet?categoryid=${category.id}">${category.text}</a>
         </c:forEach>

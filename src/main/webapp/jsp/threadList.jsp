@@ -1,3 +1,5 @@
+<jsp:useBean id="title" scope="request" type="java.lang.String"/>
+<jsp:useBean id="userData" scope="request" type="de.hsfl.group.e.javeeeforum.UserData"/>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -31,9 +33,9 @@
     </div>
     <!-- Suchleiste -->
     <div>
-        <form class="form-inline" method="get" action="threadServlet">
+        <form class="form-inline m-0" method="get" action="threadServlet">
             <label for="searchrequest"></label>
-            <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" name="searchrequest"
+            <input class="form-control mr-sm-2" type="search" id="searchrequest" name="searchrequest"
                    placeholder="Suche"/>
             <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
         </form>
@@ -46,6 +48,7 @@
     <h1>${title}</h1>
     <!-- table für die Threads -->
     <div id="threads">
+        <jsp:useBean id="threads" scope="request" type="java.util.List"/>
         <c:forEach items="${threads}" var="thread">
 
             <div class="column p-2 border border-primary rounded highlight">
@@ -54,10 +57,10 @@
                         href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt
                     am ${thread.createdAt}</b>
                 <div id="categoryAndTagList">
-                    <b><a class="pl-1 border border-warning rounded highlight text-dark"
-                       href="categoryServlet?categoryid=${thread.category.id}">${thread.category.text}</a></b> <!-- TODO: Thread muss CategoryDTO und nicht die ID davon speichern -->
+                    <b><a class="px-1 border border-warning rounded highlight text-dark"
+                       href="categoryServlet?categoryid=${thread.category.id}">${thread.category.text}</a></b>
                     <c:forEach items="${thread.tags}" var="tag">
-                        <a class="m-1 border border-info rounded highlight text-info" href="threadServlet?searchrequest=${tag}">${tag}</a>
+                        <a class="m-1 mr-0 px-1 border border-info rounded highlight text-info" href="threadServlet?searchrequest=${tag}">${tag}</a>
                     </c:forEach>
                 </div>
                 <div class="p-2 d-flex justify-content-between rounded">

@@ -1,3 +1,4 @@
+<jsp:useBean id="userData" scope="request" type="de.hsfl.group.e.javeeeforum.UserData"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <head>
@@ -30,9 +31,10 @@
     </div>
     <!-- Suchleiste -->
     <div>
-        <form class="form-inline" method="get" action="threadServlet">
+        <form class="form-inline m-0" method="get" action="threadServlet">
             <label for="searchrequest"></label>
-            <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" placeholder="Suche"/>
+            <input class="form-control mr-sm-2" type="search" id="searchrequest" name="searchrequest"
+                   placeholder="Suche"/>
             <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
         </form>
     </div>
@@ -60,6 +62,7 @@
                 <label for="category" class="col-sm-2 col-form-label">Kategorie</label>
                 <div class="col-sm-10">
                     <select name="categoryid" class="form-control" id="category">
+                        <jsp:useBean id="categories" scope="request" type="java.util.List"/>
                         <c:forEach items="${categories}" var="category">
                             <option value=${category.id}>${category.text}</option>
                         </c:forEach>
