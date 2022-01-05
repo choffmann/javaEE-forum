@@ -19,7 +19,7 @@ public class CreatorDao implements Dao<Creator> {
 
     @Override
     public List<Creator> getAll() {
-        Query query = manager.createQuery("SELECT e FROM Creator e", Creator.class);
+        Query query = manager.createQuery("SELECT e FROM Creator e WHERE NOT e.isDeleted", Creator.class);
         return query.getResultList();
     }
 
@@ -28,14 +28,16 @@ public class CreatorDao implements Dao<Creator> {
         return query.getResultList();
     }
 
-    public Creator getByUsername(String username) {
-        Query query = manager.createQuery("SELECT e FROM Creator e WHERE e.username = '" + username + "'", Creator.class);
+    public Creator getByUsername(String username, boolean include_deleted) {
+        Query query = manager.createQuery("SELECT e FROM Creator e WHERE e.username = '" + username + "'"
+                + (include_deleted ? "" : "AND NOT e.isDeleted"), Creator.class);
         return (Creator) query.getSingleResult();
     }
 
     @Override
     public Creator getById(Long id) {
-        return manager.find(Creator.class, id);
+        Creator creator = manager.find(Creator.class, id);
+        return creator.isDeleted() ? null : creator;
     }
 
     @Override
