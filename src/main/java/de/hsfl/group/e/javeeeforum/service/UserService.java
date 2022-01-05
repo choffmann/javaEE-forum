@@ -83,7 +83,6 @@ public class UserService {
         creator.setEmail(creatorDto.getEmail());
         creator.setPassword(creatorDto.getPassword());
         creator.setUsername(creatorDto.getUsername());
-        creator.setScore(0);
 
         creatorDao.addElement(creator);
         return CreatorDto.fromModel(creator);

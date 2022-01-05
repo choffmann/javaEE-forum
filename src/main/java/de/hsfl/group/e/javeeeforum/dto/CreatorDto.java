@@ -11,7 +11,6 @@ public class CreatorDto {
     private String email;
     private String password;
     private boolean isAdmin;
-    private int score;
 
     private List<CommentDto> comments;
     private List<AnswerDto> answers;
@@ -20,17 +19,16 @@ public class CreatorDto {
     public CreatorDto() {
     }
 
-    public CreatorDto(Long id, String username, String email, String password, boolean isAdmin, int score) {
+    public CreatorDto(Long id, String username, String email, String password, boolean isAdmin) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.isAdmin = isAdmin;
-        this.score = score;
     }
 
     public static CreatorDto fromModel(Creator model) {
-        return new CreatorDto(model.getId(), model.getUsername(), model.getEmail(), model.getPassword(), model.isAdmin(), model.getScore());
+        return new CreatorDto(model.getId(), model.getUsername(), model.getEmail(), model.getPassword(), model.isAdmin());
     }
 
     public static List<CreatorDto> fromModelList(List<Creator> modelList) {
@@ -78,14 +76,6 @@ public class CreatorDto {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
     }
 
     public List<CommentDto> getComments() {
