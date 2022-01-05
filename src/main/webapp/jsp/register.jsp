@@ -25,19 +25,19 @@
             <div class="row mb-3">
                 <label for="registerUsername" class="col-sm-2 col-form-label">Username</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="registerUsername" name="registerUsername">
+                    <input type="text" class="form-control" id="registerUsername" name="registerUsername" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="registerEmail" class="col-sm-2 col-form-label">E-Mail</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="registerEmail" name="registerEmail">
+                    <input type="text" class="form-control" id="registerEmail" name="registerEmail" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="registerPassword" class="col-sm-2 col-form-label">Password</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="registerPassword" name="registerPassword">
+                    <input type="password" class="form-control" id="registerPassword" name="registerPassword" required>
                 </div>
             </div>
             <button type="submit" class="btn btn-secondary">Register</button>

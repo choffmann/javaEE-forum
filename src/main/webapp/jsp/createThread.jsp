@@ -47,13 +47,13 @@
             <div class="row mb-3">
                 <label for="title" class="col-sm-2 col-form-label">Titel</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="title" name=title>
+                    <input type="text" class="form-control" id="title" name=title required>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="text" class="col-sm-2 col-form-label">Text</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="text" name=text></textarea>
+                    <textarea class="form-control" id="text" name=text required></textarea>
                 </div>
             </div>
             <div class="row mb-3">
@@ -69,7 +69,7 @@
             <div class="row mb-3">
                 <label for="tag" class="col-sm-2 col-form-label">Tags</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="tag" name=tag placeholder="Tags durch Komma trennen">
+                    <input type="text" class="form-control" id="tag" name=tag placeholder="Tags durch Komma trennen" required>
                 </div>
             </div>
             <div class="row mb-3">
