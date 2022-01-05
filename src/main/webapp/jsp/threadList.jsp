@@ -1,3 +1,5 @@
+<jsp:useBean id="title" scope="request" type="java.lang.String"/>
+<jsp:useBean id="userData" scope="request" type="de.hsfl.group.e.javeeeforum.UserData"/>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
@@ -46,6 +48,7 @@
     <h1>${title}</h1>
     <!-- table für die Threads -->
     <div id="threads">
+        <jsp:useBean id="threads" scope="request" type="java.util.List"/>
         <c:forEach items="${threads}" var="thread">
 
             <div class="column p-2 border border-primary rounded highlight">
@@ -55,7 +58,7 @@
                     am ${thread.createdAt}</b>
                 <div id="categoryAndTagList">
                     <b><a class="pl-1 border border-warning rounded highlight text-dark"
-                       href="categoryServlet?categoryid=${thread.category.id}">${thread.category.text}</a></b> <!-- TODO: Thread muss CategoryDTO und nicht die ID davon speichern -->
+                       href="categoryServlet?categoryid=${thread.category.id}">${thread.category.text}</a></b>
                     <c:forEach items="${thread.tags}" var="tag">
                         <a class="m-1 border border-info rounded highlight text-info" href="threadServlet?searchrequest=${tag}">${tag}</a>
                     </c:forEach>
