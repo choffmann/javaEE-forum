@@ -5,10 +5,7 @@
     <title>Auswahlseite</title>
     <meta charset="utf-8">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Wird für JS Bootstrap benötigt, was ich für die Bootstrap Modal benötige -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <!--<script type="text/javascript" src="js/load.js"></script>-->
 
 </head>
 <body>

@@ -3,6 +3,7 @@ package de.hsfl.group.e.javeeeforum.servlet;
 import de.hsfl.group.e.javeeeforum.ServletGlobalFunctions;
 import de.hsfl.group.e.javeeeforum.UserData;
 import de.hsfl.group.e.javeeeforum.dto.CreatorDto;
+
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,9 +19,10 @@ public class RegisterServlet extends HttpServlet {
     @Inject
     UserData userData;
     @Inject
-    ServletGlobalFunctions sgl;
+    ServletGlobalFunctions sgf;
+
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        WebTarget target = sgl.startConnection();
+        WebTarget target = sgf.startConnection();
         CreatorDto creatorDto = new CreatorDto();
         creatorDto.setUsername(request.getParameter("registerUsername"));
         creatorDto.setEmail(request.getParameter("registerEmail"));

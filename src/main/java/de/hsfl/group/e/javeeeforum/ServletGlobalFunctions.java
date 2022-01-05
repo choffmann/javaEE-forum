@@ -1,6 +1,7 @@
 package de.hsfl.group.e.javeeeforum;
 
 import org.glassfish.jersey.client.ClientConfig;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -21,14 +22,15 @@ public class ServletGlobalFunctions implements Serializable {
     public ServletGlobalFunctions() {
     }
 
-    public WebTarget startConnection(){
+    public WebTarget startConnection() {
         ClientConfig clientconfig = new ClientConfig();
         Client client = ClientBuilder.newClient(clientconfig);
         return client.target(UriBuilder
                 .fromUri("http://localhost:8080/javeEE-forum-1.0-SNAPSHOT/api/").build());
     }
+
     public void isLoggedIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (userData.getCreatorDto() == null){
+        if (userData.getCreatorDto() == null) {
             request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
         }
         request.setAttribute("userData", userData);

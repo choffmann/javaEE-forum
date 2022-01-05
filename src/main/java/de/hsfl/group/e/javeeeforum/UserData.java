@@ -13,6 +13,11 @@ public class UserData implements Serializable {
     public UserData() {
     }
 
-    public CreatorDto getCreatorDto() { return creatorDto; }
-    public void setCreatorDto(CreatorDto creatorDto) { this.creatorDto = creatorDto; }
+    public CreatorDto getCreatorDto() {
+        return creatorDto;
+    }
+
+    public void setCreatorDto(CreatorDto creatorDto) {
+        this.creatorDto = creatorDto;
+    }
 }

@@ -43,28 +43,30 @@
     <div class="row pt-5">
         <h1>User List</h1>
     </div>
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Username</th>
-        <th scope="col">E-Mail</th>
-        <th scope="col">Is Admin</th>
-        <th scope="col"></th>
-    </tr>
-    </thead>
-    <tbody id="userList">
-    <c:forEach items="${userList}" var="user">
+    <table class="table">
+        <thead>
         <tr>
-            <td>${user.id}</td>
-            <td>${user.username}</td>
-            <td>${user.email}</td>
-            <td>${user.isAdmin()}</td>
-            <td><button type="button" class="btn btn-danger">Löschen</button></td>
+            <th scope="col">ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">E-Mail</th>
+            <th scope="col">Is Admin</th>
+            <th scope="col"></th>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
+        </thead>
+        <tbody id="userList">
+        <c:forEach items="${userList}" var="user">
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>${user.email}</td>
+                <td>${user.isAdmin()}</td>
+                <td>
+                    <button type="button" class="btn btn-danger">Löschen</button>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </div>
 
 </body>
