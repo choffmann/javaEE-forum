@@ -57,10 +57,10 @@
                         href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt
                     am ${thread.createdAt}</b>
                 <div id="categoryAndTagList">
-                    <b><a class="pl-1 border border-warning rounded highlight text-dark"
+                    <b><a class="px-1 border border-warning rounded highlight text-dark"
                        href="categoryServlet?categoryid=${thread.category.id}">${thread.category.text}</a></b>
                     <c:forEach items="${thread.tags}" var="tag">
-                        <a class="m-1 border border-info rounded highlight text-info" href="threadServlet?searchrequest=${tag}">${tag}</a>
+                        <a class="m-1 mr-0 px-1 border border-info rounded highlight text-info" href="threadServlet?searchrequest=${tag}">${tag}</a>
                     </c:forEach>
                 </div>
                 <div class="p-2 d-flex justify-content-between rounded">
