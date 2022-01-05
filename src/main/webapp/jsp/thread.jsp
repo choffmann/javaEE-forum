@@ -31,7 +31,7 @@
     </div>
     <!-- Suchleiste -->
     <div>
-        <form class="form-inline" method="get" action="threadServlet">
+        <form class="form-inline m-0" method="get" action="threadServlet">
             <label for="searchrequest"></label>
             <input class="form-control mr-sm-2" type="search" id="searchrequest" name="searchrequest"
                    placeholder="Suche"/>
