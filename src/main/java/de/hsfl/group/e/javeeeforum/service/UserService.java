@@ -60,7 +60,7 @@ public class UserService {
                     Response.status(404).entity("not found or already deleted").build());
         creator_to_delete.setDeleted(true);
         creatorDao.updateElement(creator_to_delete);
-        return CreatorDto.fromModel(creator);
+        return CreatorDto.fromModel(creator_to_delete);
     }
 
     @POST
