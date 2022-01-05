@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @NamedQuery(name = "Thread.findAll", query = "SELECT w FROM Thread w")
@@ -30,13 +29,9 @@ public class Thread implements Serializable {
             joinColumns = @JoinColumn(name = "thread_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags;
-    @ManyToMany
-    @JoinTable(
-            name = "thread_category",
-            joinColumns = @JoinColumn(name = "thread_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-    private List<Category> categories;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false, updatable = false)
+    private Category category;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id", nullable = false, updatable = false)
@@ -93,12 +88,12 @@ public class Thread implements Serializable {
         this.creator = creator;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setCategory(Category categories) {
+        this.category = categories;
     }
 
     public List<Tag> getTags() {

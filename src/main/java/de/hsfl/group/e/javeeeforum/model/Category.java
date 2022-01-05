@@ -3,7 +3,6 @@ package de.hsfl.group.e.javeeeforum.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @NamedQuery(name = "Category.findAll", query = "SELECT w FROM Category w")
@@ -15,7 +14,7 @@ public class Category implements Serializable {
     private Long id;
     private String text;
 
-    @ManyToMany(mappedBy = "categories")
+    @OneToMany(mappedBy = "category")
     private List<Thread> thread;
 
     public Long getId() {
