@@ -11,6 +11,7 @@ public class CreatorDto {
     private String email;
     private String password;
     private boolean isAdmin;
+    private boolean isDeleted;
 
     private List<CommentDto> comments;
     private List<AnswerDto> answers;
@@ -76,6 +77,14 @@ public class CreatorDto {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public List<CommentDto> getComments() {

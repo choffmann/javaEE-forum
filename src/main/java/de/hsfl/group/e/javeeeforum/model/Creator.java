@@ -18,6 +18,8 @@ public class Creator implements Serializable {
     private String password;
     @Column(name = "is_admin")
     private boolean isAdmin;
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "creator", orphanRemoval = true)
     private List<Comment> comment;
@@ -66,6 +68,14 @@ public class Creator implements Serializable {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public void setComment(List<Comment> comment) {
