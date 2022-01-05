@@ -23,6 +23,7 @@
     <a class="btn btn-primary" href="categoryServlet">Kategorienliste</a>
     <a class="btn btn-primary" href="threadServlet?threadid=12">Thread 1</a>
     <a class="btn btn-primary" href="threadServlet?creatorid=5">Userthreads 1</a>
+    <a class="btn btn-primary" href="threadServlet?searchrequest=Tag #0">Suche nach 'Tag #0'</a>
 </div>
 </body>
 </html>
