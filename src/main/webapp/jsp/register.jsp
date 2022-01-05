@@ -1,6 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="de">
-
+<%@ page contentType="text/html;charset=UTF-8" %>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -48,6 +46,3 @@
 
 </div>
 </body>
-
-</html>
-

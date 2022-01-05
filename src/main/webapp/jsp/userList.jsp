@@ -1,7 +1,6 @@
 <jsp:useBean id="userData" scope="request" type="de.hsfl.group.e.javeeeforum.UserData"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,6 +31,7 @@
     <!-- Suchleiste -->
     <div>
         <form class="form-inline" method="get" action="threadServlet">
+            <label for="searchrequest"></label>
             <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" placeholder="Suche"/>
             <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
         </form>

@@ -2,7 +2,6 @@
 <jsp:useBean id="thread" scope="request" type="de.hsfl.group.e.javeeeforum.dto.ThreadDto"/>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <title>Homepage</title>
@@ -33,6 +32,7 @@
     <!-- Suchleiste -->
     <div>
         <form class="form-inline" method="get" action="threadServlet">
+            <label for="searchrequest"></label>
             <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" name="searchrequest"
                    placeholder="Suche"/>
             <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
@@ -105,4 +105,3 @@
     </div>
 </div>
 </body>
-</html>

@@ -1,8 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="de">
-
-<html>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,6 +31,7 @@
     <!-- Suchleiste -->
     <div>
         <form class="form-inline" method="get" action="threadServlet">
+            <label for="searchrequest"></label>
             <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" placeholder="Suche"/>
             <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
         </form>
@@ -55,7 +53,7 @@
             <div class="row mb-3">
                 <label for="text" class="col-sm-2 col-form-label">Text</label>
                 <div class="col-sm-10">
-                    <textarea type="text" class="form-control" id="text" name=text></textarea>
+                    <textarea class="form-control" id="text" name=text></textarea>
                 </div>
             </div>
             <div class="row mb-3">
@@ -81,4 +79,3 @@
     </div>
 </div>
 </body>
-</html>
