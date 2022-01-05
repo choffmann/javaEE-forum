@@ -47,6 +47,7 @@ public class UserService {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public CreatorDto deleteUser(@PathParam("id") long id, @QueryParam("creatorid") Long creatorID) {
+
         if (creatorID == null)
             throw new WebApplicationException(
                     Response.status(401).entity("Not authenticated").build());
@@ -55,7 +56,7 @@ public class UserService {
             throw new WebApplicationException(
                     Response.status(404).entity("Not authenticated").build());
         Creator creator_to_delete = creatorDao.getById(id);
-        // creator_to_delete.setIsDeleted(true);
+        creator_to_delete.setDeleted(true);
         creatorDao.updateElement(creator_to_delete);
         return CreatorDto.fromModel(creator);
     }

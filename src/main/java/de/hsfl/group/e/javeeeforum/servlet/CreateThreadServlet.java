@@ -16,7 +16,6 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name = "createThreadServlet", value = "/createThreadServlet")
@@ -50,7 +49,6 @@ public class CreateThreadServlet extends HttpServlet {
         threadDto.setTitle(request.getParameter("title"));
         threadDto.setText(request.getParameter("text"));
         threadDto.setTags(tagsList);
-        // threadDto.setCategory(Collections.singletonList(categoryId));
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(categoryId);
         threadDto.setCategory(categoryDto);

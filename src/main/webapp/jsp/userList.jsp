@@ -50,7 +50,8 @@
             <th scope="col">ID</th>
             <th scope="col">Username</th>
             <th scope="col">E-Mail</th>
-            <th scope="col">Is Admin</th>
+            <th scope="col">Admin</th>
+            <th scope="col">Gelöscht</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -62,8 +63,11 @@
                 <td>${user.username}</td>
                 <td>${user.email}</td>
                 <td>${user.isAdmin()}</td>
+                <td>${user.isDeleted()}</td>
                 <td>
-                    <button type="button" class="btn btn-danger">Löschen</button>
+                    <form action="userListServlet" method="post">
+                        <button name=userid type="submit" class="btn btn-danger mt-1" value="${user.id}">Löschen</button>
+                    </form>
                 </td>
             </tr>
         </c:forEach>
