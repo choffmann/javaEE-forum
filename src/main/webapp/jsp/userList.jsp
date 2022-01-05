@@ -55,6 +55,7 @@
         </tr>
         </thead>
         <tbody id="userList">
+        <jsp:useBean id="userList" scope="request" type="java.util.List"/>
         <c:forEach items="${userList}" var="user">
             <tr>
                 <td>${user.id}</td>
