@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import de.hsfl.group.e.javeeeforum.dao.*;
+import de.hsfl.group.e.javeeeforum.dto.CategoryDto;
 import de.hsfl.group.e.javeeeforum.dto.ThreadDto;
 import de.hsfl.group.e.javeeeforum.model.Category;
 import de.hsfl.group.e.javeeeforum.model.Creator;
@@ -35,8 +36,8 @@ public class ThreadService {
     @Inject
     TagDao tagDao;
 
-    private Category getCategory(Long categoryId) {
-        Category category = categoryDao.getById(categoryId);
+    private Category getCategory(CategoryDto categoryDto) {
+        Category category = categoryDao.getById(categoryDto.getId());
         if (category == null)
             throw new WebApplicationException(
                     Response.status(404).entity("The category was not found").build());

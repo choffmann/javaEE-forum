@@ -15,7 +15,7 @@ public class ThreadDto {
     private Date modifiedAt;
     private String text;
 
-    private Long category;
+    private CategoryDto category;
     private List<String> tags;
     private List<Long> answers;
     private CreatorDto creator;
@@ -34,14 +34,7 @@ public class ThreadDto {
     public static ThreadDto fromModel(Thread model) {
         ThreadDto dto = new ThreadDto(model.getId(), model.getTitle(), model.getCreatedAt(), model.getModifiedAt(), model.getText());
         dto.setCreator(CreatorDto.fromModel(model.getCreator()));
-        dto.setCategory(model.getCategory().getId());
-
-/*        List<Long> categories = new LinkedList<>();
-
-        for (Category category : model.getCategories())
-            categories.add(category.getId());
-
-        dto.setCategories(categories);*/
+        dto.setCategory(CategoryDto.fromModel(model.getCategory()));
 
         List<String> tags = new LinkedList<>();
         for (Tag tag : model.getTags())
@@ -113,11 +106,11 @@ public class ThreadDto {
         this.tags = tags;
     }
 
-    public Long getCategory() {
+    public CategoryDto getCategory() {
         return category;
     }
 
-    public void setCategory(Long category) {
+    public void setCategory(CategoryDto category) {
         this.category = category;
     }
 

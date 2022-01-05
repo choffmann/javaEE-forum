@@ -24,7 +24,7 @@ public class ThreadDao implements Dao<Thread> {
     }
 
     public List<Thread> getAllByCategory(long id) {
-        Query query = manager.createQuery("SELECT e FROM Thread e INNER JOIN e.categories d WHERE d.id = " + id, Thread.class);
+        Query query = manager.createQuery("SELECT e FROM Thread e INNER JOIN e.category d WHERE d.id = " + id, Thread.class);
         return query.getResultList();
     }
 
@@ -35,7 +35,7 @@ public class ThreadDao implements Dao<Thread> {
 
     public List<Thread> searchThread(String searchText) {
         String s = searchText.toLowerCase();
-        Query query = manager.createQuery("SELECT e FROM Thread e INNER JOIN e.categories d INNER JOIN e.tags f " +
+        Query query = manager.createQuery("SELECT e FROM Thread e INNER JOIN e.category d INNER JOIN e.tags f " +
                 "WHERE lower(e.title) like '%" + s + "%' OR lower(d.text) like '%" + s + "%' " +
                 "OR lower(f.tag) like '%" + s + "%' OR lower(e.text) like '%" + s + "%' GROUP BY e.id", Thread.class);
         return query.getResultList();
