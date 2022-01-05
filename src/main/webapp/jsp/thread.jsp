@@ -33,7 +33,7 @@
     <div>
         <form class="form-inline" method="get" action="threadServlet">
             <label for="searchrequest"></label>
-            <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" name="searchrequest"
+            <input class="form-control mr-sm-2" type="search" id="searchrequest" name="searchrequest"
                    placeholder="Suche"/>
             <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
         </form>
@@ -47,9 +47,14 @@
     <!-- table für die Threads -->
     <div id="thread" class="p-2 border border-primary rounded">
         <h1>${thread.title}</h1>
-        <b class="mb-1">Beitrag von <a
-                href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt
-            am ${thread.createdAt}</b>
+        <b class="mb-1">Beitrag von <a href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt am ${thread.createdAt}</b>
+        <div id="categoryAndTagList">
+            <b><a class="pl-1 border border-warning rounded highlight"
+                  href="categoryServlet?categoryid=${category.id}">${category.text}</a></b>
+            <c:forEach items="${thread.tags}" var="tag">
+                <a class="m-1 border border-info rounded highlight" href="threadServlet?searchrequest=${tag}">${tag}</a>
+            </c:forEach>
+        </div>
         <div class="p-2 d-flex justify-content-between rounded">
             ${thread.text}
         </div>

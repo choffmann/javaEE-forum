@@ -22,8 +22,11 @@
         </div>
     </div>
     <div>
+        <!-- Threaderstellung-->
         <a class="btn btn-secondary mr-sm-2" href="createThreadServlet">Thread erstellen</a>
+        <!-- Kategorien-->
         <a class="btn btn-warning mr-sm-2" href="categoryServlet">Kategorien</a>
+        <!-- Userliste [Admin Knopf] -->
         <a class="loggedIn isAdmin btn btn-info mr-sm-2" href="userListServlet">Users</a>
     </div>
     <!-- Suchleiste -->
@@ -44,11 +47,19 @@
     <!-- table für die Threads -->
     <div id="threads">
         <c:forEach items="${threads}" var="thread">
+
             <div class="column p-2 border border-primary rounded highlight">
                 <h4 class="mb-0 mt-0">${thread.title}</h4>
-                <b class="pl-4 pt-1 mb-1">Beitrag von <a
+                <b class="m-1">Beitrag von <a
                         href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt
                     am ${thread.createdAt}</b>
+                <div id="categoryAndTagList">
+                    <b><a class="pl-1 border border-warning rounded highlight"
+                       href="categoryServlet?categoryid=${thread.category.id}">${thread.category.text}</a></b> <!-- TODO: Thread muss CategoryDTO und nicht die ID davon speichern -->
+                    <c:forEach items="${thread.tags}" var="tag">
+                        <a class="m-1 border border-info rounded highlight" href="threadServlet?searchrequest=${tag}">${tag}</a>
+                    </c:forEach>
+                </div>
                 <div class="p-2 d-flex justify-content-between rounded">
                         ${thread.text}
                 </div>

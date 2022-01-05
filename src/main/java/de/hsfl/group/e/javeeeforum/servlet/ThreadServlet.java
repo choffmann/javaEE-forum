@@ -3,9 +3,10 @@ package de.hsfl.group.e.javeeeforum.servlet;
 import de.hsfl.group.e.javeeeforum.ServletGlobalFunctions;
 import de.hsfl.group.e.javeeeforum.UserData;
 import de.hsfl.group.e.javeeeforum.dto.AnswerDto;
+import de.hsfl.group.e.javeeeforum.dto.CategoryDto;
+import de.hsfl.group.e.javeeeforum.dto.CreatorDto;
 import de.hsfl.group.e.javeeeforum.dto.ThreadDto;
 import jersey.repackaged.com.google.common.collect.Lists;
-
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +33,7 @@ public class ThreadServlet extends HttpServlet {
         String threadId = request.getParameter("threadid");
         String searchRequest = request.getParameter("searchrequest");
         String creatorId = request.getParameter("creatorid");
+        if(threadId != null){
         request.setAttribute("userData", userData);
         if (threadId != null) {
             //Abfrage eines spezifischen Posts
@@ -41,8 +43,12 @@ public class ThreadServlet extends HttpServlet {
             List<AnswerDto> answers = target.path("threads/" + threadId + "/answers").request().accept(MediaType.APPLICATION_JSON).get(
                     new GenericType<List<AnswerDto>>() {
                     });
+            CategoryDto category = target.path("categories/16"/*+thread.getCategory().id*/).request().accept(MediaType.APPLICATION_JSON).get(
+                    new GenericType<CategoryDto>() {
+                    }); //TODO: Gerade noch fehlerhaft! Sobald aber Cedriks Datenbank-Aktualisierung drin ist, funktionierts
             request.setAttribute("thread", thread);
             request.setAttribute("answers", answers);
+            request.setAttribute("category", category);
             //Comments sind schon unter den answers in ner Liste gespeichert.
             request.getRequestDispatcher("/jsp/thread.jsp").forward(request, response);
         } else if (searchRequest != null) {
@@ -56,19 +62,21 @@ public class ThreadServlet extends HttpServlet {
             request.getRequestDispatcher("/jsp/threadList.jsp").forward(request, response);
         } else if (creatorId != null) {
             //Abfrage von Threads vom Creator mit CreatorId
-            List<ThreadDto> threads = target.queryParam("creatorid", creatorId).path("threads").request().accept(MediaType.APPLICATION_JSON).get(
+            List<ThreadDto> threads = Lists.reverse(target.queryParam("creatorid",creatorId).path("threads").request().accept(MediaType.APPLICATION_JSON).get(
                     new GenericType<List<ThreadDto>>() {
-                    });
-            threads = Lists.reverse(threads); //Eigentlich sollten sie schon direkt richtig ankommen, da sie es aber nicht tun, wird hier quasi "sortiert"
-            request.setAttribute("title", "Threads vom User mit der ID: " + creatorId);
+                    }));
+            //Abfrage des Nutzernamens, da wir anzeigen wollen, von welchem Nutzer die Threads sind
+            String creatorName = target.path("users/"+creatorId).request().accept(MediaType.APPLICATION_JSON).get(
+                    new GenericType<CreatorDto>() {
+                    }).getUsername();
+            request.setAttribute("title", "Threads vom User: "+creatorName);
             request.setAttribute("threads", threads);
             request.getRequestDispatcher("/jsp/threadList.jsp").forward(request, response);
         } else {
             //Abfrage aller Threads, homepage Seite
-            List<ThreadDto> threads = target.path("threads").request().accept(MediaType.APPLICATION_JSON).get(
+            List<ThreadDto> threads = Lists.reverse(target.path("threads").request().accept(MediaType.APPLICATION_JSON).get(
                     new GenericType<List<ThreadDto>>() {
-                    });
-            threads = Lists.reverse(threads); //Eigentlich sollten sie schon direkt richtig ankommen, da sie es aber nicht tun, wird hier quasi "sortiert"
+                    }));
             request.setAttribute("title", "Die neusten Threads");
             request.setAttribute("threads", threads);
             request.getRequestDispatcher("/jsp/threadList.jsp").forward(request, response);

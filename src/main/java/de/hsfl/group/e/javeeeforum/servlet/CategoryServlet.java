@@ -31,6 +31,7 @@ public class CategoryServlet extends HttpServlet {
         WebTarget target = sgf.startConnection();
         String categoryId = request.getParameter("categoryid");
         request.setAttribute("userData", userData);
+
         if (categoryId == null) {
             List<CategoryDto> categories = target.path("categories").request().accept(MediaType.APPLICATION_JSON).get(
                     new GenericType<List<CategoryDto>>() {
@@ -43,6 +44,11 @@ public class CategoryServlet extends HttpServlet {
                     });
             threads = Lists.reverse(threads);
             request.setAttribute("title", "Threads der Kategorie mit der ID: " + categoryId); //Kann man auch schöner machen mit extra request an categories/{id}.text für den Namen
+            String categoryName = target.path("categories/"+categoryId).request().accept(MediaType.APPLICATION_JSON).get(
+                    new GenericType<CategoryDto>() {
+                    }).getText();
+            threads= Lists.reverse(threads);
+            request.setAttribute("title", "Threads der Kategorie: "+categoryName); //Kann man auch schöner machen mit extra request an categories/{id}.text für den Namen
             request.setAttribute("threads", threads);
             request.getRequestDispatcher("jsp/threadList.jsp").forward(request, response);
         }
