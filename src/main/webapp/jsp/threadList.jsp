@@ -19,7 +19,8 @@
         <a class="loggedIn btn btn-danger mr-sm-2" href="loginServlet">Ausloggen</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
-                                                                                    id="loggedUser">${userData.creatorDto.username}</b></p>
+                                                                                    id="loggedUser">${userData.creatorDto.username}</b>
+            </p>
         </div>
     </div>
     <div>
@@ -31,7 +32,8 @@
     <!-- Suchleiste -->
     <div>
         <form class="form-inline" method="get" action="threadServlet">
-            <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" name="searchrequest" placeholder="Suche"/>
+            <input class="form-control my-2 mr-sm-2" type="search" id="searchrequest" name="searchrequest"
+                   placeholder="Suche"/>
             <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
         </form>
     </div>
@@ -43,22 +45,31 @@
     <h1>${title}</h1>
     <!-- table für die Threads -->
     <div id="threads">
-            <c:forEach items="${threads}" var="thread">
-                    <div class="column p-2 border border-primary rounded highlight">
-                        <h4 class="mb-0 mt-0">${thread.title}</h4>
-                        <b class="pl-4 pt-1 mb-1">Beitrag von <a href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt am ${thread.createdAt}</b>
-                        <div class="p-2 d-flex justify-content-between rounded">
-                                ${thread.text}
-                        </div>
-                        <div>${thread.answers.size()} Antworten</div>
-                        <a class="btn btn-primary" href="threadServlet?threadid=${thread.id}">Öffne den Thread</a>
-                    </div>
-                    <hr>
-            </c:forEach>
-    <c:if test="${threads.isEmpty()}">
-    <p>Leider konnten keine Threads gefunden werden!</p>
-    </c:if>
+        <c:forEach items="${threads}" var="thread">
+
+            <div class="column p-2 border border-primary rounded highlight">
+                <h4 class="mb-0 mt-0">${thread.title}</h4>
+                <b class="m-1">Beitrag von <a
+                        href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt
+                    am ${thread.createdAt}</b>
+                <div id="categoryAndTagList">
+                    <b><a class="pl-1 border border-warning rounded highlight"
+                       href="categoryServlet?categoryid=${thread.category.id}">${thread.category.text}</a></b> <!-- TODO: Thread muss CategoryDTO und nicht die ID davon speichern -->
+                    <c:forEach items="${thread.tags}" var="tag">
+                        <a class="m-1 border border-info rounded highlight">${tag}</a>
+                    </c:forEach>
+                </div>
+                <div class="p-2 d-flex justify-content-between rounded">
+                        ${thread.text}
+                </div>
+                <div>${thread.answers.size()} Antworten</div>
+                <a class="btn btn-primary" href="threadServlet?threadid=${thread.id}">Öffne den Thread</a>
+            </div>
+            <hr>
+        </c:forEach>
+        <c:if test="${threads.isEmpty()}">
+            <p>Leider konnten keine Threads gefunden werden!</p>
+        </c:if>
     </div>
 </div>
 </body>
-</html>
