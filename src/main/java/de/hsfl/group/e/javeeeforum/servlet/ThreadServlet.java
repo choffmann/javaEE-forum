@@ -33,6 +33,7 @@ public class ThreadServlet extends HttpServlet {
         if (!sgf.isLoggedIn(request, response))
             return;
         WebTarget target = sgf.startConnection();
+        request.setCharacterEncoding("UTF-8");
         String threadId = request.getParameter("threadid");
         String searchRequest = request.getParameter("searchrequest");
         String creatorId = request.getParameter("creatorid");

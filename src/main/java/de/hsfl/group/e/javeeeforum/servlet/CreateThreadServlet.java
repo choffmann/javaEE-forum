@@ -32,6 +32,7 @@ public class CreateThreadServlet extends HttpServlet {
         if (!sgf.isLoggedIn(request, response))
             return;
         WebTarget target = sgf.startConnection();
+        request.setCharacterEncoding("UTF-8");
         request.setAttribute("userData", userData);
         try {
             List<CategoryDto> categories = target.path("categories").request().accept(MediaType.APPLICATION_JSON).get(
@@ -47,7 +48,9 @@ public class CreateThreadServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        sgf.isLoggedIn(request, response);
         WebTarget target = sgf.startConnection();
+        request.setCharacterEncoding("UTF-8");
         Long categoryId = Long.valueOf(request.getParameter("categoryid"));
 
         String tags = request.getParameter("tag").replaceAll(" ", "");

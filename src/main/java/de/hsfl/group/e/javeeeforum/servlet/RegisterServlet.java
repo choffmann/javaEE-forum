@@ -26,6 +26,7 @@ public class RegisterServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         WebTarget target = sgf.startConnection();
+        request.setCharacterEncoding("UTF-8");
         CreatorDto creatorDto = new CreatorDto();
         creatorDto.setUsername(request.getParameter("registerUsername"));
         creatorDto.setEmail(request.getParameter("registerEmail"));
