@@ -74,7 +74,7 @@
             <div class="row mb-3">
                 <label for="tag" class="col-sm-2 col-form-label">Tags</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="tag" name=tag placeholder="Tags durch Komma trennen" required>
+                    <input type="text" class="form-control" id="tag" name=tag placeholder="Tags durch Komma trennen">
                 </div>
             </div>
             <div class="row mb-3">
