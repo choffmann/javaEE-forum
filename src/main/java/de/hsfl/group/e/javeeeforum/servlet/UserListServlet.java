@@ -30,14 +30,19 @@ public class UserListServlet extends HttpServlet {
         sgf.isLoggedIn(request, response);
         WebTarget target = sgf.startConnection();
         request.setAttribute("userData", userData);
+        try {
+            List<CreatorDto> userList = target.queryParam("creatorid", userData.getCreatorDto().getId()).path("users")
+                    .request().accept(MediaType.APPLICATION_JSON).get(
+                            new GenericType<List<CreatorDto>>() {
+                            });
+            request.setAttribute("userList", userList);
+            request.getRequestDispatcher("/jsp/userList.jsp").forward(request, response);
+        }
+        catch (Exception e){
+            request.setAttribute("error", e);
+            request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+        }
 
-        List<CreatorDto> userList = target.queryParam("creatorid", userData.getCreatorDto().getId()).path("users")
-                .request().accept(MediaType.APPLICATION_JSON).get(
-                new GenericType<List<CreatorDto>>() {
-                });
-        request.setAttribute("userList", userList);
-
-        request.getRequestDispatcher("/jsp/userList.jsp").forward(request, response);
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         sgf.isLoggedIn(request, response);

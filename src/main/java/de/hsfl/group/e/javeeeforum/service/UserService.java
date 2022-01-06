@@ -27,8 +27,7 @@ public class UserService {
         Creator creator = creatorDao.getById(creatorID);
         if (creator == null || !creator.isAdmin())
             throw new WebApplicationException(
-                    Response.status(404).entity("Not authenticated").build());
-
+                    Response.status(401).entity("Not authenticated").build());
         return CreatorDto.fromModelList(creatorDao.getAll());
     }
 
