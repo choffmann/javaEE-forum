@@ -1,7 +1,6 @@
 package de.hsfl.group.e.javeeeforum.service;
 
 import de.hsfl.group.e.javeeeforum.dao.CreatorDao;
-import de.hsfl.group.e.javeeeforum.dto.CategoryDto;
 import de.hsfl.group.e.javeeeforum.dto.CreatorDto;
 import de.hsfl.group.e.javeeeforum.model.Creator;
 

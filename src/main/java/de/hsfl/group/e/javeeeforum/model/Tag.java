@@ -3,7 +3,6 @@ package de.hsfl.group.e.javeeeforum.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @NamedQuery(name = "Tag.findAll", query = "SELECT w FROM Tag w")

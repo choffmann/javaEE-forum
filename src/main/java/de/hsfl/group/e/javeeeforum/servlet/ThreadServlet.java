@@ -3,7 +3,6 @@ package de.hsfl.group.e.javeeeforum.servlet;
 import de.hsfl.group.e.javeeeforum.ServletGlobalFunctions;
 import de.hsfl.group.e.javeeeforum.UserData;
 import de.hsfl.group.e.javeeeforum.dto.AnswerDto;
-import de.hsfl.group.e.javeeeforum.dto.CategoryDto;
 import de.hsfl.group.e.javeeeforum.dto.CreatorDto;
 import de.hsfl.group.e.javeeeforum.dto.ThreadDto;
 import jersey.repackaged.com.google.common.collect.Lists;

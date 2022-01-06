@@ -1,8 +1,6 @@
 package de.hsfl.group.e.javeeeforum.dto;
 
 import de.hsfl.group.e.javeeeforum.model.Answer;
-import de.hsfl.group.e.javeeeforum.model.Category;
-import de.hsfl.group.e.javeeeforum.model.Comment;
 
 import java.util.Date;
 import java.util.LinkedList;
