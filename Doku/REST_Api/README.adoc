@@ -56,6 +56,13 @@ Die REST Api wurde mit javaEE erstellt.
 |List<CategoryOut>
 |-
 
+|POST
+|/categories
+|creatorid*
+|CategoryIn
+|201
+|401, 404
+
 |GET
 |/categories/{id}
 |-
