@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -55,6 +56,21 @@ public class CategoryServlet extends HttpServlet {
                 request.getRequestDispatcher("jsp/threadList.jsp").forward(request, response);
             }
         } catch (NotFoundException | NotAuthorizedException e) {
+            request.setAttribute("errorStatus", e.getResponse().getStatus());
+            request.setAttribute("errorMessage", e.getResponse().readEntity(String.class));
+            request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+        }
+    }
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        WebTarget target = sgf.startConnection();
+        request.setCharacterEncoding("UTF-8");
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setText(request.getParameter("createCategory"));
+        try {
+            target.queryParam("creatorid", userData.getCreatorDto().getId()).path("categories")
+                    .request().accept(MediaType.APPLICATION_JSON).post(Entity.json(categoryDto));
+            response.sendRedirect(request.getContextPath() + "/categoryServlet");
+        } catch (NotFoundException | NotAuthorizedException e){
             request.setAttribute("errorStatus", e.getResponse().getStatus());
             request.setAttribute("errorMessage", e.getResponse().readEntity(String.class));
             request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
