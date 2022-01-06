@@ -33,10 +33,14 @@ public class LoginServlet extends HttpServlet {
         CreatorDto creatorDto = new CreatorDto();
         creatorDto.setUsername(request.getParameter("loginUsername"));
         creatorDto.setPassword(request.getParameter("loginPassword"));
-        CreatorDto logedinUser = target.path("users/login")
-                .request().accept(MediaType.APPLICATION_JSON).post(Entity.json(creatorDto), CreatorDto.class);
-        userData.setCreatorDto(logedinUser);
-        response.sendRedirect(request.getContextPath() + "/threadServlet");
+        try {
+            CreatorDto logedinUser = target.path("users/login")
+                    .request().accept(MediaType.APPLICATION_JSON).post(Entity.json(creatorDto), CreatorDto.class);
+            userData.setCreatorDto(logedinUser);
+            response.sendRedirect(request.getContextPath() + "/threadServlet");
+        } catch (Exception e){
+            response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
+        }
     }
 
 }

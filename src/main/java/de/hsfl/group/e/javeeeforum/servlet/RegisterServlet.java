@@ -27,9 +27,13 @@ public class RegisterServlet extends HttpServlet {
         creatorDto.setUsername(request.getParameter("registerUsername"));
         creatorDto.setEmail(request.getParameter("registerEmail"));
         creatorDto.setPassword(request.getParameter("registerPassword"));
-        CreatorDto registeredUser = target.path("users/register")
-                .request().accept(MediaType.APPLICATION_JSON).post(Entity.json(creatorDto), CreatorDto.class);
-        userData.setCreatorDto(registeredUser);
-        response.sendRedirect(request.getContextPath() + "/threadServlet");
+        try {
+            CreatorDto registeredUser = target.path("users/register")
+                    .request().accept(MediaType.APPLICATION_JSON).post(Entity.json(creatorDto), CreatorDto.class);
+            userData.setCreatorDto(registeredUser);
+            response.sendRedirect(request.getContextPath() + "/threadServlet");
+        }catch (Exception e){
+            response.sendRedirect(request.getContextPath() + "/jsp/register.jsp");
+        }
     }
 }
