@@ -27,6 +27,7 @@ public class AnswerServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         sgf.isLoggedIn(request, response);
         WebTarget target = sgf.startConnection();
+        request.setCharacterEncoding("UTF-8");
         String threadId = request.getParameter("threadid");
         String text = request.getParameter("answertext");
         //Sendet die Antwort an den Server

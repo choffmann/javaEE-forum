@@ -32,6 +32,7 @@ public class LoginServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         WebTarget target = sgf.startConnection();
+        request.setCharacterEncoding("UTF-8");
         CreatorDto creatorDto = new CreatorDto();
         creatorDto.setUsername(request.getParameter("loginUsername"));
         creatorDto.setPassword(request.getParameter("loginPassword"));

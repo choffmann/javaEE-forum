@@ -32,6 +32,7 @@ public class ThreadServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         sgf.isLoggedIn(request, response);
         WebTarget target = sgf.startConnection();
+        request.setCharacterEncoding("UTF-8");
         String threadId = request.getParameter("threadid");
         String searchRequest = request.getParameter("searchrequest");
         String creatorId = request.getParameter("creatorid");

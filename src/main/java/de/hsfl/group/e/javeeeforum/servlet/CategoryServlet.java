@@ -31,6 +31,7 @@ public class CategoryServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         sgf.isLoggedIn(request, response);
         WebTarget target = sgf.startConnection();
+        request.setCharacterEncoding("UTF-8");
         String categoryId = request.getParameter("categoryid");
         request.setAttribute("userData", userData);
         try {

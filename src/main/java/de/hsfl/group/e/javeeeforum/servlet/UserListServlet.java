@@ -30,6 +30,7 @@ public class UserListServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         sgf.isLoggedIn(request, response);
         WebTarget target = sgf.startConnection();
+        request.setCharacterEncoding("UTF-8");
         request.setAttribute("userData", userData);
         try {
             List<CreatorDto> userList = target.queryParam("creatorid", userData.getCreatorDto().getId()).path("users")
@@ -49,6 +50,7 @@ public class UserListServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         sgf.isLoggedIn(request, response);
         WebTarget target = sgf.startConnection();
+        request.setCharacterEncoding("UTF-8");
         request.setAttribute("userData", userData);
         try {
             String userID = request.getParameter("userid");
