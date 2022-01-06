@@ -9,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotAuthorizedException;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
@@ -32,8 +35,9 @@ public class RegisterServlet extends HttpServlet {
                     .request().accept(MediaType.APPLICATION_JSON).post(Entity.json(creatorDto), CreatorDto.class);
             userData.setCreatorDto(registeredUser);
             response.sendRedirect(request.getContextPath() + "/threadServlet");
-        }catch (Exception e){
-            response.sendRedirect(request.getContextPath() + "/jsp/register.jsp");
+        } catch (NotFoundException | NotAuthorizedException | BadRequestException e) {
+            response.sendRedirect(request.getContextPath() + "/jsp/register.jsp?error=" +
+                    e.getResponse().readEntity(String.class));
         }
     }
 }
