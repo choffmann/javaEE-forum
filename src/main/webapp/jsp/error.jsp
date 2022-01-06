@@ -1,3 +1,5 @@
+<jsp:useBean id="errorMessage" scope="request" type="java.lang.String"/>
+<jsp:useBean id="errorStatus" scope="request" type="java.lang.Integer"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="userData" scope="request" type="de.hsfl.group.e.javeeeforum.UserData"/>
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -45,7 +47,8 @@
 
 <div class="container mt-5">
     <div class="rounded-3 container-sm border border-primary highlight">
-        <h1>Fehler [${error.getMessage()}]</h1>
+        <h1>Fehler [${errorStatus}]</h1>
+        <p>${errorMessage}</p>
         <p>Diese Anfrage konnte leider nicht richtig bearbeitet werden.</p>
     </div>
 </div>
