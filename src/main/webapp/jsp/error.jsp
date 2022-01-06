@@ -1,7 +1,7 @@
 <jsp:useBean id="errorMessage" scope="request" type="java.lang.String"/>
 <jsp:useBean id="errorStatus" scope="request" type="java.lang.Integer"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="userData" scope="request" type="de.hsfl.group.e.javeeeforum.UserData"/>
+<jsp:useBean id="userData" scope="request" type="de.hsfl.group.e.javaeeforum.UserData"/>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <head>
     <meta charset="UTF-8">

@@ -4,12 +4,12 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
     <persistence-unit name="javaEE-forum" transaction-type="RESOURCE_LOCAL">
-        <class>de.hsfl.group.e.javeeeforum.model.Answer</class>
-        <class>de.hsfl.group.e.javeeeforum.model.Category</class>
-        <class>de.hsfl.group.e.javeeeforum.model.Comment</class>
-        <class>de.hsfl.group.e.javeeeforum.model.Creator</class>
-        <class>de.hsfl.group.e.javeeeforum.model.Tag</class>
-        <class>de.hsfl.group.e.javeeeforum.model.Thread</class>
+        <class>de.hsfl.group.e.javaeeforum.model.Answer</class>
+        <class>de.hsfl.group.e.javaeeforum.model.Category</class>
+        <class>de.hsfl.group.e.javaeeforum.model.Comment</class>
+        <class>de.hsfl.group.e.javaeeforum.model.Creator</class>
+        <class>de.hsfl.group.e.javaeeforum.model.Tag</class>
+        <class>de.hsfl.group.e.javaeeforum.model.Thread</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/javaee_forum"/>
             <property name="javax.persistence.jdbc.user" value="javaee_forum_admin"/>
