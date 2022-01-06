@@ -21,19 +21,19 @@
 <div class="container mt-5">
     <% String error = request.getParameter("error");
         if (error != null)
-            out.print("<div class='text-danger font-weight-bold'>" + error + "</div>");
+            out.print("<div class='text-danger font-weight-bold'>" + error + "</div>"); //Schreit error, geht aber
     %>
-    <div class="rounded-3 container-sm bg-primary">
-        <h1>Login</h1>
-        <form action="${pageContext.request.contextPath}/loginServlet" method="post">
+    <div class="border rounded p-2 container-sm bg-primary">
+        <h1 class="text-white">Login</h1>
+        <form class="m-0" action="${pageContext.request.contextPath}/loginServlet" method="post">
             <div class="row mb-3">
-                <label for="loginUsername" class="col-sm-2 col-form-label">Username</label>
+                <label for="loginUsername" class="col-sm-2 col-form-label text-white">Username</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="loginUsername" name=loginUsername required>
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="loginPassword" class="col-sm-2 col-form-label">Password</label>
+                <label for="loginPassword" class="col-sm-2 col-form-label text-white">Password</label>
                 <div class="col-sm-10">
                     <input type="password" class="form-control" id="loginPassword" name=loginPassword required>
                 </div>

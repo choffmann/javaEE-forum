@@ -23,23 +23,23 @@
         if (error != null)
             out.print("<div class='text-danger font-weight-bold'>" + error + "</div>");
     %>
-    <div class="rounded-3 container-sm bg-primary">
-        <h1>Register</h1>
-        <form action="${pageContext.request.contextPath}/registerServlet" method="post">
+    <div class="border rounded p-2 container-sm bg-primary">
+        <h1 class="text-white">Register</h1>
+        <form class="m-0" action="${pageContext.request.contextPath}/registerServlet" method="post">
             <div class="row mb-3">
-                <label for="registerUsername" class="col-sm-2 col-form-label">Username</label>
+                <label for="registerUsername" class="col-sm-2 col-form-label text-white">Username</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="registerUsername" name="registerUsername" required>
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="registerEmail" class="col-sm-2 col-form-label">E-Mail</label>
+                <label for="registerEmail" class="col-sm-2 col-form-label text-white">E-Mail</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="registerEmail" name="registerEmail" required>
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="registerPassword" class="col-sm-2 col-form-label">Password</label>
+                <label for="registerPassword" class="col-sm-2 col-form-label text-white">Password</label>
                 <div class="col-sm-10">
                     <input type="password" class="form-control" id="registerPassword" name="registerPassword" required>
                 </div>
