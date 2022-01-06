@@ -21,12 +21,12 @@ public class AnswerServlet extends HttpServlet {
     @Inject
     UserData userData;
     @Inject
-    ServletGlobalFunctions sgl;
+    ServletGlobalFunctions sgf;
 
     //Antwort senden
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        sgl.isLoggedIn(request, response);
-        WebTarget target = sgl.startConnection();
+        sgf.isLoggedIn(request, response);
+        WebTarget target = sgf.startConnection();
         String threadId = request.getParameter("threadid");
         String text = request.getParameter("answertext");
         //Sendet die Antwort an den Server
