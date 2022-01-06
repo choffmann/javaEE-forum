@@ -47,7 +47,7 @@ public class ThreadService {
     private List<Tag> getTagList(List<String> tagStrings) {
         List<Tag> tags = new LinkedList<>();
         for (String tagString : tagStrings) {
-            if (tagString != null) {
+            if (tagString != null && !tagString.equals("")) {
                 Tag tag = new Tag();
                 tag.setTag(tagString);
                 tagDao.addElement(tag);
