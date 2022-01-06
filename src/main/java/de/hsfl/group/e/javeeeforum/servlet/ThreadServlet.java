@@ -44,12 +44,8 @@ public class ThreadServlet extends HttpServlet {
             List<AnswerDto> answers = target.path("threads/" + threadId + "/answers").request().accept(MediaType.APPLICATION_JSON).get(
                     new GenericType<List<AnswerDto>>() {
                     });
-            CategoryDto category = target.path("categories/16"/*+thread.getCategory().id*/).request().accept(MediaType.APPLICATION_JSON).get(
-                    new GenericType<CategoryDto>() {
-                    }); //TODO: Gerade noch fehlerhaft! Sobald aber Cedriks Datenbank-Aktualisierung drin ist, funktionierts
             request.setAttribute("thread", thread);
             request.setAttribute("answers", answers);
-            request.setAttribute("category", category);
             //Comments sind schon unter den answers in ner Liste gespeichert.
             request.getRequestDispatcher("/jsp/thread.jsp").forward(request, response);
         } else if (searchRequest != null) {
