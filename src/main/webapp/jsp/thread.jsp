@@ -28,7 +28,9 @@
     <div>
         <a class="btn btn-secondary mr-sm-2" href="createThreadServlet">Thread erstellen</a>
         <a class="btn btn-warning mr-sm-2" href="categoryServlet">Kategorien</a>
-        <a class="loggedIn isAdmin btn btn-info mr-sm-2" href="userListServlet">Users</a>
+            <c:if test="${userData.creatorDto.admin}">
+                <a class="loggedIn isAdmin btn btn-info mr-sm-2" href="userListServlet">Users</a>
+            </c:if>
     </div>
     <!-- Suchleiste -->
     <div>
@@ -49,7 +51,7 @@
     <div id="thread" class="p-2 border border-primary rounded">
         <h1>${thread.title}</h1>
         <c:choose>
-            <c:when test="${thread.creator.isDeleted()}">
+            <c:when test="${thread.creator.deleted}">
                 <b class="m-1">Beitrag von [deleted_user], erstellt
                     am ${thread.createdAt}</b>
             </c:when>
@@ -91,7 +93,7 @@
             <c:forEach items="${answers}" var="answer">
                 <div class="border border-info rounded p-1">
                     <c:choose>
-                        <c:when test="${answer.creator.isDeleted()}">
+                        <c:when test="${answer.creator.deleted}">
                             <b>Antwort von [deleted_user], ${answer.createdAt}</b>
                         </c:when>
                         <c:otherwise>
@@ -117,7 +119,7 @@
                         <c:forEach items="${answer.comments}" var="comment">
                             <div class="border border-secondary rounded p-1 my-1">
                                 <c:choose>
-                                    <c:when test="${comment.creatorDto.isDeleted()}">
+                                    <c:when test="${comment.creatorDto.deleted}">
                                         <b>Kommentar von [deleted_user], ${comment.createdAt}</b>
                                     </c:when>
                                     <c:otherwise>
