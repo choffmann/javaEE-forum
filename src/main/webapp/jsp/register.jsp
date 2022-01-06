@@ -14,11 +14,15 @@
 <nav class="navbar navbar-dark bg-dark container-fluid pl-20 pr-20">
     <!-- Startseite & Logindaten -->
     <div class="row pl-3">
-        <a class="loggedIn btn btn-light mr-sm-2" href="login.jsp">Login</a>
+        <a class="loggedIn btn btn-light mr-sm-2" href="${pageContext.request.contextPath}/jsp/login.jsp">Login</a>
     </div>
 </nav>
 
 <div class="container mt-5">
+    <% String error = request.getParameter("error");
+        if (error != null)
+            out.print("<div class='text-danger font-weight-bold'>" + error + "</div>");
+    %>
     <div class="rounded-3 container-sm bg-primary">
         <h1>Register</h1>
         <form action="${pageContext.request.contextPath}/registerServlet" method="post">
