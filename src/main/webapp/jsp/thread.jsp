@@ -28,7 +28,9 @@
     <div>
         <a class="btn btn-secondary mr-sm-2" href="createThreadServlet">Thread erstellen</a>
         <a class="btn btn-warning mr-sm-2" href="categoryServlet">Kategorien</a>
-        <a class="loggedIn isAdmin btn btn-info mr-sm-2" href="userListServlet">Users</a>
+            <c:if test="${userData.creatorDto.admin}">
+                <a class="loggedIn isAdmin btn btn-info mr-sm-2" href="userListServlet">Users</a>
+            </c:if>
     </div>
     <!-- Suchleiste -->
     <div>
@@ -48,7 +50,17 @@
     <!-- table für die Threads -->
     <div id="thread" class="p-2 border border-primary rounded">
         <h1>${thread.title}</h1>
-        <b class="mb-1">Beitrag von <a href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt am ${thread.createdAt}</b>
+        <c:choose>
+            <c:when test="${thread.creator.deleted}">
+                <b class="m-1">Beitrag von [deleted_user], erstellt
+                    am ${thread.createdAt}</b>
+            </c:when>
+            <c:otherwise>
+                <b class="m-1">Beitrag von <a
+                        href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt
+                    am ${thread.createdAt}</b>
+            </c:otherwise>
+        </c:choose>
         <div id="categoryAndTagList">
             <b><a class="px-1 border border-warning rounded highlight text-dark"
                   href="categoryServlet?categoryid=${category.id}">${category.text}</a></b>
@@ -80,7 +92,14 @@
             <jsp:useBean id="answers" scope="request" type="java.util.List"/>
             <c:forEach items="${answers}" var="answer">
                 <div class="border border-info rounded p-1">
-                    <b>Antwort von <a href="threadServlet?creatorid=${answer.creator.id}">${answer.creator.username}</a></b>
+                    <c:choose>
+                        <c:when test="${answer.creator.deleted}">
+                            <b>Antwort von [deleted_user], ${answer.createdAt}</b>
+                        </c:when>
+                        <c:otherwise>
+                            <b>Antwort von <a href="threadServlet?creatorid=${answer.creator.id}">${answer.creator.username}</a>, ${answer.createdAt}</b>
+                        </c:otherwise>
+                    </c:choose>
                     <p>${answer.text}</p>
                     <div class="p-2" id="createComment">
                         <form id="createCommentForm" name="createCommentForm" method="post" action="commentServlet">
@@ -99,8 +118,15 @@
                     <c:if test="${answer.comments.size() > 0}">
                         <c:forEach items="${answer.comments}" var="comment">
                             <div class="border border-secondary rounded p-1 my-1">
-                                <b>Kommentar von <a
-                                        href="threadServlet?creatorid=${comment.creatorDto.id}">${comment.creatorDto.username}</a></b>
+                                <c:choose>
+                                    <c:when test="${comment.creatorDto.deleted}">
+                                        <b>Kommentar von [deleted_user], ${comment.createdAt}</b>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <b>Kommentar von <a
+                                                href="threadServlet?creatorid=${comment.creatorDto.id}">${comment.creatorDto.username}</a>, ${comment.createdAt}</b>
+                                    </c:otherwise>
+                                </c:choose>
                                 <p>${comment.text}</p>
                             </div>
                         </c:forEach>

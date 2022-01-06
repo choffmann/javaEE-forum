@@ -29,7 +29,9 @@
         <!-- Kategorien-->
         <a class="btn btn-warning mr-sm-2" href="categoryServlet">Kategorien</a>
         <!-- Userliste [Admin Knopf] -->
-        <a class="loggedIn isAdmin btn btn-info mr-sm-2" href="userListServlet">Users</a>
+        <c:if test="${userData.creatorDto.admin}">
+            <a class="loggedIn isAdmin btn btn-info mr-sm-2" href="userListServlet">Users</a>
+        </c:if>
     </div>
     <!-- Suchleiste -->
     <div>
@@ -53,9 +55,17 @@
 
             <div class="column p-2 border border-primary rounded highlight">
                 <h4 class="mb-0 mt-0">${thread.title}</h4>
-                <b class="m-1">Beitrag von <a
-                        href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt
-                    am ${thread.createdAt}</b>
+                <c:choose>
+                    <c:when test="${thread.creator.deleted}">
+                        <b class="m-1">Beitrag von [deleted_user], erstellt
+                            am ${thread.createdAt}</b>
+                    </c:when>
+                    <c:otherwise>
+                        <b class="m-1">Beitrag von <a
+                                href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt
+                            am ${thread.createdAt}</b>
+                    </c:otherwise>
+                </c:choose>
                 <div id="categoryAndTagList">
                     <b><a class="px-1 border border-warning rounded highlight text-dark"
                        href="categoryServlet?categoryid=${thread.category.id}">${thread.category.text}</a></b>
