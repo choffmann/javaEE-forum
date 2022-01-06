@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
     <meta charset="UTF-8">
-    <title>Homepage</title>
+    <title>Kategorien</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <meta charset="utf-8">
@@ -44,6 +44,15 @@
 <div class="container mt-5">
     <!-- Normaler Content -->
     <h1>Kategorien</h1>
+    <c:if test="${userData.creatorDto.admin}">
+        <form class="form-inline m-0" action="${pageContext.request.contextPath}/categoryServlet" method="post">
+            <label for="createCategory"></label>
+                <input type="text" class="form-control mr-sm-2" id="createCategory" name=createCategory
+                       placeholder="Kategorie" required>
+                <button type="submit" class="btn btn-secondary mr-sm-2">Erstellen</button>
+        </form>
+    </c:if>
+    <br>
     <!-- table für die Threads -->
     <div id="categories">
         <jsp:useBean id="categories" scope="request" type="java.util.List"/>
