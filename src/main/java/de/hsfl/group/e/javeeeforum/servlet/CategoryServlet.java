@@ -29,7 +29,8 @@ public class CategoryServlet extends HttpServlet {
 
     //Antwort senden
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        sgf.isLoggedIn(request, response);
+        if (!sgf.isLoggedIn(request, response))
+            return;
         WebTarget target = sgf.startConnection();
         String categoryId = request.getParameter("categoryid");
         request.setAttribute("userData", userData);

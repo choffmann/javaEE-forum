@@ -25,7 +25,8 @@ public class CommentServlet extends HttpServlet {
 
     //Antwort senden
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        sgf.isLoggedIn(request, response);
+        if (!sgf.isLoggedIn(request, response))
+            return;
         WebTarget target = sgf.startConnection();
         String threadId = request.getParameter("threadid");
         String answerId = request.getParameter("answerid");

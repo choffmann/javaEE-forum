@@ -28,7 +28,8 @@ public class UserListServlet extends HttpServlet {
     ServletGlobalFunctions sgf;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        sgf.isLoggedIn(request, response);
+        if (!sgf.isLoggedIn(request, response))
+            return;
         WebTarget target = sgf.startConnection();
         request.setAttribute("userData", userData);
         try {
@@ -47,7 +48,8 @@ public class UserListServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        sgf.isLoggedIn(request, response);
+        if (!sgf.isLoggedIn(request, response))
+            return;
         WebTarget target = sgf.startConnection();
         request.setAttribute("userData", userData);
         try {

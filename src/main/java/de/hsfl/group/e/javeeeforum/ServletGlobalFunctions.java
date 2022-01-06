@@ -29,10 +29,12 @@ public class ServletGlobalFunctions implements Serializable {
                 .fromUri("http://localhost:8080/javeEE-forum-1.0-SNAPSHOT/api/").build());
     }
 
-    public void isLoggedIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public boolean isLoggedIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (userData.getCreatorDto() == null) {
-            request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
+            return false;
         }
         request.setAttribute("userData", userData);
+        return true;
     }
 }

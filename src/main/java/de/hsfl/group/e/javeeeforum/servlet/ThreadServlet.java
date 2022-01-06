@@ -30,7 +30,8 @@ public class ThreadServlet extends HttpServlet {
 
     //Alle Abfragen von Threads kommen hier rein
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        sgf.isLoggedIn(request, response);
+        if (!sgf.isLoggedIn(request, response))
+            return;
         WebTarget target = sgf.startConnection();
         String threadId = request.getParameter("threadid");
         String searchRequest = request.getParameter("searchrequest");
