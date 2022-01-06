@@ -53,9 +53,17 @@
 
             <div class="column p-2 border border-primary rounded highlight">
                 <h4 class="mb-0 mt-0">${thread.title}</h4>
-                <b class="m-1">Beitrag von <a
-                        href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt
-                    am ${thread.createdAt}</b>
+                <c:choose>
+                    <c:when test="${thread.creator.isDeleted()}">
+                        <b class="m-1">Beitrag von [deleted_user], erstellt
+                            am ${thread.createdAt}</b>
+                    </c:when>
+                    <c:otherwise>
+                        <b class="m-1">Beitrag von <a
+                                href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt
+                            am ${thread.createdAt}</b>
+                    </c:otherwise>
+                </c:choose>
                 <div id="categoryAndTagList">
                     <b><a class="px-1 border border-warning rounded highlight text-dark"
                        href="categoryServlet?categoryid=${thread.category.id}">${thread.category.text}</a></b>
