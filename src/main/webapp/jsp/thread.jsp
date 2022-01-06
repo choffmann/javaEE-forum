@@ -1,4 +1,3 @@
-<jsp:useBean id="category" scope="request" type="de.hsfl.group.e.javeeeforum.dto.CategoryDto"/>
 <jsp:useBean id="userData" scope="request" type="de.hsfl.group.e.javeeeforum.UserData"/>
 <jsp:useBean id="thread" scope="request" type="de.hsfl.group.e.javeeeforum.dto.ThreadDto"/>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -63,7 +62,7 @@
         </c:choose>
         <div id="categoryAndTagList">
             <b><a class="px-1 border border-warning rounded highlight text-dark"
-                  href="categoryServlet?categoryid=${category.id}">${category.text}</a></b>
+                  href="categoryServlet?categoryid=${thread.category.id}">${thread.category.text}</a></b>
             <c:forEach items="${thread.tags}" var="tag">
                 <a class="m-1 mr-0 border border-info rounded highlight text-info" href="threadServlet?searchrequest=${tag}">${tag}</a>
             </c:forEach>

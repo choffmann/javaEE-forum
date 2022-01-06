@@ -10,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.NotAuthorizedException;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
@@ -30,15 +32,20 @@ public class CreateThreadServlet extends HttpServlet {
         sgf.isLoggedIn(request, response);
         WebTarget target = sgf.startConnection();
         request.setAttribute("userData", userData);
-
-        List<CategoryDto> categories = target.path("categories").request().accept(MediaType.APPLICATION_JSON).get(
-                new GenericType<List<CategoryDto>>() {
-                });
-        request.setAttribute("categories", categories);
-        request.getRequestDispatcher("/jsp/createThread.jsp").forward(request, response);
+        try {
+            List<CategoryDto> categories = target.path("categories").request().accept(MediaType.APPLICATION_JSON).get(
+                    new GenericType<List<CategoryDto>>() {
+                    });
+            request.setAttribute("categories", categories);
+            request.getRequestDispatcher("/jsp/createThread.jsp").forward(request, response);
+        } catch (NotFoundException | NotAuthorizedException e) {
+            request.setAttribute("errorStatus", e.getResponse().getStatus());
+            request.setAttribute("errorMessage", e.getResponse().readEntity(String.class));
+            request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+        }
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         WebTarget target = sgf.startConnection();
         Long categoryId = Long.valueOf(request.getParameter("categoryid"));
 
@@ -53,9 +60,15 @@ public class CreateThreadServlet extends HttpServlet {
         categoryDto.setId(categoryId);
         threadDto.setCategory(categoryDto);
 
-        target.queryParam("creatorid", userData.getCreatorDto().getId()).path("threads")
-                .request().accept(MediaType.APPLICATION_JSON).post(Entity.json(threadDto));
+        try {
+            target.queryParam("creatorid", userData.getCreatorDto().getId()).path("threads")
+                    .request().accept(MediaType.APPLICATION_JSON).post(Entity.json(threadDto));
 
-        response.sendRedirect(request.getContextPath() + "/threadServlet");
+            response.sendRedirect(request.getContextPath() + "/threadServlet");
+        } catch (NotFoundException | NotAuthorizedException e) {
+            request.setAttribute("errorStatus", e.getResponse().getStatus());
+            request.setAttribute("errorMessage", e.getResponse().readEntity(String.class));
+            request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+        }
     }
 }

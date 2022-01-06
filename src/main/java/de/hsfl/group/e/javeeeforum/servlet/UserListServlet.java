@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.ws.rs.NotAuthorizedException;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -30,21 +32,34 @@ public class UserListServlet extends HttpServlet {
         sgf.isLoggedIn(request, response);
         WebTarget target = sgf.startConnection();
         request.setAttribute("userData", userData);
+        try {
+            List<CreatorDto> userList = target.queryParam("creatorid", userData.getCreatorDto().getId()).path("users")
+                    .request().accept(MediaType.APPLICATION_JSON).get(
+                            new GenericType<List<CreatorDto>>() {
+                            });
+            request.setAttribute("userList", userList);
+            request.getRequestDispatcher("/jsp/userList.jsp").forward(request, response);
+        } catch (NotFoundException | NotAuthorizedException e) {
+            request.setAttribute("errorStatus", e.getResponse().getStatus());
+            request.setAttribute("errorMessage", e.getResponse().readEntity(String.class));
+            request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+        }
 
-        List<CreatorDto> userList = target.queryParam("creatorid", userData.getCreatorDto().getId()).path("users")
-                .request().accept(MediaType.APPLICATION_JSON).get(
-                new GenericType<List<CreatorDto>>() {
-                });
-        request.setAttribute("userList", userList);
-
-        request.getRequestDispatcher("/jsp/userList.jsp").forward(request, response);
     }
+
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         sgf.isLoggedIn(request, response);
         WebTarget target = sgf.startConnection();
-        String userID = request.getParameter("userid");
-        target.queryParam("creatorid", userData.getCreatorDto().getId()).path("users/" + userID)
-                .request().accept(MediaType.APPLICATION_JSON).delete();
-        response.sendRedirect(request.getContextPath() + "/userListServlet");
+        request.setAttribute("userData", userData);
+        try {
+            String userID = request.getParameter("userid");
+            target.queryParam("creatorid", userData.getCreatorDto().getId()).path("users/" + userID)
+                    .request().accept(MediaType.APPLICATION_JSON).delete();
+            response.sendRedirect(request.getContextPath() + "/userListServlet");
+        } catch (NotFoundException | NotAuthorizedException e) {
+            request.setAttribute("errorStatus", e.getResponse().getStatus());
+            request.setAttribute("errorMessage", e.getResponse().readEntity(String.class));
+            request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+        }
     }
 }
