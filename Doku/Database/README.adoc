@@ -165,4 +165,4 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |===
 
 .JPA Diagram in IntelliJ
-image:intellig_uml.png[]
+image:intellij_uml.png[]
