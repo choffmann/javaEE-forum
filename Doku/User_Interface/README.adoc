@@ -1,0 +1,119 @@
+= User Interface - Doku
+:imagesdir: img
+:nofooter:
+
+Das User-Interface wird mit `JSP` (Jakarta Server Pages) realisiert. Zur Gestaltung benutzen wir https://getbootstrap.com/[`Bootstrap`].
+
+
+== Anmeldung
+Die Anmeldung besteht auf einem Feld für den Nutzernamen und für das Passwort. In der Navigationsleiste kann man zum Registrieren wechseln.
+
+Bei fehlenden Einträgen wird dazu aufgefordert, das Feld auszufüllen.
+
+Bei falschen Einträgen kommt die Benachrichtigung, dass es entweder nicht gefunden wurde, oder falsch ist.
+
+.Anmeldungsseite
+image:login_default.png[]
+
+.Login-Seite bei fehlendem Namen
+image:login_noname.png[]
+
+.Login-Seite bei fehlendem Passwort
+image:login_nopw.png[]
+
+.Login-Seite bei nicht gefundenen Namen
+image:login_wrongname.png[]
+
+.Login-Seite bei falschem Passwort
+image:login_wrongpassword.png[]
+
+== Registrierung
+Bei der Registrierung muss man Nutzernamen, E-Mail und Passwort angeben, wie bei der Anmeldung wird überprüft, ob die Felder leer sind. Es wird auch überprüft, dass eine E-Mail eingegeben wurde und, ob der Name schon vergeben ist.
+
+.Registrierungsseite
+image:register_default.png[]
+
+.Keine valide E-Mail
+image:register_noemail.png[]
+
+.Nutzername ist schon vergeben
+image:register_duplicatename.png[]
+
+== Navigationsleiste
+Die Navigationsleiste ist in der Form auf jeder Seite folgenden vertreten.
+
+- `Startseite` bringt einen zur allgemeinen Threadliste.
+- `Ausloggen` bringt einen zur Anmeldung zurück.
+- `Thread erstellen` bringt einen zur Threaderstellung
+- `Kategorien` bringt einen zur Kategorieauswahl
+- `Users`, welches nur als Admin angezeigt wird, bringt einen zur Nutzerliste
+- `Suchen` lässt einen das Suchen, was man im Feld daneben eingegeben hat
+
+.Normaler Nutzer
+image:navbar_user.png[]
+
+.Admin
+image:navbar_admin.png[]
+
+== Startseite
+
+Die Startseite gibt eine ungefilterte Liste aller Threads aus, somit ist sie eine Thread-Liste.
+Die neusten Threads werden als erstes angezeigt.
+
+.Startseite
+image:threadList_default.png[]
+
+== Thread-Listen
+
+Seiten wie die Startseite zeigen mehrere Threads auf einmal an. Jeder dieser Vorschauen zeigt `Titel`, `Ersteller`, `Erstelldatum`, `Kategorie`, `Tags`, `Inhalt` und `Anzahl der Antworten` an.
+
+Man kann auf die Kategorie klicken, um jeden Thread der Kategorie als Thread-Liste zu bekommen (Siehe: "Suche nach einer Kategorie").
+
+Außerdem kann man auf einen Tag klicken, um eine Suche nach dem Suchbegriff vom Tag zu starten, dies ist gleichzusetzen wie eine Suche über die Suchen-Funktion.
+
+== Thread erstellen
+Beim Erstellen eines Threads muss man Titel, Text und Kategorie angeben. Tags zu erstellen ist freiwillig. Tags müssen durch Kommata getrennt werden. Nach dem Erstellen wird man auf die Startseite gebracht, wo der neu erstellte Thread direkt ganz oben ist.
+
+.Thread erstellen
+image:createThread_default.png[]
+
+.Kategorie-Auswahl beim Erstellen eines Threads
+image:createThread_categories.png[]
+
+.Eingabe von 3 Tags ins Tag-Feld
+image:createThread_tags.png[]
+
+== Kategorien
+Als Admin hat man die Option weitere Kategorien zu erstellen. Dabei ist es nicht möglich zwei gleiche Kategorien zu erstellen.
+Beim Klicken auf eines der Kategorien-Knöpfe werden alle Threads dieser Kategorie angezeigt.
+
+.Kategorieseite als normaler Nutzer
+image:categories_user.png[]
+
+.Kategorieseite als Admin
+image:categories_admin.png[]
+
+.Suche nach einer Kategorie
+image:threadList_category.png[]
+
+== Suchfunktion (Suchen)
+Durch die Suchelemente in der Navigationsleiste kann man nach Wörtern in Threads suchen.
+
+Zum Suchen wird eine Eingabe benötigt. Falls das nicht geschieht, kommt eine Meldung.
+
+.Suche bei fehlendem Suchbegriff
+image:search_notext[]
+
+.Suche mit Suchbegriff
+image:threadList_search.png[]
+
+== Thread
+Ein Thread zeigt `Titel`, `Ersteller`, `Erstelldatum`, `Kategorie`, `Tags` und `Inhalt` an.
+
+Dazu werden noch alle `Antworten` und dessen `Kommentare` angezeigt.
+
+Man kann auf den Thread _antworten_, oder eine Antwort auf den Thread _kommentieren_.
+
+.Ein normaler Thread mit Antworten und Kommentare
+image:thread_default.png[]
+
