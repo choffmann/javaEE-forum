@@ -38,7 +38,7 @@ alter schema public owner to javaee_forum_admin;
 Um die Datenbank zu befüllen, wird das von Postgres mitgelieferte Tool `pg_restore` benötigt. Die Datei kann nun wie folgt eingespielt werden:
 [listing]
 ----
-pg_restore --host=localhost --dbname=javaee_forum --no-owner --role=javaee_forum_admin ./database.dmp
+pg_restore --host=localhost --dbname=javaee_forum --no-owner --role=javaee_forum_admin -U javaee_forum_admin ./database.dmp
 ----
 
 *NOTE:* Unter Windows meistens unter `C:\Program Files\PostgreSQL\14\bin\pg_restore.exe` zu erreichen
