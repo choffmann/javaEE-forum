@@ -18,7 +18,8 @@
         <a class="loggedIn btn btn-danger mr-sm-2" href="loginServlet">Ausloggen</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
-                                                                                    id="loggedUser"><c:out value="${userData.creatorDto.username}"/></b>
+                                                                                    id="loggedUser"><c:out
+                    value="${userData.creatorDto.username}"/></b>
             </p>
         </div>
     </div>
@@ -67,9 +68,13 @@
                 <td><c:out value="${user.isAdmin()}"/></td>
                 <td><c:out value="${user.isDeleted()}"/></td>
                 <td>
-                    <form action="userListServlet" method="post">
-                        <button name=userid type="submit" class="btn btn-danger mt-1" value="<c:out value="${user.id}"/>">Löschen</button>
-                    </form>
+                    <c:if test="${!user.isAdmin()}">
+                        <form action="userListServlet" method="post">
+                            <button name=userid type="submit" class="btn btn-danger mt-1"
+                                    value="<c:out value="${user.id}"/>">Löschen
+                            </button>
+                        </form>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>
