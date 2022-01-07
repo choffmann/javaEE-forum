@@ -1,6 +1,7 @@
 package de.hsfl.group.e.javaeeforum.service;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -48,9 +49,14 @@ public class ThreadService {
         List<Tag> tags = new LinkedList<>();
         for (String tagString : tagStrings) {
             if (tagString != null && !tagString.equals("")) {
-                Tag tag = new Tag();
-                tag.setTag(tagString);
-                tagDao.addElement(tag);
+                Tag tag;
+                try {
+                    tag = tagDao.getByName(tagString);
+                } catch (NoResultException e) {
+                    tag = new Tag();
+                    tag.setTag(tagString);
+                    tagDao.addElement(tag);
+                }
                 tags.add(tag);
             }
         }
