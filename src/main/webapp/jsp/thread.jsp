@@ -19,7 +19,7 @@
         <a class="loggedIn btn btn-danger mr-sm-2" href="loginServlet">Ausloggen</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
-                                                                                    id="loggedUser">${userData.creatorDto.username}</b>
+                                                                                    id="loggedUser"><c:out value="${userData.creatorDto.username}"/></b>
             </p>
         </div>
     </div>
@@ -48,27 +48,27 @@
 
     <!-- table für die Threads -->
     <div id="thread" class="p-2 border border-primary rounded">
-        <h1>${thread.title}</h1>
+        <h1><c:out value="${thread.title}"/></h1>
         <c:choose>
             <c:when test="${thread.creator.deleted}">
                 <b class="m-1">Beitrag von [deleted_user], erstellt
-                    am ${thread.createdAt}</b>
+                    am <c:out value="${thread.createdAt}"/></b>
             </c:when>
             <c:otherwise>
                 <b class="m-1">Beitrag von <a
-                        href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt
-                    am ${thread.createdAt}</b>
+                        href="threadServlet?creatorid=<c:out value="${thread.creator.id}"/>"><c:out value="${thread.creator.username}"/></a>, erstellt
+                    am <c:out value="${thread.createdAt}"/></b>
             </c:otherwise>
         </c:choose>
         <div id="categoryAndTagList">
             <b><a class="px-1 border border-warning rounded highlight text-dark"
-                  href="categoryServlet?categoryid=${thread.category.id}">${thread.category.text}</a></b>
+                  href="categoryServlet?categoryid=<c:out value="${thread.category.id}"/>"><c:out value="${thread.category.text}"/></a></b>
             <c:forEach items="${thread.tags}" var="tag">
-                <a class="m-1 mr-0 border border-info rounded highlight text-info" href="threadServlet?searchrequest=${tag}">${tag}</a>
+                <a class="m-1 mr-0 border border-info rounded highlight text-info" href="threadServlet?searchrequest=<c:out value="${tag}"/>"><c:out value="${tag}"/></a>
             </c:forEach>
         </div>
         <div class="p-2 d-flex justify-content-between rounded">
-            ${thread.text}
+            <c:out value="${thread.text}"/>
         </div>
     </div>
     <br>
@@ -85,7 +85,7 @@
     </div>
     <br>
     <div id="answers" class="p-1">
-        <h4>${thread.answers.size()} Antworten</h4>
+        <h4><c:out value="${thread.answers.size()}"/> Antworten</h4>
         <hr>
         <c:if test="${thread.answers.size() > 0}">
             <jsp:useBean id="answers" scope="request" type="java.util.List"/>
@@ -93,13 +93,13 @@
                 <div class="border border-info rounded p-1">
                     <c:choose>
                         <c:when test="${answer.creator.deleted}">
-                            <b>Antwort von [deleted_user], ${answer.createdAt}</b>
+                            <b>Antwort von [deleted_user], <c:out value="${answer.createdAt}"/></b>
                         </c:when>
                         <c:otherwise>
-                            <b>Antwort von <a href="threadServlet?creatorid=${answer.creator.id}">${answer.creator.username}</a>, ${answer.createdAt}</b>
+                            <b>Antwort von <a href="threadServlet?creatorid=<c:out value="${answer.creator.id}"/>"><c:out value="${answer.creator.username}"/></a>, <c:out value="${answer.createdAt}"/></b>
                         </c:otherwise>
                     </c:choose>
-                    <p>${answer.text}</p>
+                    <p><c:out value="${answer.text}"/></p>
                     <div class="p-2" id="createComment">
                         <form id="createCommentForm" name="createCommentForm" method="post" action="commentServlet">
                             <input type="hidden" value="${thread.id}" name="threadid"/>
@@ -119,14 +119,14 @@
                             <div class="border border-secondary rounded p-1 my-1">
                                 <c:choose>
                                     <c:when test="${comment.creatorDto.deleted}">
-                                        <b>Kommentar von [deleted_user], ${comment.createdAt}</b>
+                                        <b>Kommentar von [deleted_user], <c:out value="${comment.createdAt}"/></b>
                                     </c:when>
                                     <c:otherwise>
                                         <b>Kommentar von <a
-                                                href="threadServlet?creatorid=${comment.creatorDto.id}">${comment.creatorDto.username}</a>, ${comment.createdAt}</b>
+                                                href="threadServlet?creatorid=<c:out value="${comment.creatorDto.id}"/>"><c:out value="${comment.creatorDto.username}"/></a>, <c:out value="${comment.createdAt}"/></b>
                                     </c:otherwise>
                                 </c:choose>
-                                <p>${comment.text}</p>
+                                <p><c:out value="${comment.text}"/></p>
                             </div>
                         </c:forEach>
                     </c:if>

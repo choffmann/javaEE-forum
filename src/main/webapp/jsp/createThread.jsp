@@ -19,7 +19,7 @@
         <a class="loggedIn btn btn-danger mr-sm-2" href="loginServlet">Ausloggen</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
-                                                                                    id="loggedUser">${userData.creatorDto.username}</b>
+                                                                                    id="loggedUser"><c:out value="${userData.creatorDto.username}"/></b>
             </p>
         </div>
     </div>
@@ -66,7 +66,7 @@
                     <select name="categoryid" class="form-control" id="category">
                         <jsp:useBean id="categories" scope="request" type="java.util.List"/>
                         <c:forEach items="${categories}" var="category">
-                            <option value=${category.id}>${category.text}</option>
+                            <option value=${category.id}><c:out value="${category.text}"/></option>
                         </c:forEach>
                     </select>
                 </div>

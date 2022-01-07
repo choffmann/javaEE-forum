@@ -19,7 +19,7 @@
         <a class="loggedIn btn btn-danger mr-sm-2" href="loginServlet">Ausloggen</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
-                                                                                    id="loggedUser">${userData.creatorDto.username}</b>
+                                                                                    id="loggedUser"><c:out value="${userData.creatorDto.username}"/></b>
             </p>
         </div>
     </div>
@@ -54,30 +54,30 @@
         <c:forEach items="${threads}" var="thread">
 
             <div class="column p-2 border border-primary rounded highlight">
-                <h4 class="mb-0 mt-0">${thread.title}</h4>
+                <h4 class="mb-0 mt-0"> <c:out value="${thread.title}"/></h4>
                 <c:choose>
                     <c:when test="${thread.creator.deleted}">
                         <b class="m-1">Beitrag von [deleted_user], erstellt
-                            am ${thread.createdAt}</b>
+                            am <c:out value="${thread.createdAt}"/></b>
                     </c:when>
                     <c:otherwise>
                         <b class="m-1">Beitrag von <a
-                                href="threadServlet?creatorid=${thread.creator.id}">${thread.creator.username}</a>, erstellt
-                            am ${thread.createdAt}</b>
+                                href="threadServlet?creatorid=<c:out value="${thread.creator.id}"/>"><c:out value="${thread.creator.username}"/></a>, erstellt
+                            am <c:out value="${thread.createdAt}"/></b>
                     </c:otherwise>
                 </c:choose>
                 <div id="categoryAndTagList">
                     <b><a class="px-1 border border-warning rounded highlight text-dark"
-                       href="categoryServlet?categoryid=${thread.category.id}">${thread.category.text}</a></b>
+                       href="categoryServlet?categoryid=<c:out value="${thread.category.id}"/>"><c:out value="${thread.category.text}"/></a></b>
                     <c:forEach items="${thread.tags}" var="tag">
-                        <a class="m-1 mr-0 px-1 border border-info rounded highlight text-info" href="threadServlet?searchrequest=${tag}">${tag}</a>
+                        <a class="m-1 mr-0 px-1 border border-info rounded highlight text-info" href="threadServlet?searchrequest=<c:out value="${tag}"/>"><c:out value="${tag}"/></a>
                     </c:forEach>
                 </div>
                 <div class="p-2 d-flex justify-content-between rounded">
-                        ${thread.text}
+                    <c:out value="${thread.text}"/>
                 </div>
-                <div>${thread.answers.size()} Antworten</div>
-                <a class="btn btn-primary" href="threadServlet?threadid=${thread.id}">Öffne den Thread</a>
+                <div><c:out value="${thread.answers.size()}"/> Antworten</div>
+                <a class="btn btn-primary" href="threadServlet?threadid=<c:out value="${thread.id}"/>">Öffne den Thread</a>
             </div>
             <hr>
         </c:forEach>
