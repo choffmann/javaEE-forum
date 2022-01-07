@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Entity;
@@ -70,10 +71,9 @@ public class CategoryServlet extends HttpServlet {
             target.queryParam("creatorid", userData.getCreatorDto().getId()).path("categories")
                     .request().accept(MediaType.APPLICATION_JSON).post(Entity.json(categoryDto));
             response.sendRedirect(request.getContextPath() + "/categoryServlet");
-        } catch (NotFoundException | NotAuthorizedException e){
-            request.setAttribute("errorStatus", e.getResponse().getStatus());
-            request.setAttribute("errorMessage", e.getResponse().readEntity(String.class));
-            request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+        } catch (NotFoundException | NotAuthorizedException | BadRequestException e) {
+            response.sendRedirect(request.getContextPath() + "/jsp/categories.jsp?error=" +
+                    e.getResponse().readEntity(String.class));
         }
     }
 }
