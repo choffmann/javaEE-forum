@@ -57,15 +57,14 @@ public class ThreadServlet extends HttpServlet {
                 List<ThreadDto> threads = target.queryParam("searchText", searchRequest).path("threads").request().accept(MediaType.APPLICATION_JSON).get(
                         new GenericType<List<ThreadDto>>() {
                         });
-                threads = Lists.reverse(threads); //Eigentlich sollten sie schon direkt richtig ankommen, da sie es aber nicht tun, wird hier quasi "sortiert"
                 request.setAttribute("title", "Threads mit dem Suchbegriff: '" + searchRequest + "'");
                 request.setAttribute("threads", threads);
                 request.getRequestDispatcher("/jsp/threadList.jsp").forward(request, response);
             } else if (creatorId != null) {
                 //Abfrage von Threads vom Creator mit CreatorId
-                List<ThreadDto> threads = Lists.reverse(target.queryParam("creatorid", creatorId).path("threads").request().accept(MediaType.APPLICATION_JSON).get(
+                List<ThreadDto> threads = target.queryParam("creatorid", creatorId).path("threads").request().accept(MediaType.APPLICATION_JSON).get(
                         new GenericType<List<ThreadDto>>() {
-                        }));
+                        });
                 //Abfrage des Nutzernamens, da wir anzeigen wollen, von welchem Nutzer die Threads sind
                 String creatorName = target.path("users/" + creatorId).request().accept(MediaType.APPLICATION_JSON).get(
                         new GenericType<CreatorDto>() {
@@ -75,9 +74,9 @@ public class ThreadServlet extends HttpServlet {
                 request.getRequestDispatcher("/jsp/threadList.jsp").forward(request, response);
             } else {
                 //Abfrage aller Threads, homepage Seite
-                List<ThreadDto> threads = Lists.reverse(target.path("threads").request().accept(MediaType.APPLICATION_JSON).get(
+                List<ThreadDto> threads = target.path("threads").request().accept(MediaType.APPLICATION_JSON).get(
                         new GenericType<List<ThreadDto>>() {
-                        }));
+                        });
                 request.setAttribute("title", "Die neusten Threads");
                 request.setAttribute("threads", threads);
                 request.getRequestDispatcher("/jsp/threadList.jsp").forward(request, response);

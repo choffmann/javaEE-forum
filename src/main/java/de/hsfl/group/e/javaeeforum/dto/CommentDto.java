@@ -2,11 +2,12 @@ package de.hsfl.group.e.javaeeforum.dto;
 
 import de.hsfl.group.e.javaeeforum.model.Comment;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CommentDto {
+public class CommentDto implements Comparable<CommentDto> {
     private Long id;
     private Date createdAt;
     private Date modifiedAt;
@@ -33,9 +34,9 @@ public class CommentDto {
 
     public static List<CommentDto> fromModelList(List<Comment> modelList) {
         List<CommentDto> dtoList = new LinkedList<>();
-        for (Comment model : modelList) {
+        for (Comment model : modelList)
             dtoList.add(fromModel(model));
-        }
+        Collections.sort(dtoList);
         return dtoList;
     }
 
@@ -85,5 +86,13 @@ public class CommentDto {
 
     public void setAnswer(AnswerDto answer) {
         this.answer = answer;
+    }
+
+    @Override
+    public int compareTo(CommentDto other) {
+        if (getId() == null || other.getId() == null) {
+            return 0;
+        }
+        return getId().compareTo(other.getId());
     }
 }

@@ -2,10 +2,11 @@ package de.hsfl.group.e.javaeeforum.dto;
 
 import de.hsfl.group.e.javaeeforum.model.Creator;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CreatorDto {
+public class CreatorDto implements Comparable<CreatorDto> {
     private Long id;
     private String username;
     private String email;
@@ -37,6 +38,7 @@ public class CreatorDto {
         List<CreatorDto> dtoList = new LinkedList<>();
         for (Creator model : modelList)
             dtoList.add(CreatorDto.fromModel(model));
+        Collections.sort(dtoList);
         return dtoList;
     }
 
@@ -110,5 +112,13 @@ public class CreatorDto {
 
     public void setThreads(List<ThreadDto> threads) {
         this.threads = threads;
+    }
+
+    @Override
+    public int compareTo(CreatorDto other) {
+        if (getId() == null || other.getId() == null) {
+            return 0;
+        }
+        return getId().compareTo(other.getId());
     }
 }
