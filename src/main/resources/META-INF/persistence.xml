@@ -11,7 +11,7 @@
         <class>de.hsfl.group.e.javaeeforum.model.Tag</class>
         <class>de.hsfl.group.e.javaeeforum.model.Thread</class>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/javaee_forum"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/javaee_forum"/>
             <property name="javax.persistence.jdbc.user" value="javaee_forum_admin"/>
             <property name="javax.persistence.jdbc.password" value="ultra_mega_secret_secure_password"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
