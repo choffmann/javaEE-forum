@@ -300,10 +300,16 @@ ALTER TABLE ONLY public.thread ALTER COLUMN id SET DEFAULT nextval('public.threa
 --
 
 COPY public.answer (id, thread_id, creator_id, created_at, modified_at, text) FROM stdin;
-14	14	6	2022-01-05 12:48:44.777	2022-01-05 12:48:44.777	Das hab ich mich auch immer gefragt ð¤
-16	15	9	2022-01-05 13:00:12.394	2022-01-05 13:00:12.394	Bestimmt hÃ¶ren die ihre TrÃ¤ume
-17	16	6	2022-01-05 13:07:04.671	2022-01-05 13:07:04.671	Ja, kann ich dir aus eigener Erfahrung bestÃ¤tigen!
-18	16	11	2022-01-05 13:08:21.209	2022-01-05 13:08:21.209	Quatsch!
+20	23	6	2022-01-07 12:24:36.481	2022-01-07 12:24:36.481	As a repairman, I want to see a list of repair opportunities, so that I can pick the most interesting ones
+22	23	11	2022-01-07 12:25:00.472	2022-01-07 12:25:00.472	As a person that needs to get something repaired, I want to publish a new opportunity
+21	23	10	2022-01-07 12:24:43.995	2022-01-07 12:24:43.995	As a repairman, I want to filter the list of opportunities according to location, type and end date of the auction, so that I can pick the most relevant ones more quickly
+23	25	9	2022-01-07 12:34:45.001	2022-01-07 12:34:45.001	Da gibt es die:\r\n- (streng) monoton wachsend\r\n- (streng) monoton fallend\r\n- nach oben beschränkt\r\n- nach unten beschränkt
+32	29	5	2022-01-07 13:31:08.653	2022-01-07 13:31:08.653	In der Praxis haben die Kunden von generischer Software nur einen mittelbaren Einfluss (durch Feedback) auf die Spezifikation. Sie müssen daher oft mit dem zurecht kommen, was der Softwarehersteller liefert.
+31	29	10	2022-01-07 13:30:28.628	2022-01-07 13:30:28.628	Bei generischen Softwaresystemen wird die Spezifikation vom Softwarehersteller angefertigt.
+30	29	6	2022-01-07 13:30:22.158	2022-01-07 13:30:22.158	Bei angepassten Softwaresystemen bestimmt der Kunde die Spezifikation. Die Entwickler müssen sich an die Spezifikation halten.
+25	26	5	2022-01-07 12:54:28.627	2022-01-07 12:54:28.627	Eine Liste hat folgende Methoden:\r\n- isEmtpy(): boolean\r\n- size(): int\r\n- get(int index): T\r\n- add(int index, T e): void\r\n- remove(int index): T
+29	27	11	2022-01-07 13:20:08.991	2022-01-07 13:20:08.991	Die Datei persistence.xml definiert die Datenbankkonfiguration einer JPA-Anwendung. Bei Eclipse befindet sie sich im Projektordner JPA Content. Wird das Projekt allerdings durch einen Dateimanager oder per Terminal geöffnet, befindet sie sich unterhalb des Projektverzeichnis in src/META-INF.
+19	23	9	2022-01-07 12:15:46.303	2022-01-07 12:15:46.303	Langfassung\r\nAs a <role>, I want <goal/desire> so that <benefit>\r\n\r\nKurzfassung\r\nAs a <role>, I want <goal/desire>
 \.
 
 
@@ -312,11 +318,10 @@ COPY public.answer (id, thread_id, creator_id, created_at, modified_at, text) FR
 --
 
 COPY public.category (id, text) FROM stdin;
-16	Category #0
-17	Category #1
-18	Category #2
-19	Category #3
-20	Category #4
+18	Software Engineering 1
+19	Mathematik 2
+17	Client-Server Programmierung
+16	Algorithmen
 \.
 
 
@@ -325,10 +330,15 @@ COPY public.category (id, text) FROM stdin;
 --
 
 COPY public.comment (id, answer_id, creator_id, created_at, modified_at, text) FROM stdin;
-9	14	9	2022-01-05 13:01:05.947	2022-01-05 13:01:05.948	Ich auch
-10	14	5	2022-01-05 13:01:36.867	2022-01-05 13:01:36.867	Toll, das hilft mir nicht weiter...
-11	16	6	2022-01-05 13:06:02.616	2022-01-05 13:06:02.616	Okay, danke!
-12	16	6	2022-01-05 13:06:02.616	2022-01-05 13:06:02.616	Okay, danke!
+15	21	10	2022-01-07 12:27:00.569	2022-01-07 12:27:00.569	No problem
+14	21	5	2022-01-07 12:26:45.401	2022-01-07 12:26:45.401	Das gefällt mir, danke!
+13	19	5	2022-01-07 12:25:42.99	2022-01-07 12:25:42.99	Das ist schonmal ein start
+25	23	9	2022-01-07 13:26:34.279	2022-01-07 13:26:34.279	wenn es ein K ∈ R gibt, so dass für alle n ∈ ℕ gilt: an ≤ K
+24	23	6	2022-01-07 13:24:14.421	2022-01-07 13:24:14.421	Was genau heißt nach oben beschränkt?
+16	25	9	2022-01-07 12:54:52.982	2022-01-07 12:54:52.982	Okay danke, was bedeutet das T?
+18	25	9	2022-01-07 12:55:50.981	2022-01-07 12:55:50.981	Okay, kannst du mir sagen was 'get' genau macht?
+17	25	5	2022-01-07 12:55:26.865	2022-01-07 12:55:26.865	T steht für den Typ, welcher als Generic bei deiner Liste verwendet wird.
+19	25	5	2022-01-07 12:56:13.166	2022-01-07 12:56:13.166	'get' liefert das Element an der angegebenen Stelle der Liste.
 \.
 
 
@@ -351,16 +361,17 @@ COPY public.creator (id, username, email, password, is_admin, is_deleted) FROM s
 --
 
 COPY public.tag (id, tag) FROM stdin;
-16	Tag #0
-17	Tag #1
-18	Tag #2
-19	Tag #3
-20	Tag #4
-21	zzh
-22	zebra
-23	streifen
-24	traum
-25	
+31	user-story
+32	folgenmathelernen
+33	mathe
+34	folgen
+35	lernen
+36	listen
+37	java
+38	jpa
+39	xml
+40	Softwareentwicklung
+41	frage
 \.
 
 
@@ -369,9 +380,11 @@ COPY public.tag (id, tag) FROM stdin;
 --
 
 COPY public.thread (id, creator_id, title, created_at, modified_at, text, category_id) FROM stdin;
-14	5	Haben Zebras eigentlich weiÃe oder schwarze Streifen? 	2022-01-05 12:26:54.916	2022-01-05 12:26:54.916	Eine sehr wichtige Frage, die mich sehr beschÃ¤ftigt...	16
-15	6	Wovon trÃ¤umen blinde Menschen?	2022-01-05 12:47:52.729	2022-01-05 12:47:52.729	Kann mir jemand verraten, was bilde Menschen trÃ¤umen?	17
-16	10	Kann durch die richtige Beleuchtung die hÃ¤sslichste Person hÃ¼bsch sein? 	2022-01-05 12:57:17.819	2022-01-05 12:57:17.819	Nichts persÃ¶nliches, nur eine Frage	16
+23	5	Hilfe bei User-Stories	2022-01-07 12:15:20.159	2022-01-07 12:15:20.159	Ich benötige Hilfe bei einer User-Story.\r\n\r\nWir wollen verhindern, dass zu viele Dinge weggeworfen werden, obwohl sie mit ein wenig Fachkenntnis durchaus reparierbar wären. Mit der neuen Webplattform Repairix sollen Personen, die etwas repariert haben wollen mit denen die etwas reparieren können zusammengebracht werden. Wir stellen uns so etwas wie ein Ebay für Reparaturen vor.	18
+25	6	Klassifikationen von Folgen	2022-01-07 12:32:35.054	2022-01-07 12:32:35.054	Hey, kann mir jemand sagen, welche Klassifikationen es von folgen in der Mathematik gibt?	19
+29	11	Unterschied zwischen generischer Softwareproduktentwicklung und kundenspezifischer Softwareentwicklung?	2022-01-07 13:29:48.331	2022-01-07 13:29:48.331	Was ist der wichtigste Unterschied zwischen generischer Softwareproduktentwick- lung und kundenspezifischer Softwareentwicklung? Was könnte das in der Praxis für Benutzer von generischen Softwareprodukten bedeuten?	18
+26	9	Methode in Listen	2022-01-07 12:45:48.598	2022-01-07 12:45:48.598	Ich bin gerade dabei eine Liste zu programmieren, welche Methoden hat eine Liste in Java standardmäßig?	16
+27	10	JPA persistence.xml Konfiguration	2022-01-07 13:00:38.785	2022-01-07 13:00:38.785	Hallo, ich arbeite gerade an einem Projekt mit JPA.\r\nKann mir jemand helfen und sagen, was die Datei persistence.xml macht?	17
 \.
 
 
@@ -380,10 +393,17 @@ COPY public.thread (id, creator_id, title, created_at, modified_at, text, catego
 --
 
 COPY public.thread_tag (thread_id, tag_id) FROM stdin;
-14	22
-14	23
-15	24
-16	25
+23	31
+25	33
+25	34
+25	35
+26	36
+26	37
+27	37
+27	38
+27	39
+29	40
+29	41
 \.
 
 
@@ -391,7 +411,7 @@ COPY public.thread_tag (thread_id, tag_id) FROM stdin;
 -- Name: answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.answer_id_seq', 18, true);
+SELECT pg_catalog.setval('public.answer_id_seq', 32, true);
 
 
 --
@@ -405,7 +425,7 @@ SELECT pg_catalog.setval('public.category_id_seq', 20, true);
 -- Name: comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.comment_id_seq', 12, true);
+SELECT pg_catalog.setval('public.comment_id_seq', 27, true);
 
 
 --
@@ -419,14 +439,14 @@ SELECT pg_catalog.setval('public.creator_id_seq', 11, true);
 -- Name: tag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.tag_id_seq', 25, true);
+SELECT pg_catalog.setval('public.tag_id_seq', 41, true);
 
 
 --
 -- Name: thread_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hoffmann
 --
 
-SELECT pg_catalog.setval('public.thread_id_seq', 16, true);
+SELECT pg_catalog.setval('public.thread_id_seq', 29, true);
 
 
 --
