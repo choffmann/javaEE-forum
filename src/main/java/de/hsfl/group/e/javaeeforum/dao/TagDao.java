@@ -33,6 +33,11 @@ public class TagDao implements Dao<Tag> {
         return manager.find(Tag.class, id);
     }
 
+    public Tag getByName(String text) {
+        Query query = manager.createQuery("SELECT e FROM Tag e WHERE lower(e.tag) = '" + text + "'", Tag.class);
+        return (Tag) query.getSingleResult();
+    }
+
     @Override
     public Tag getElementByQuery(Query query) {
         return (Tag) query.getSingleResult();

@@ -7,6 +7,7 @@ import de.hsfl.group.e.javaeeforum.model.Category;
 import de.hsfl.group.e.javaeeforum.model.Creator;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -44,13 +45,20 @@ public class CategoryService {
             throw new WebApplicationException(
                     Response.status(404).entity("Not authenticated").build());
 
-        Category category = new Category();
-        category.setText(categoryDto.getText());
+        try {
+            categoryDao.getByName(categoryDto.getText());
+            throw new WebApplicationException(
+                    Response.status(400).entity("Category already exists").build());
+        }
+        catch (NoResultException e) {
+            Category category = new Category();
+            category.setText(categoryDto.getText());
 
-        categoryDao.addElement(category);
-        URI location = uriInfo.getAbsolutePathBuilder()
-                .path("" + category.getId()).build();
-        return Response.created(location).build();
+            categoryDao.addElement(category);
+            URI location = uriInfo.getAbsolutePathBuilder()
+                    .path("" + category.getId()).build();
+            return Response.created(location).build();
+        }
     }
 
     @GET
