@@ -45,9 +45,9 @@ public class CategoryServlet extends HttpServlet {
                 request.setAttribute("categories", categories);
                 request.getRequestDispatcher("jsp/categories.jsp").forward(request, response);
             } else {
-                List<ThreadDto> threads = Lists.reverse(target.queryParam("category", categoryId).path("threads").request().accept(MediaType.APPLICATION_JSON).get(
+                List<ThreadDto> threads = target.queryParam("category", categoryId).path("threads").request().accept(MediaType.APPLICATION_JSON).get(
                         new GenericType<List<ThreadDto>>() {
-                        }));
+                        });
                 request.setAttribute("title", "Threads der Kategorie mit der ID: " + categoryId); //Kann man auch schöner machen mit extra request an categories/{id}.text für den Namen
                 String categoryName = target.path("categories/" + categoryId).request().accept(MediaType.APPLICATION_JSON).get(
                         new GenericType<CategoryDto>() {
