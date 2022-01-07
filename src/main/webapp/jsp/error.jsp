@@ -22,7 +22,7 @@
         <a class="loggedIn btn btn-danger mr-sm-2" href="loginServlet">Ausloggen</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
-                                                                                    id="loggedUser">${userData.creatorDto.username}</b>
+                                                                                    id="loggedUser"><c:out value="${userData.creatorDto.username}"/></b>
             </p>
         </div>
     </div>
@@ -47,8 +47,8 @@
 
 <div class="container mt-5">
     <div class="rounded-3 container-sm border border-primary highlight">
-        <h1>Fehler [${errorStatus}]</h1>
-        <p>${errorMessage}</p>
+        <h1>Fehler [<c:out value="${errorStatus}"/>]</h1>
+        <p><c:out value="${errorMessage}"/></p>
         <p>Diese Anfrage konnte leider nicht richtig bearbeitet werden.</p>
     </div>
 </div>
