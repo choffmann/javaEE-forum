@@ -29,8 +29,8 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`BOOL`
 |
 
-|score
-|`INT`
+|is_deleted
+|`BOOL`
 |
 |===
 
@@ -61,6 +61,10 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |text
 |`TEXT`
 |
+
+|category_id
+|`Category`
+|`ManyToOne`
 |===
 
 .Category
@@ -102,19 +106,6 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`ManyToMany`
 |===
 
-.Thread_Category
-|===
-|Name |Typ |Beziehung
-
-|thread_id
-|`Thread` `PRIMARY KEY`
-|`ManyToMany`
-
-|category_id
-|`Category` `PRIMARY KEY`
-|`ManyToMany`
-|===
-
 .Answer
 |===
 |Name |Typ |Beziehung
@@ -141,10 +132,6 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 
 |text
 |`TEXT`
-|
-
-|score
-|`INT`
 |
 |===
 
