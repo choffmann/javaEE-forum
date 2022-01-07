@@ -41,6 +41,8 @@ Um die Datenbank zu befüllen, wird das von Postgres mitgelieferte Tool `pg_rest
 pg_restore --host=localhost --dbname=javaee_forum --no-owner --role=javaee_forum_admin ./database.dmp
 ----
 
+*NOTE:* Unter Windows meistens unter `C:\Program Files\PostgreSQL\14\bin\pg_restore.exe` zu erreichen
+
 === IntelliJ
 Wird das Projekt zum ersten mal geöffnet, muss die Konfiguration für Glassfish noch erstellt werden.
 
