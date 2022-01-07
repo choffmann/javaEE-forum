@@ -53,6 +53,14 @@ image:intellij_application_server_settings.png[]
 *2. Konfiguration hinzufügen* +
 image:intellij_add_config.gif[]
 
+*3. SDK Anpassen* +
+Eventuell muss die `SDK` angepasst werden. Dies kann unter `File -> Project Structure -> Project Settings -> Project SDK` überprüft werden. Standard ist hier `temurin-1.8`
+
+*NOTE:* Die SDK zwischen dem Projekt und Gradle muss die selbe sein. Gradle SDK kann wie folgt angepasst werden `Settings ->  Build, Execute, Deployment -> Build Tools -> Gradle -> Gradle JVM`
+
+*4. Anwendung starten und loslegen* +
+Das System ist bereit und kann gestartet werden zum testen.
+
 == Weitere Dokumentationen
 - Datenbank https://github.com/choffmann/javaEE-forum/tree/main/Doku/Database[Dokumentation]
 - REST Schnittstelle https://github.com/choffmann/javaEE-forum/tree/main/Doku/REST_Api[Dokumentation]
