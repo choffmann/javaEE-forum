@@ -33,6 +33,11 @@ public class CategoryDao implements Dao<Category> {
         return manager.find(Category.class, id);
     }
 
+    public Category getByName(String text) {
+        Query query = manager.createQuery("SELECT e FROM Category e WHERE lower(e.text) = '" + text + "'", Category.class);
+        return (Category) query.getSingleResult();
+    }
+
     @Override
     public Category getElementByQuery(Query query) {
         return (Category) query.getSingleResult();
