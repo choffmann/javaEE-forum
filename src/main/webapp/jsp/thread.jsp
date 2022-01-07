@@ -68,7 +68,7 @@
             </c:forEach>
         </div>
         <div class="p-2 d-flex justify-content-between rounded">
-            <c:out value="${thread.text}"/>
+            <p style="white-space: pre-line"><c:out value="${thread.text}"/></p>
         </div>
     </div>
     <br>
@@ -99,7 +99,7 @@
                             <b>Antwort von <a href="threadServlet?creatorid=<c:out value="${answer.creator.id}"/>"><c:out value="${answer.creator.username}"/></a>, <c:out value="${answer.createdAt}"/></b>
                         </c:otherwise>
                     </c:choose>
-                    <p><c:out value="${answer.text}"/></p>
+                    <p style="white-space: pre-line"><c:out value="${answer.text}"/></p>
                     <div class="p-2" id="createComment">
                         <form id="createCommentForm" name="createCommentForm" method="post" action="commentServlet">
                             <input type="hidden" value="${thread.id}" name="threadid"/>
@@ -126,7 +126,7 @@
                                                 href="threadServlet?creatorid=<c:out value="${comment.creatorDto.id}"/>"><c:out value="${comment.creatorDto.username}"/></a>, <c:out value="${comment.createdAt}"/></b>
                                     </c:otherwise>
                                 </c:choose>
-                                <p><c:out value="${comment.text}"/></p>
+                                <p style="white-space: pre-line"><c:out value="${comment.text}"/></p>
                             </div>
                         </c:forEach>
                     </c:if>
