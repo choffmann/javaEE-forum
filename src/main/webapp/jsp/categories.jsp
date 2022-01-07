@@ -17,7 +17,7 @@
         <a class="loggedIn btn btn-danger mr-sm-2" href="loginServlet">Ausloggen</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
-                                                                                    id="loggedUser">${userData.creatorDto.username}</b>
+                                                                                    id="loggedUser"><c:out value="${userData.creatorDto.username}"/></b>
             </p>
         </div>
     </div>
@@ -48,7 +48,7 @@
     <div id="categories">
         <jsp:useBean id="categories" scope="request" type="java.util.List"/>
         <c:forEach items="${categories}" var="category">
-            <a class="btn btn-primary" href="categoryServlet?categoryid=${category.id}">${category.text}</a>
+            <a class="btn btn-primary" href="categoryServlet?categoryid=<c:out value="${category.id}"/>"><c:out value="${category.text}"/></a>
         </c:forEach>
     </div>
 </div>
