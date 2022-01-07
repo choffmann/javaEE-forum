@@ -19,7 +19,8 @@
         <a class="loggedIn btn btn-danger mr-sm-2" href="loginServlet">Ausloggen</a>
         <div>
             <p class="loggedIn text-white text-justify m-2 mr-4">Eingeloggt als: <b class="text-white"
-                                                                                    id="loggedUser"><c:out value="${userData.creatorDto.username}"/></b>
+                                                                                    id="loggedUser"><c:out
+                    value="${userData.creatorDto.username}"/></b>
             </p>
         </div>
     </div>
@@ -45,23 +46,23 @@
 
 <br/>
 <div class="container mt-5">
-    <div class="rounded-3 container-sm bg-primary">
-        <h1>Erstelle einen Thread</h1>
-        <form action="${pageContext.request.contextPath}/createThreadServlet" method="post" id="createThread">
+    <div class="border rounded p-2 container-sm bg-primary">
+        <h1 class="text-white">Erstelle einen Thread</h1>
+        <form class="m-0" action="${pageContext.request.contextPath}/createThreadServlet" method="post" id="createThread">
             <div class="row mb-3">
-                <label for="title" class="col-sm-2 col-form-label">Titel</label>
+                <label for="title" class="col-sm-2 col-form-label text-white">Titel</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="title" name=title required>
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="text" class="col-sm-2 col-form-label">Text</label>
+                <label for="text" class="col-sm-2 col-form-label text-white">Text</label>
                 <div class="col-sm-10">
                     <textarea class="form-control" id="text" name=text required></textarea>
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="category" class="col-sm-2 col-form-label">Kategorie</label>
+                <label for="category" class="col-sm-2 col-form-label text-white">Kategorie</label>
                 <div class="col-sm-10">
                     <select name="categoryid" class="form-control" id="category">
                         <jsp:useBean id="categories" scope="request" type="java.util.List"/>
@@ -72,14 +73,12 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="tag" class="col-sm-2 col-form-label">Tags</label>
+                <label for="tag" class="col-sm-2 col-form-label text-white">Tags</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="tag" name=tag placeholder="Tags durch Komma trennen">
                 </div>
             </div>
-            <div class="row mb-3">
-                <button type="submit" class="btn btn-secondary">Erstellen</button>
-            </div>
+            <button type="submit" class="btn btn-secondary">Erstellen</button>
         </form>
     </div>
 </div>
