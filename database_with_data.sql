@@ -308,7 +308,7 @@ COPY public.answer (id, thread_id, creator_id, created_at, modified_at, text) FR
 31	29	10	2022-01-07 13:30:28.628	2022-01-07 13:30:28.628	Bei generischen Softwaresystemen wird die Spezifikation vom Softwarehersteller angefertigt.
 30	29	6	2022-01-07 13:30:22.158	2022-01-07 13:30:22.158	Bei angepassten Softwaresystemen bestimmt der Kunde die Spezifikation. Die Entwickler müssen sich an die Spezifikation halten.
 25	26	5	2022-01-07 12:54:28.627	2022-01-07 12:54:28.627	Eine Liste hat folgende Methoden:\r\n- isEmtpy(): boolean\r\n- size(): int\r\n- get(int index): T\r\n- add(int index, T e): void\r\n- remove(int index): T
-29	27	11	2022-01-07 13:20:08.991	2022-01-07 13:20:08.991	Die Datei persistence.xml definiert die Datenbankkonfiguration einer JPA-Anwendung. Bei Eclipse befindet sie sich im Projektordner JPA Content. Wird das Projekt allerdings durch einen Dateimanager oder per Terminal geöffnet, befindet sie sich unterhalb des Projektverzeichnis in src/META-INF.
+29	27	11	2022-01-07 13:20:08.991	2022-01-07 13:20:08.991	Die Datei persistence.xml definiert die Datenbankkonfiguration einer JPA-Anwendung. Bei Eclipse befindet sie sich im Projektordner JPA Content. Wird das Projekt allerdings durch einen Dateimanager oder per Terminal geöffnet, befindet sie sich unterhalb des Projektverzeichnis in src/META-INF.
 19	23	9	2022-01-07 12:15:46.303	2022-01-07 12:15:46.303	Langfassung\r\nAs a <role>, I want <goal/desire> so that <benefit>\r\n\r\nKurzfassung\r\nAs a <role>, I want <goal/desire>
 \.
 
