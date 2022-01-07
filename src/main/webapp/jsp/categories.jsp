@@ -45,6 +45,10 @@
     <!-- Normaler Content -->
     <h1>Kategorien</h1>
     <c:if test="${userData.creatorDto.admin}">
+        <% String error = request.getParameter("error");
+            if (error != null)
+                out.print("<div class='text-danger font-weight-bold'>" + error + "</div>");
+        %>
         <form class="form-inline m-0" action="${pageContext.request.contextPath}/categoryServlet" method="post">
             <label for="createCategory"></label>
                 <input type="text" class="form-control mr-sm-2" id="createCategory" name=createCategory
