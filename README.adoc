@@ -2,22 +2,18 @@
 :imagesdir: img
 :nofooter:
 
-*Projektarbeit zur Veranstaltung Client-Server Programmierung*
+*Projektarbeit zur Veranstaltung Client-Server Programmierung* +
 _von: Kajsa Heuer, Pascal Friedrichsen, Dominik Heckner, Fabian Petersen, Cedrik Hoffmann_
 
 == Projektbeschreibung
 Aus dem Projekt erfolgt ein Forum, wo ein User Beiträge erstellen und benatworten kann. Das Forum besitzt verschiedene Kategorien, in welche die Beitrage eingefügt werden. Der User kann einen Beitrag beantworten bzw. auch zu einer Antwort zu einem Beitrag einen Kommentar verfassen. Die Resgistrierung / Login erfolgt über eine Eingabemaske und ist der erste Anhaltspunkt, welche der User beim Aufruf der Seite sieht.
 
-Das Projekt wurde in `IntelliJ` erstellt. 
-
-
-Im Forum kann man Beiträge erstellen, beantworten und bewerten. Die zu erfassenden Daten sind die Nutzerdaten (Name, E-Mail, Passwort, Score) und die Beitragsdaten (Titel, Kategorie, Inhalt, Fragebewertung, Antworten, Antwortbewertung). Jeder Nutzer kann Beiträge erstellen und auf diese Antworten und sie bewerten. Antworten können auch bewertet werden. Registrierung/Login geschieht über eine Eingabemaske. Das Forum besitzt verschiedene Fragekategorien und eine Suchfunktion für die Fragen.
-
-
 == Vorbereitung
 Im folgenden werden die erforderlichen Schritte erläutert, um das Projekt erfolgreich zu testen. Dazu gehört eine auflistung der benötigten Komponenten, die erstellung der Datenbank, sowie das einspielen der Dummydaten.
 
-Die Datei `database.sql` ist ein Export unserer PostgreSQL Datenbank. Diese Datei enthält alle erforderlichen Tabellen und Einträge um das System zu testen.
+Die Datei `database.dmp` ist ein Export unserer PostgreSQL Datenbank. Diese Datei enthält alle erforderlichen Tabellen und Einträge um das System zu testen.
+
+Das Projekt wurde in `IntelliJ` entwickelt, daher folgt eine kurze einführung in IntelliJ, um das Projekt starten zu können.
 
 === Systemanforderungen
 Um das Projekt zum laufen zu bringen, müssen folgende Komponente auf dem Zielsystem vorhanden sein.
@@ -39,13 +35,23 @@ alter schema public owner to javaee_forum_admin;
 ----
 
 === Datenbank befüllen
-Um die Datenbank zu befüllen, wird das von Postgres mitgelieferte Tool `psql` benötigt. Die Datei kann nun wie folgt eingespielt werden:
+Um die Datenbank zu befüllen, wird das von Postgres mitgelieferte Tool `pg_restore` benötigt. Die Datei kann nun wie folgt eingespielt werden:
 [listing]
 ----
-psql javaEE_forum < [PATH_TO_SQL_FILE]
+pg_restore --host=localhost --dbname=javaee_forum --no-owner --role=javaee_forum_admin ./database.dmp
 ----
 
-== Dokumentationen
+=== IntelliJ
+Wird das Projekt zum ersten mal geöffnet, muss die Konfiguration für Glassfish noch erstellt werden.
+
+*1. Application Server hinzufügen* +
+Unter `Settings -> Build, Execute, Deployment -> Application Servers` wird der Glassfish hinzugefügt.
+image:intellij_application_server_settings.png[]
+
+*2. Konfiguration hinzufügen* +
+image:intellij_add_config.gif[]
+
+== Weitere Dokumentationen
 - Datenbank https://github.com/choffmann/javaEE-forum/tree/main/Doku/Database[Dokumentation]
 - REST Schnittstelle https://github.com/choffmann/javaEE-forum/tree/main/Doku/REST_Api[Dokumentation]
 - Frontend https://github.com/choffmann/javaEE-forum/tree/main/Doku/User_Interface#readme[Dokumentation]
