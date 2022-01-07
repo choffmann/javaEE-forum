@@ -2,63 +2,50 @@
 :imagesdir: img
 :nofooter:
 
+*Projektarbeit zur Veranstaltung Client-Server Programmierung*
+_von: Kajsa Heuer, Pascal Friedrichsen, Dominik Heckner, Fabian Petersen, Cedrik Hoffmann_
+
 == Projektbeschreibung
+Aus dem Projekt erfolgt ein Forum, wo ein User Beiträge erstellen und benatworten kann. Das Forum besitzt verschiedene Kategorien, in welche die Beitrage eingefügt werden. Der User kann einen Beitrag beantworten bzw. auch zu einer Antwort zu einem Beitrag einen Kommentar verfassen. Die Resgistrierung / Login erfolgt über eine Eingabemaske und ist der erste Anhaltspunkt, welche der User beim Aufruf der Seite sieht.
+
+Das Projekt wurde in `IntelliJ` erstellt. 
+
+
 Im Forum kann man Beiträge erstellen, beantworten und bewerten. Die zu erfassenden Daten sind die Nutzerdaten (Name, E-Mail, Passwort, Score) und die Beitragsdaten (Titel, Kategorie, Inhalt, Fragebewertung, Antworten, Antwortbewertung). Jeder Nutzer kann Beiträge erstellen und auf diese Antworten und sie bewerten. Antworten können auch bewertet werden. Registrierung/Login geschieht über eine Eingabemaske. Das Forum besitzt verschiedene Fragekategorien und eine Suchfunktion für die Fragen.
 
-=== System
+
+== Vorbereitung
+Im folgenden werden die erforderlichen Schritte erläutert, um das Projekt erfolgreich zu testen. Dazu gehört eine auflistung der benötigten Komponenten, die erstellung der Datenbank, sowie das einspielen der Dummydaten.
+
+Die Datei `database.sql` ist ein Export unserer PostgreSQL Datenbank. Diese Datei enthält alle erforderlichen Tabellen und Einträge um das System zu testen.
+
+=== Systemanforderungen
+Um das Projekt zum laufen zu bringen, müssen folgende Komponente auf dem Zielsystem vorhanden sein.
+
 - Application Server: `GlassFish 5.1.0`
-- Datenbank: `PostgreSQL`
-- HTTP, Application Server, Servlet, JSP, REST, Datenbank, JPA (Dazu Context and Dependency Injection)
-- JSON, kein XML
+- Datenbank: `PostgreSQL 14`
 
-== Postgres *.sql einspielen
-Die Datei `database.sql` enthält die benötigten Tabellen für die Anwendung. Der Inhalt der Tabellen ist nicht befüllt. Die Datei `database_with_data.sql` beinhaltet allerdings einen Satz an Demodaten.
+=== Datenbank erstellen
+Damit die Dump Datei mit den Dummydaten des Projektes erfolgreich eingespielt werden kann, muss zuerst die Datenbank erstellt werden. Damit die Angaben der `persistence.xml` zur Datenbank passen, ist es sinnvoll, die Datenbank wie folgt anzulegen:
 
-Um die `Dump-Datei` nun einzuspielen, muss natürlich zuerst eine entsprechende Datenbank erstellt werden, z.B.:
-[listing]
+[source, sql]
 ----
-create database javaEE_forum;
-create Creator javaEE_forum_admin password 'ultra_mega_secret_secure_password' login;
+CREATE DATABASE javaee_forum;
+\connect javaee_forum;
+
+create user javaee_forum_admin with password 'ultra_mega_secret_secure_password';
+grant all on schema public to javaee_forum_admin;
+alter schema public owner to javaee_forum_admin;
 ----
 
-Zum Einspielen, wird das von Postgres mitgelieferte Tool `psql` benötigt. Die Datei kann nun wie folgt eingespielt werden:
+=== Datenbank befüllen
+Um die Datenbank zu befüllen, wird das von Postgres mitgelieferte Tool `psql` benötigt. Die Datei kann nun wie folgt eingespielt werden:
 [listing]
 ----
 psql javaEE_forum < [PATH_TO_SQL_FILE]
 ----
 
-== DAOs
-`Data Access Object (DAO)` wurden erstellt, um Daten leichter händeln zu können. Dabei enthält jedes `DAO` folgende Methoden, um mit der Datenbank zu kommunizieren.
-[source, java]
-----
-public interface Dao<T> {
-
-    // Get all from Database
-    List<T> getAll();
-
-    // Get resultList by Query
-    // z.B.: "SELECT e FROM Creator e WHERE e.id >= 6"
-    List<T> getListByQuery(Query query);
-
-    // Get one Element by id
-    T getById(Long id);
-
-    // Get one Element by Query
-    // z.B.: "SELECT e FROM Creator e WHERE e.username = 'mustermann'"
-    T getElementByQuery(Query query);
-
-    // Add Element to Database
-    void addElement(T e);
-
-    // Update Element to Database
-    void updateElement(T e);
-
-    // Remove Element from Database
-    void removeElement(T e);
-}
-----
-
-== Schritte
-1. Datenbank erstellen und JPA Schnittstelle erstellen https://github.com/choffmann/javaEE-forum/tree/main/Doku/Database[siehe Doku]
-2. REST Schnittstelle definieren https://github.com/choffmann/javaEE-forum/tree/main/Doku/REST_Api[siehe Doku]
-3. Frontend erstellen
+== Dokumentationen
+- Datenbank https://github.com/choffmann/javaEE-forum/tree/main/Doku/Database[Dokumentation]
+- REST Schnittstelle https://github.com/choffmann/javaEE-forum/tree/main/Doku/REST_Api[Dokumentation]
+- Frontend https://github.com/choffmann/javaEE-forum/tree/main/Doku/User_Interface#readme[Dokumentation]
