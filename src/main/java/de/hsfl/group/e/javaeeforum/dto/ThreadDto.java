@@ -4,11 +4,9 @@ import de.hsfl.group.e.javaeeforum.model.Answer;
 import de.hsfl.group.e.javaeeforum.model.Tag;
 import de.hsfl.group.e.javaeeforum.model.Thread;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-public class ThreadDto {
+public class ThreadDto implements Comparable<ThreadDto> {
     private Long id;
     private String title;
     private Date createdAt;
@@ -52,9 +50,12 @@ public class ThreadDto {
 
     public static List<ThreadDto> fromModelList(List<Thread> modelList) {
         List<ThreadDto> dtoList = new LinkedList<>();
-        for (Thread model : modelList) {
+        for (Thread model : modelList)
             dtoList.add(fromModel(model));
-        }
+        Collections.sort(dtoList);
+        Collections.reverse(dtoList);
+        for (ThreadDto dto : dtoList)
+            System.out.println("AAAAAAAAAAAAAAAAA " + dto.getTitle() + " " + dto.getId());
         return dtoList;
     }
 
@@ -128,5 +129,13 @@ public class ThreadDto {
 
     public void setCreator(CreatorDto creator) {
         this.creator = creator;
+    }
+
+    @Override
+    public int compareTo(ThreadDto other) {
+        if (getId() == null || other.getId() == null) {
+            return 0;
+        }
+        return getId().compareTo(other.getId());
     }
 }

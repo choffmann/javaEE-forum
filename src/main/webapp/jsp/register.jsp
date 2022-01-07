@@ -35,7 +35,7 @@
             <div class="row mb-3">
                 <label for="registerEmail" class="col-sm-2 col-form-label text-white">E-Mail</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="registerEmail" name="registerEmail" required>
+                    <input type="email" class="form-control" id="registerEmail" name="registerEmail" required>
                 </div>
             </div>
             <div class="row mb-3">

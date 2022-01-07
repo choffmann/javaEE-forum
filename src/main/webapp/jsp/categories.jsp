@@ -34,7 +34,7 @@
         <form class="form-inline m-0" method="get" action="threadServlet">
             <label for="searchrequest"></label>
             <input class="form-control mr-sm-2" type="search" id="searchrequest" name="searchrequest"
-                   placeholder="Suche"/>
+                   placeholder="Suche" required/>
             <input class="btn btn-primary mr-sm-2" type="submit" value="Suchen"/>
         </form>
     </div>
