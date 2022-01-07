@@ -19,7 +19,7 @@ image:login_default.png[]
 image:login_noname.png[]
 
 .Login-Seite bei fehlendem Passwort
-image:login_nopw.png[]
+image:login_nopassword.png[]
 
 .Login-Seite bei nicht gefundenen Namen
 image:login_wrongname.png[]
@@ -34,7 +34,7 @@ Bei der Registrierung muss man Nutzernamen, E-Mail und Passwort angeben, wie bei
 image:register_default.png[]
 
 .Keine valide E-Mail
-image:register_noemail.png[]
+image:register_novalidemail.png[]
 
 .Nutzername ist schon vergeben
 image:register_duplicatename.png[]
@@ -102,7 +102,7 @@ Durch die Suchelemente in der Navigationsleiste kann man nach Wörtern in Thread
 Zum Suchen wird eine Eingabe benötigt. Falls das nicht geschieht, kommt eine Meldung.
 
 .Suche bei fehlendem Suchbegriff
-image:search_notext[]
+image:search_notext.png[]
 
 .Suche mit Suchbegriff
 image:threadList_search.png[]
