@@ -34,7 +34,7 @@ public class CategoryDao implements Dao<Category> {
     }
 
     public Category getByName(String text) {
-        Query query = manager.createQuery("SELECT e FROM Category e WHERE lower(e.text) = '" + text + "'", Category.class);
+        Query query = manager.createQuery("SELECT e FROM Category e WHERE lower(e.text) = '" + text.toLowerCase() + "'", Category.class);
         return (Category) query.getSingleResult();
     }
 
