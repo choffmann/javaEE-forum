@@ -46,19 +46,19 @@ pg_restore --host=localhost --dbname=javaee_forum --no-owner --role=javaee_forum
 === IntelliJ
 Wird das Projekt zum ersten mal geöffnet, muss die Konfiguration für Glassfish noch erstellt werden.
 
-==== Application Server hinzufügen
+==== 1. Application Server hinzufügen
 Unter `Settings -> Build, Execute, Deployment -> Application Servers` wird der Glassfish hinzugefügt.
 image:intellij_application_server_settings.png[]
 
-==== Konfiguration hinzufügen
+==== 2. Konfiguration hinzufügen
 image:intellij_add_config.gif[]
 
-==== SDK Anpassen
+==== 3. SDK Anpassen
 Eventuell muss die `SDK` angepasst werden. Dies kann unter `File -> Project Structure -> Project Settings -> Project SDK` überprüft werden. Standard ist hier `temurin-1.8`
 
 *NOTE:* Die SDK zwischen dem Projekt und Gradle muss die selbe sein. Gradle SDK kann wie folgt angepasst werden `Settings ->  Build, Execute, Deployment -> Build Tools -> Gradle -> Gradle JVM`
 
-==== Anwendung starten und loslegen :+1: 
+==== 4. Anwendung starten und loslegen :+1: 
 Das System ist bereit und kann gestartet werden zum testen.
 
 == Weitere Dokumentationen
