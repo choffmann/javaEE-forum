@@ -2,7 +2,7 @@
 :imagesdir: img
 :nofooter:
 
-*Projektarbeit zur Veranstaltung Client-Server Programmierung* +
+*Projektarbeit der Gruppe E zur Veranstaltung Client-Server Programmierung* +
 _von: Kajsa Heuer, Pascal Friedrichsen, Dominik Heckner, Fabian Petersen, Cedrik Hoffmann_
 
 == Projektbeschreibung
