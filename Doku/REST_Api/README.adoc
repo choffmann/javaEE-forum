@@ -35,7 +35,7 @@ Die REST Api wurde mit javaEE erstellt.
 |-
 |CreatorRegister
 |CreatorOut
-|401, 404
+|400, 401, 404
 
 |POST
 |/users/login
@@ -59,9 +59,9 @@ Die REST Api wurde mit javaEE erstellt.
 |POST
 |/categories
 |creatorid*
-|CategoryIn
+|CategoryCreate
 |201
-|401, 404
+|400, 401, 404
 
 |GET
 |/categories/{id}
