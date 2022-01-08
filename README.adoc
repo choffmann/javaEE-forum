@@ -61,7 +61,7 @@ Eventuell muss die `SDK` angepasst werden. Dies kann unter `File -> Project Stru
 *NOTE:* Die SDK zwischen dem Projekt und Gradle muss die selbe sein. Gradle SDK kann wie folgt angepasst werden `Settings ->  Build, Execute, Deployment -> Build Tools -> Gradle -> Gradle JVM`
 
 ==== 4. Anwendung starten und loslegen :+1: 
-Das System ist bereit und kann gestartet werden zum testen.
+Das System ist bereit und kann zum testen gestartet werden.
 
 == Weitere Dokumentationen
 - Datenbank https://github.com/choffmann/javaEE-forum/tree/main/Doku/Database[Dokumentation]
