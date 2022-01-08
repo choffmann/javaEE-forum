@@ -10,7 +10,7 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |Name |Typ |Beziehung
 
 |id
-|`SERIAL` `PRIMARY KEY`
+|`BIGSERIAL` `PRIMARY KEY`
 |
 
 |username
@@ -51,11 +51,11 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |
 
 |created_at
-|`DATETIME`
+|`TIMESTAMP`
 |
 
 |modified_at
-|`DATETIME`
+|`TIMESTAMP`
 |
 
 |text
@@ -118,16 +118,16 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`Thread` 
 |`ManyToOne`
 
-|creator
+|creator_id
 |`Creator`
 |`ManyToOne`
 
 |created_at
-|`DATETIME`
+|`TIMESTAMP`
 |
 
 |modified_at
-|`DATETIME`
+|`TIMESTAMP`
 |
 
 |text
@@ -147,16 +147,16 @@ Die Datenbank wird mit `PostgreSQL` realisiert. Innerhalb des Projektes erfolgt 
 |`Answer`
 |`ManyToOne`
 
-|creator
+|creator_id
 |`Creator`
 |`ManyToOne`
 
 |created_at
-|`DATETIME`
+|`TIMESTAMP`
 |
 
 |modified_at
-|`DATETIME`
+|`TIMESTAMP`
 |
 
 |text
