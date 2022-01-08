@@ -8,6 +8,8 @@ _von: Kajsa Heuer, Pascal Friedrichsen, Dominik Heckner, Fabian Petersen, Cedrik
 == Projektbeschreibung
 Aus dem Projekt erfolgt ein Forum, wo ein User Beiträge erstellen und benatworten kann. Das Forum besitzt verschiedene Kategorien, in welche die Beitrage eingefügt werden. Der User kann einen Beitrag beantworten bzw. auch zu einer Antwort zu einem Beitrag einen Kommentar verfassen. Die Resgistrierung / Login erfolgt über eine Eingabemaske und ist der erste Anhaltspunkt, welche der User beim Aufruf der Seite sieht.
 
+Ein Pflichtenheft wurde erstellt, welches die Anforderungen und weitere Informationen beinhaltet. https://github.com/choffmann/javaEE-forum/blob/main/Doku/Pflichtenheft.pdf[siehe Pflichtenheft]
+
 == Vorbereitung
 Im folgenden werden die erforderlichen Schritte erläutert, um das Projekt erfolgreich zu testen. Dazu gehört eine auflistung der benötigten Komponenten, die erstellung der Datenbank, sowie das einspielen der Dummydaten.
 
