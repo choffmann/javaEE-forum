@@ -117,3 +117,10 @@ Man kann auf den Thread _antworten_, oder eine Antwort auf den Thread _kommentie
 .Ein normaler Thread mit Antworten und Kommentare
 image:thread_default.png[]
 
+== Errorseite
+
+Beim Aufruf auf etwas worauf man keine Rechte hat, wird man zur Fehlerseite weitergeleitet.
+Versucht man so also die Usersseite aufzurufen, obwohl man kein Admin ist, wird man mit 'Not Authenticated' zur Fehlerseite gebracht
+
+.Fehlerseite mit Not Authenticated beim Aufruf von Users als normaler Nutzer
+image:error_notAuthenticated.png[]
